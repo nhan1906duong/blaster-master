@@ -6,6 +6,10 @@
 
 #include "PlayScene.h"
 
+#include "Textures.h"
+#include "Sprites.h"
+#include "Animations.h"
+
 CGame* CGame::__instance = NULL;
 
 /*
