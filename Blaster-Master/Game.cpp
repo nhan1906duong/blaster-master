@@ -322,6 +322,10 @@ CGame* CGame::GetInstance()
 #define GAME_FILE_SECTION_UNKNOWN -1
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
+#define GAME_FILE_SECTION_TEXTURES 3
+#define GAME_FILE_SECTION_SPRITES 4
+#define GAME_FILE_SECTION_ANIMATIONS 5
+#define GAME_FILE_SECTION_ANIMATION_SETS 6
 
 void CGame::_ParseSection_SETTINGS(string line)
 {
@@ -346,6 +350,75 @@ void CGame::_ParseSection_SCENES(string line)
 	scenes[id] = scene;
 }
 
+void CGame::_ParseSection_TEXTURES(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 5) return;
+	int texId = atoi(tokens[0].c_str());
+	LPCWSTR texPath = ToLPCWSTR(tokens[1].c_str());
+
+	int red = atoi(tokens[2].c_str());
+	int green = atoi(tokens[3].c_str());
+	int blue = atoi(tokens[4].c_str());
+
+	CTextures::GetInstance()->Add(texId, texPath, D3DCOLOR_XRGB(red, green, blue));
+}
+
+void CGame::_ParseSection_SPRITES(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 6) return;
+	int spriteId = atoi(tokens[0].c_str());
+	int left = atoi(tokens[1].c_str());
+	int top = atoi(tokens[2].c_str());
+	int right = atoi(tokens[3].c_str());
+	int bottom = atoi(tokens[4].c_str());
+
+	int texId = atoi(tokens[5].c_str());
+
+	LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
+	if (tex == NULL)
+	{
+		DebugOut(L"[ERROR] Texture ID %d not found!\n", texId);
+		return;
+	}
+	CSprites::GetInstance()->Add(spriteId, left, top, right, bottom, tex);
+}
+
+void CGame::_ParseSection_ANIMATIONS(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 3) return;
+	int aniId = atoi(tokens[0].c_str());
+	LPANIMATION ani = new CAnimation();
+
+	for (int i = 1; i < tokens.size(); i += 2)
+	{
+		int spriteId = atoi(tokens[i].c_str());
+		int time = atoi(tokens[i + 1].c_str());
+		ani->Add(spriteId, time);
+		CAnimations::GetInstance()->Add(aniId, ani);
+	}
+}
+
+void CGame::_ParseSection_ANIMATION_SETS(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 2) return;
+	int ani_setId = atoi(tokens[0].c_str());
+	LPANIMATION_SET aniSet = new CAnimationSet();
+
+	for (int i = 1; i < tokens.size(); i++)
+	{
+		int aniId = atoi(tokens[i].c_str());
+
+		LPANIMATION ani = CAnimations::GetInstance()->Get(aniId);
+		aniSet->push_back(ani);
+	}
+
+	CAnimationSets::GetInstance()->Add(ani_setId, aniSet);
+}
+
 /*
 	Load game campaign file and load/initiate first scene
 */
@@ -368,14 +441,21 @@ void CGame::Load(LPCWSTR gameFile)
 
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
-
+		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
+		if (line == "[SPRITES]") { section = GAME_FILE_SECTION_SPRITES; continue; }
+		if (line == "[ANIMATIONS]") { section = GAME_FILE_SECTION_ANIMATIONS; continue; }
+		if (line == "[ANIMATION_SETS]") { section = GAME_FILE_SECTION_ANIMATION_SETS; continue; }
 		//
 		// data section
 		//
 		switch (section)
 		{
-		case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
-		case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
+			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
+			case GAME_FILE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
+			case GAME_FILE_SECTION_SPRITES: _ParseSection_SPRITES(line); break;
+			case GAME_FILE_SECTION_ANIMATIONS: _ParseSection_ANIMATIONS(line); break;
+			case GAME_FILE_SECTION_ANIMATION_SETS: _ParseSection_ANIMATION_SETS(line); break;
 		}
 	}
 	f.close();

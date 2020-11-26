@@ -1,0 +1,15 @@
+# id 	file_path	transparent_color_r	g	b
+#Player
+[TEXTURES]
+0	resources\player\jason.png	0	57	115
+# sprite_id	left	top	right	bottom	texture_id
+[SPRITES]
+# Jason idle left
+1	3	30	11	46	0
+# ani_id	sprite_id	time ...
+[ANIMATIONS]
+# Jason idle left ani
+1	1	100
+# ani_set_id 	ani_id	....
+[ANIMATION_SETS]
+1	1
