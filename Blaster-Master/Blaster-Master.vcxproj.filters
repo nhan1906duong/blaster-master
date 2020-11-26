@@ -22,6 +22,18 @@
     <Filter Include="Framework\Core">
       <UniqueIdentifier>{5034373d-2d24-45c9-b992-487bd6da8594}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\SceneManager\area2">
+      <UniqueIdentifier>{e78f34a5-163a-4ced-a17b-286a86f39fda}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects">
+      <UniqueIdentifier>{6409b015-5a46-45bc-9fcb-b5fed387d073}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Static">
+      <UniqueIdentifier>{18470958-7dfa-4dd0-a398-57a667139e21}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Player">
+      <UniqueIdentifier>{3e3cdc5e-c12a-4ac0-84c7-effd24d74b00}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -43,7 +55,22 @@
       <Filter>Framework\Core</Filter>
     </ClCompile>
     <ClCompile Include="Animations.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Area2Scene.cpp">
+      <Filter>Framework\SceneManager\area2</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject.cpp">
+      <Filter>Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="Brick.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Portal.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Framework\Objects\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -66,7 +93,22 @@
       <Filter>Framework\Core</Filter>
     </ClInclude>
     <ClInclude Include="Animations.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Area2Scene.h">
+      <Filter>Framework\SceneManager\area2</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject.h">
+      <Filter>Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="Brick.h">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Portal.h">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Framework\Objects\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -8,6 +8,7 @@ class CScene
 protected:
 	CKeyEventHandler* key_handler;
 	int id;
+	float left, top, right, bottom;
 	LPCWSTR sceneFilePath;
 
 public:

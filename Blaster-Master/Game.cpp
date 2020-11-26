@@ -4,7 +4,7 @@
 #include "Game.h"
 #include "Utils.h"
 
-#include "PlayScene.h"
+#include "Area2Scene.h"
 
 #include "Textures.h"
 #include "Sprites.h"
@@ -342,7 +342,7 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
-	LPSCENE scene = new CPlayScene(id, path);
+	LPSCENE scene = new CArea2Scene(id, path);
 	scenes[id] = scene;
 }
 
