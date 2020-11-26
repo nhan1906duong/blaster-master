@@ -67,15 +67,26 @@ void CGame::Init(HWND hWnd)
 /*
 	Utility function to wrap LPD3DXSPRITE::Draw
 */
-void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha)
+void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, bool flip)
 {
-	D3DXVECTOR3 p(x - cam_x, y - cam_y, 0);
+	D3DXVECTOR3 p(x, y, 0);
+	D3DXMATRIX mt;
+	D3DXMatrixIdentity(&mt);
+	mt._22 = -1.0f;
+	mt._41 = -cam_x;
+	mt._42 = cam_y;
+	D3DXVECTOR4 vp_pos;
+
+	D3DXVec3Transform(&vp_pos, &p, &mt);
+
+	D3DXVECTOR3 pos(vp_pos.x, vp_pos.y, 0);
+
 	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &p, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->Draw(texture, &r, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
 }
 
 int CGame::IsKeyDown(int KeyCode)
