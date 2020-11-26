@@ -261,6 +261,7 @@ void CArea2Scene::Update(DWORD dt)
 
 void CArea2Scene::Render()
 {
+	CSprites::GetInstance()->Get(1)->Draw(0, 0);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }
@@ -299,6 +300,7 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
 	CGame* game = CGame::GetInstance();
 	CPlayer* mario = ((CArea2Scene*)scence)->GetPlayer();
+	if (mario == NULL) return;
 
 	// disable control key when Mario die 
 	if (mario->GetState() == MARIO_STATE_DIE) return;

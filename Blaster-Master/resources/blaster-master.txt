@@ -1,3 +1,10 @@
+[SETTINGS]
+start	1
+#scene list
+[SCENES]
+1	resources\scene1.txt
+#
+#
 # id 	file_path	transparent_color_r	g	b
 #Player
 [TEXTURES]

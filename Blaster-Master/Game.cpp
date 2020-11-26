@@ -397,8 +397,9 @@ void CGame::_ParseSection_ANIMATIONS(string line)
 		int spriteId = atoi(tokens[i].c_str());
 		int time = atoi(tokens[i + 1].c_str());
 		ani->Add(spriteId, time);
-		CAnimations::GetInstance()->Add(aniId, ani);
 	}
+
+	CAnimations::GetInstance()->Add(aniId, ani);
 }
 
 void CGame::_ParseSection_ANIMATION_SETS(string line)
@@ -471,9 +472,9 @@ void CGame::SwitchScene(int scene_id)
 
 	scenes[current_scene]->Unload();
 
-	CTextures::GetInstance()->Clear();
-	CSprites::GetInstance()->Clear();
-	CAnimations::GetInstance()->Clear();
+	//CTextures::GetInstance()->Clear();
+	//CSprites::GetInstance()->Clear();
+	//CAnimations::GetInstance()->Clear();
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
