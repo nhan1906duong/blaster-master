@@ -69,25 +69,58 @@ void CGame::Init(HWND hWnd)
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, bool flip)
 {
-	D3DXVECTOR3 p(x, y, 0);
-	D3DXMATRIX mt;
-	D3DXMatrixIdentity(&mt);
-	mt._22 = -1.0f;
-	mt._41 = -cam_x;
-	mt._42 = cam_y;
-	D3DXVECTOR4 vp_pos;
-
-	D3DXVec3Transform(&vp_pos, &p, &mt);
-
-	D3DXVECTOR3 pos(vp_pos.x, vp_pos.y, 0);
-
+	float width = right - left;
+	float height = bottom - top;
+	int scale = 1;
+	D3DXVECTOR2 center = D3DXVECTOR2(flip ? (width / 2) * scale - width * scale : (width / 2) * scale, (height / 2) * scale);
+	D3DXVECTOR2 translate = D3DXVECTOR2(flip ? x + width * scale : x, y);
+	D3DXVECTOR2 scaling = D3DXVECTOR2((flip) ? -1 : 1, 1);
+	float angle = 0;
+	SetRenderData(center, translate, scaling);
 	RECT r;
 	r.left = left;
 	r.top = top;
 	r.right = right;
 	r.bottom = bottom;
-	spriteHandler->Draw(texture, &r, NULL, &pos, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	D3DXMATRIX oldMatrix;
+	D3DXMATRIX matrix;
+	D3DXMatrixTransformation2D(
+		&matrix,
+		NULL,
+		0.0f,
+		&scaling,
+		&center,
+		angle,
+		&translate
+	);
+
+	spriteHandler->GetTransform(&oldMatrix);
+	spriteHandler->SetTransform(&matrix);
+	spriteHandler->Draw(texture, &r, NULL, NULL, D3DCOLOR_ARGB(alpha, 255, 255, 255));
+	spriteHandler->SetTransform(&oldMatrix);
+
 }
+
+void CGame::SetRenderData(D3DXVECTOR2& center, D3DXVECTOR2& translate, D3DXVECTOR2& scaling)
+{
+	D3DXMATRIX mt;
+	D3DXMatrixIdentity(&mt);
+	mt._22 = -1;
+	mt._41 = -this->cam_x;
+	mt._42 = this->cam_y;
+	D3DXVECTOR4 curTranslate;
+	D3DXVECTOR4 curCenter;
+
+	D3DXVec2Transform(&curCenter, &D3DXVECTOR2(center.x, center.y), &mt);
+
+	D3DXVec2Transform(&curTranslate, &D3DXVECTOR2(translate.x, translate.y), &mt);
+
+	center.x = curCenter.x;
+	center.y = curCenter.y;
+	translate.x = curTranslate.x;
+	translate.y = curTranslate.y;
+}
+
 
 int CGame::IsKeyDown(int KeyCode)
 {
