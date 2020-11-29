@@ -249,14 +249,14 @@ void CArea2Scene::Update(DWORD dt)
 	if (player == NULL) return;
 
 	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
+	//float cx, cy;
+	//player->GetPosition(cx, cy);
 
-	CGame* game = CGame::GetInstance();
-	cx -= game->GetScreenWidth() / 2;
-	cy -= game->GetScreenHeight() / 2;
+	//CGame* game = CGame::GetInstance();
+	//cx -= game->GetScreenWidth() / 2;
+	//cy -= game->GetScreenHeight() / 2;
 
-	CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
+	//CGame::GetInstance()->SetCamPos(cx, 0.0f /*cy*/);
 }
 
 void CArea2Scene::Render()

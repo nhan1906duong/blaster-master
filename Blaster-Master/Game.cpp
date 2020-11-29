@@ -107,8 +107,8 @@ void CGame::SetRenderData(D3DXVECTOR2& center, D3DXVECTOR2& translate, D3DXVECTO
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1;
-	mt._41 = -this->cam_x;
-	mt._42 = this->cam_y;
+	mt._41 = -this->camera->GetCamX();
+	mt._42 = this->camera->GetCamY();
 	D3DXVECTOR4 curTranslate;
 	D3DXVECTOR4 curCenter;
 
@@ -373,6 +373,7 @@ CGame* CGame::GetInstance()
 #define GAME_FILE_SECTION_ANIMATIONS 5
 #define GAME_FILE_SECTION_ANIMATION_SETS 6
 #define GAME_FILE_SECTION_TILES 7
+#define GAME_FILE_SECTION_CAMERA 8
 
 void CGame::_ParseSection_SETTINGS(string line)
 {
@@ -479,12 +480,21 @@ void CGame::_ParseSection_ANIMATION_SETS(string line)
 	CAnimationSets::GetInstance()->Add(ani_setId, aniSet);
 }
 
+void CGame::_ParseSection_CAMERA(string line)
+{
+	vector<string> tokens = split(line);
+	float cam_x = atof(tokens[0].c_str());
+	float cam_y = atof(tokens[1].c_str());
+	camera->SetPosition(cam_x, cam_y);
+}
 /*
 	Load game campaign file and load/initiate first scene
 */
 void CGame::Load(LPCWSTR gameFile)
 {
 	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
+
+	camera = new CCamera();
 
 	ifstream f;
 	f.open(gameFile);
@@ -499,6 +509,7 @@ void CGame::Load(LPCWSTR gameFile)
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
+		if (line == "[CAMERA]") { section = GAME_FILE_SECTION_CAMERA; continue; }
 		if (line == "[TILES]") { section = GAME_FILE_SECTION_TILES; continue; }
 		if (line == "[MAP]") { section = GAME_FILE_SECTION_MAP; continue; }
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
@@ -512,11 +523,14 @@ void CGame::Load(LPCWSTR gameFile)
 		//
 		switch (section)
 		{
+			case GAME_FILE_SECTION_CAMERA:
+				_ParseSection_CAMERA(line);
+				break;
 			case GAME_FILE_SECTION_TILES:
 				_ParseSection_TILES(line);
 				break;
 			case GAME_FILE_SECTION_MAP: 
-				map = new CMap(ToLPCWSTR(line));
+				map = new CMap(camera, ToLPCWSTR(line));
 				break;
 			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;

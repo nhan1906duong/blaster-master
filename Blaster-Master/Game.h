@@ -12,6 +12,7 @@
 
 #include "Scene.h"
 #include "Map.h"
+#include "Camera.h"
 
 using namespace std;
 
@@ -36,9 +37,7 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	float cam_x = 0.0f;
-	float cam_y = 202.0f;
-
+	CCamera* camera;
 	CMap* map;
 
 	int screen_width;
@@ -56,6 +55,7 @@ class CGame
 	void _ParseSection_SPRITES(string line);
 	void _ParseSection_ANIMATIONS(string line);
 	void _ParseSection_ANIMATION_SETS(string line);
+	void _ParseSection_CAMERA(string line);
 
 public:
 	void InitKeyboard();
@@ -92,8 +92,6 @@ public:
 	LPDIRECT3DDEVICE9 GetDirect3DDevice() { return this->d3ddv; }
 	LPDIRECT3DSURFACE9 GetBackBuffer() { return backBuffer; }
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
-
-	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 
 	static CGame* GetInstance();
 

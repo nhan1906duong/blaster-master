@@ -12,8 +12,9 @@
 #define MAP_SECTION_SIZE 1
 #define MAP_SECTION_MAP 2
 
-CMap::CMap(LPCWSTR filePath)
+CMap::CMap(CCamera* camera, LPCWSTR filePath)
 {
+	this->camera = camera;
 	DebugOut(L"[INFO] Start loading map %s\n", filePath);
 
 	map = (int**)malloc(128 /*dong*/ * sizeof(int*));
@@ -47,9 +48,22 @@ void CMap::Render()
 	{
 		for (int column = 0; column < 128; ++column)
 		{
+			float tileLeft = column * 16;
+			float tileRight = column * 16 + 16;
+			float tileTop = row * 16 + 16;
+			float tileBottom = row * 16;
+
+			float cam_l, cam_t, cam_r, cam_b;
+			camera->GetBouncingBox(cam_l, cam_t, cam_r, cam_b);
+
+			if (tileBottom >= cam_t || tileLeft >= cam_r || tileTop <= cam_b || tileRight <= cam_l)
+			{
+				continue;
+			}
+
 			int texId = map[127 - row][column];
 			LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
-			CGame::GetInstance()->Draw(column * 16, row * 16 + 16, tex, 0, 0, 16, 16);
+			CGame::GetInstance()->Draw(tileLeft, tileTop, tex, 0, 0, 16, 16);
 		}
 	}
 }
