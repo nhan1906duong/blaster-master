@@ -261,7 +261,8 @@ void CArea2Scene::Update(DWORD dt)
 
 void CArea2Scene::Render()
 {
-	CSprites::GetInstance()->Get(1)->Draw(0, 16);
+	//CGame::GetInstance()->Draw(0, 16, CTextures::GetInstance()->Get(0), 0, 0, 16, 16);
+	//CSprites::GetInstance()->Get(1)->Draw(0, 16);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

@@ -11,6 +11,7 @@
 #include <dinput.h>
 
 #include "Scene.h"
+#include "Map.h"
 
 using namespace std;
 
@@ -38,6 +39,8 @@ class CGame
 	float cam_x = 0.0f;
 	float cam_y = 202.0f;
 
+	CMap* map;
+
 	int screen_width;
 	int screen_height;
 
@@ -46,6 +49,8 @@ class CGame
 
 	void _ParseSection_SETTINGS(string line);
 	void _ParseSection_SCENES(string line);
+
+	void _ParseSection_TILES(string line);
 
 	void _ParseSection_TEXTURES(string line);
 	void _ParseSection_SPRITES(string line);
@@ -91,6 +96,8 @@ public:
 	void SetCamPos(float x, float y) { cam_x = x; cam_y = y; }
 
 	static CGame* GetInstance();
+
+	void DrawMap();
 
 	~CGame();
 };

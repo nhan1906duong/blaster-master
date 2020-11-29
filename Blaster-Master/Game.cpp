@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <string>
 
 #include "Game.h"
 #include "Utils.h"
@@ -364,12 +365,14 @@ CGame* CGame::GetInstance()
 
 
 #define GAME_FILE_SECTION_UNKNOWN -1
+#define GAME_FILE_SECTION_MAP 0
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
 #define GAME_FILE_SECTION_SPRITES 4
 #define GAME_FILE_SECTION_ANIMATIONS 5
 #define GAME_FILE_SECTION_ANIMATION_SETS 6
+#define GAME_FILE_SECTION_TILES 7
 
 void CGame::_ParseSection_SETTINGS(string line)
 {
@@ -392,6 +395,18 @@ void CGame::_ParseSection_SCENES(string line)
 
 	LPSCENE scene = new CArea2Scene(id, path);
 	scenes[id] = scene;
+}
+
+void CGame::_ParseSection_TILES(string line)
+{
+	vector<string> tokens = split(line);
+	string path = tokens[0];
+	int total = atoi(tokens[1].c_str());
+	for (int num = 0; num < total; num++)
+	{
+		string fullPath = path + std::to_string(num) + ".png";
+		CTextures::GetInstance()->Add(num, ToLPCWSTR(fullPath.c_str()), D3DCOLOR_XRGB(255, 255, 255));
+	}
 }
 
 void CGame::_ParseSection_TEXTURES(string line)
@@ -484,6 +499,8 @@ void CGame::Load(LPCWSTR gameFile)
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
+		if (line == "[TILES]") { section = GAME_FILE_SECTION_TILES; continue; }
+		if (line == "[MAP]") { section = GAME_FILE_SECTION_MAP; continue; }
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
 		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
@@ -495,6 +512,12 @@ void CGame::Load(LPCWSTR gameFile)
 		//
 		switch (section)
 		{
+			case GAME_FILE_SECTION_TILES:
+				_ParseSection_TILES(line);
+				break;
+			case GAME_FILE_SECTION_MAP: 
+				map = new CMap(ToLPCWSTR(line));
+				break;
 			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
 			case GAME_FILE_SECTION_TEXTURES: _ParseSection_TEXTURES(line); break;
@@ -524,4 +547,9 @@ void CGame::SwitchScene(int scene_id)
 	LPSCENE s = scenes[scene_id];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
+}
+
+void CGame::DrawMap()
+{
+	map->Render();
 }
