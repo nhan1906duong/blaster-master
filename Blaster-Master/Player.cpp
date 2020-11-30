@@ -26,7 +26,8 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CGameObject::Update(dt);
 
 	// Simple fall down
-	vy += MARIO_GRAVITY * dt;
+	//vy += MARIO_GRAVITY;
+	vx += MARIO_GRAVITY;
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -47,7 +48,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
-		x += dx;
+		x += 1;
 		y += dy;
 	}
 	else
@@ -153,7 +154,7 @@ void CPlayer::Render()
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	animation_set->at(ani)->Render(x, y, alpha);
+	animation_set->at(0)->Render(x, y, alpha);
 
 	RenderBoundingBox();
 }
