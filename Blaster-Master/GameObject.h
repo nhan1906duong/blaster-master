@@ -65,6 +65,16 @@ public:
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
+
+	void SetVx(float vx) { this->vx = vx; }
+	void SetVy(float vy) { this->vy = vy; }
+	void AddVx(float accelerator) { this->vx += accelerator; }
+	void AddVy(float accelerator) { this->vy += accelerator; }
+	void SetNx(float nx) { this->nx = nx; }
+
+	float GetVx() { return this->vx; }
+	float GetVy() { return this->vy; }
+
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 
