@@ -51,6 +51,8 @@ void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& botto
 {
 	left = x;
 	top = y;
+	bottom = y - 16;
+	right = x + 8;
 }
 
 /*
