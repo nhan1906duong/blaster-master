@@ -1,5 +1,5 @@
 [CAMERA]
-0.0	202.0
+1024.0	1024.0
 [TILES]
 resources\map\tile2\	143
 [MAP]

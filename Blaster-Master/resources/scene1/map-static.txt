@@ -1,9 +1,7 @@
-[OBJECTS]
-# type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba
-# MARIO
-101	1102	884	1
-[BRICK]
+# left	top	right	bottom
+[#SIZE]
+1024	1024	2048	736
+[#BRICK]
 # left	top	right	bottom
 1024	800	2048	736
 1024	1024	2048	992

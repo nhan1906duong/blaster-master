@@ -6,8 +6,6 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "Player.h"
-//#include "Goomba.h"
-//#include "Koopas.h"
 
 
 class CArea2Scene : public CScene
@@ -20,6 +18,7 @@ protected:
 	vector<LPGAMEOBJECT> objects;
 
 	void _ParseSection_OBJECTS(string line);
+	void _ParseSecion_BRICK(string line);
 	void _CheckCameraAndWorldMap();
 
 public:
