@@ -194,21 +194,34 @@ void CArea2Scene::Unload()
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	CPlayer* player = ((CArea2Scene*)scence)->GetPlayer();
-	if (player == NULL) return;
-	player->OnKeyDown(KeyCode);
+	CPlayer* mario = ((CArea2Scene*)scence)->GetPlayer();
+	switch (KeyCode)
+	{
+	case DIK_SPACE:
+		mario->SetState(PLAYER_STATE_JUMP);
+		break;
+	case DIK_A:
+		mario->Reset();
+		break;
+	}
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int keyCode)
 {
-	CPlayer* player = ((CArea2Scene*)scence)->GetPlayer();
-	if (player == NULL) return;
-	player->OnKeyUp(keyCode);
+
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
-	CPlayer* player = ((CArea2Scene*)scence)->GetPlayer();
-	if (player == NULL) return;
-	player->KeyState(states);
+	CGame* game = CGame::GetInstance();
+	CPlayer* mario = ((CArea2Scene*)scence)->GetPlayer();
+
+	// disable control key when Mario die 
+	if (mario->GetState() == PLAYER_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_RIGHT))
+		mario->SetState(PLAYER_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_LEFT))
+		mario->SetState(PLAYER_STATE_WALKING_LEFT);
+	else
+		mario->SetState(PLAYER_STATE_IDLE);
 }

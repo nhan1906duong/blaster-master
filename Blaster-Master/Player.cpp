@@ -1,48 +1,107 @@
 #include "Player.h"
-#include "PlayerState.h"
-#include "PlayerStandingState.h"
-#include "PlayerJumpingState.h"
-#include "JasonLieingState.h"
 #include "Utils.h"
 #include "Game.h"
+#include "GameDefine.h"
 
-//#include "Goomba.h"
 #include "Portal.h"
 #include "Brick.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
-	playerData = new CPlayerData();
-	playerData->player = this;
-
-	SetState(new CPlayerStandingState(playerData));
 	untouchable = 0;
+
+	SetState(PLAYER_STATE_IDLE);
 
 	start_x = x;
 	start_y = y;
 	this->x = x;
 	this->y = y;
-
-	allowJump = true;
-	allowLie = true;
 }
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 
-	CheckCollision(coObjects);
+	// Simple fall down
+	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
 
-	playerData->playerState->Update(dt);
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+	if (state != PLAYER_STATE_DIE)
+		CalcPotentialCollisions(coObjects, coEvents);
+
+	// reset untouchable timer if untouchable time has passed
+	if (GetTickCount() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
+	{
+		untouchable_start = 0;
+		untouchable = 0;
+	}
+
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
+		//if (rdx != 0 && rdx!=dx)
+		//	x += nx*abs(rdx); 
+
+		// block every object first!
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+
+
+		//
+		// Collision logic with other objects
+		//
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			//LPCOLLISIONEVENT e = coEventsResult[i];
+		}
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CPlayer::Render()
 {
+	int ani = -1;
+	if (state == PLAYER_STATE_DIE)
+		ani = 5;
+	else
+	{
+		if (vx == 0)
+		{
+			ani = 0;
+		}
+		else
+		{
+			ani = 1;
+		}
+	}
+
 	int alpha = 255;
 	if (untouchable) alpha = 128;
 
-	LPANIMATION animation = animation_set->at(playerData->playerState->GetCurrentAnimationId());
-	animation->Render(x, y, alpha, nx > 0);
+	animation_set->at(ani)->Render(x, y, alpha, nx > 0);
 
 	RenderBoundingBox();
 }
@@ -64,104 +123,24 @@ void CPlayer::Reset()
 	SetSpeed(0, 0);
 }
 
-void CPlayer::KeyState(BYTE* state)
+void CPlayer::SetState(int state)
 {
-	playerData->playerState->KeyState(state);
-}
+	CGameObject::SetState(state);
 
-void CPlayer::OnKeyUp(int keyCode)
-{
-	if (keyCode == DIK_X)
+	switch (state)
 	{
-		allowJump = true;
+	case PLAYER_STATE_WALKING_RIGHT:
+		vx = 0.15f;
+		nx = 1;
+		break;
+	case PLAYER_STATE_WALKING_LEFT:
+		vx = -0.15f;
+		nx = -1;
+		break;
+	case PLAYER_STATE_JUMP:
+		vy = 0.5f;
+	case PLAYER_STATE_IDLE:
+		vx = 0;
+		break;
 	}
-	if (keyCode == DIK_DOWN)
-	{
-		allowLie = true;
-	}
-}
-
-void CPlayer::OnKeyDown(int keyCode)
-{
-	if (keyCode == DIK_X)
-	{
-		if (allowJump)
-		{
-			CPlayerState::State currentState = playerData->playerState->GetState();
-			if (currentState == CPlayerState::State::Standing || currentState == CPlayerState::State::Walking)
-			{
-				SetState(new CPlayerJumpingState(playerData));
-			}
-			allowJump = false;
-		}
-	}
-	else if (keyCode == DIK_DOWN)
-	{
-		if (allowLie)
-		{
-			CPlayerState::State currentState = playerData->playerState->GetState();
-			if (currentState == CPlayerState::State::Standing || currentState == CPlayerState::State::Walking)
-			{
-				SetState(new JasonLieingState(playerData));
-			}
-			allowJump = false;
-		}
-	}
-}
-
-int CPlayer::IsKeyDown(int KeyCode)
-{
-	return CGame::GetInstance()->IsKeyDown(KeyCode);
-}
-
-void CPlayer::SetState(CPlayerState* newState)
-{
-	delete playerData->playerState;
-	playerData->playerState = newState;
-}
-
-void CPlayer::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
-{
-
-
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
-
-	coEvents.clear();
-
-	// turn off collision when die 
-	CalcPotentialCollisions(coObjects, coEvents);
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-	}
-	else
-	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
-
-		// TODO: This is a very ugly designed function!!!!
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-
-			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba 
-			{
-				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-			}
-		}
-	}
-
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
