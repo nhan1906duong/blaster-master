@@ -89,12 +89,13 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 void CArea2Scene::_ParseSecion_BRICK(string line)
 {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 4) return;
-	float left = atof(tokens[0].c_str());
-	float top = atof(tokens[1].c_str());
-	float right = atof(tokens[2].c_str());
-	float bottom = atof(tokens[3].c_str());
-	CBrick* brick = new CBrick(left, top, right, bottom);
+	if (tokens.size() < 5) return;
+	int identity = atoi(tokens[0].c_str());
+	float left = atof(tokens[1].c_str());
+	float top = atof(tokens[2].c_str());
+	float right = atof(tokens[3].c_str());
+	float bottom = atof(tokens[4].c_str());
+	CBrick* brick = new CBrick(identity, left, top, right, bottom);
 	objects.push_back(brick);
 }
 

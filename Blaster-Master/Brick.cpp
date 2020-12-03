@@ -1,7 +1,8 @@
 #include "Brick.h"
 
-CBrick::CBrick(float left, float top, float right, float bottom)
+CBrick::CBrick(int identity, float left, float top, float right, float bottom)
 {
+	this->identity = identity;
 	this->left = left;
 	this->top = top;
 	this->right = right;

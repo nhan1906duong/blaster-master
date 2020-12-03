@@ -7,6 +7,7 @@ CPlayerStandingState::CPlayerStandingState(CPlayerData* playerData) : CPlayerSta
 {
 	playerData->player->SetVx(0.0);
 	playerData->player->SetVy(0.0);
+	acceleratorY = -0.005;
 }
 
 CPlayerStandingState::~CPlayerStandingState()
@@ -34,4 +35,13 @@ CPlayerState::State CPlayerStandingState::GetState()
 int CPlayerStandingState::GetCurrentAnimationId()
 {
 	return 0;
+}
+
+void CPlayerStandingState::Update(DWORD dt)
+{
+	playerData->player->AddVy(acceleratorY);
+	if (playerData->player->GetVy() <= MIN_SPEED_JUMP)
+	{
+		playerData->player->SetVy(MIN_SPEED_JUMP);
+	}
 }

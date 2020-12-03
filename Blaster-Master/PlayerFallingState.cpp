@@ -28,8 +28,7 @@ void CPlayerFallingState::Update(DWORD dt)
 		{
 			playerData->player->SetState(new CPlayerStandingState(playerData));
 		}
-	}
-	
+	}	
 }
 
 void CPlayerFallingState::KeyState(BYTE* states)

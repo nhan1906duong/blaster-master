@@ -8,6 +8,7 @@
 
 //#include "Goomba.h"
 #include "Portal.h"
+#include "Brick.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
@@ -30,10 +31,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 
-	playerData->playerState->Update(dt);
+	CheckCollision(coObjects);
 
-	x += dx;
-	y += dy;
+	playerData->playerState->Update(dt);
 }
 
 void CPlayer::Render()
@@ -118,4 +118,50 @@ void CPlayer::SetState(CPlayerState* newState)
 {
 	delete playerData->playerState;
 	playerData->playerState = newState;
+}
+
+void CPlayer::CheckCollision(vector<LPGAMEOBJECT>* coObjects)
+{
+
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	// turn off collision when die 
+	CalcPotentialCollisions(coObjects, coEvents);
+	if (coEvents.size() == 0)
+	{
+		x += dx;
+		y += dy;
+	}
+	else
+	{
+		float min_tx, min_ty, nx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		// TODO: This is a very ugly designed function!!!!
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+
+		x += min_tx * dx + nx * 0.4f;
+		y += min_ty * dy + ny * 0.4f;
+
+		if (nx != 0) vx = 0;
+		if (ny != 0) vy = 0;
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
+		{
+			LPCOLLISIONEVENT e = coEventsResult[i];
+
+			if (dynamic_cast<CBrick*>(e->obj)) // if e->obj is Goomba 
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+			}
+		}
+	}
+
+	// clean up collision events
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
