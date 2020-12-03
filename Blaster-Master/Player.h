@@ -12,7 +12,13 @@
 
 class CPlayer : public CGameObject
 {
-	int level;
+private:
+	bool isSophia;
+	bool isOverworld;
+
+	float sophia_x;
+	float sophia_y;
+
 	int untouchable;
 	DWORD untouchable_start;
 
@@ -24,10 +30,11 @@ public:
 	virtual void Render();
 
 	void SetState(int state);
-	void SetLevel(int l) { level = l; }
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();
 
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
+
+	void KeyState(BYTE* states);
 };

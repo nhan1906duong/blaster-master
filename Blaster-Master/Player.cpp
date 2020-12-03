@@ -10,7 +10,12 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 {
 	untouchable = 0;
 
+	isSophia = true;
+
 	SetState(PLAYER_STATE_IDLE);
+
+	sophia_x = x;
+	sophia_y = y;
 
 	start_x = x;
 	start_y = y;
@@ -22,7 +27,6 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
 
-	// Simple fall down
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -138,9 +142,23 @@ void CPlayer::SetState(int state)
 		nx = -1;
 		break;
 	case PLAYER_STATE_JUMP:
-		vy = 0.5f;
+		vy = GameDefine::START_JUMP_SPEED;
 	case PLAYER_STATE_IDLE:
 		vx = 0;
 		break;
 	}
+}
+
+
+void CPlayer::KeyState(BYTE* states)
+{
+	CGame* game = CGame::GetInstance();
+	// disable control key when Mario die 
+	if (state == PLAYER_STATE_DIE) return;
+	if (game->IsKeyDown(DIK_RIGHT))
+		SetState(PLAYER_STATE_WALKING_RIGHT);
+	else if (game->IsKeyDown(DIK_LEFT))
+		SetState(PLAYER_STATE_WALKING_LEFT);
+	else
+		SetState(PLAYER_STATE_IDLE);
 }
