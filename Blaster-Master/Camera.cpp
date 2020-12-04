@@ -21,7 +21,7 @@ void CCamera::UpdateCamera(float player_x, float player_y)
 	float screen_width = CGame::GetInstance()->GetScreenWidth();
 	float screen_height = CGame::GetInstance()->GetScreenHeight();
 
-	float max_height = 20;
+	float max_height = 60;
 	float max_width = 30;
 
 	RECT bouncing;
