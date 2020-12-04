@@ -94,7 +94,7 @@ void CPlayer::Render()
 	{
 		if (isSophia)
 		{
-			ani = 9;
+			ani = 11;
 		}
 		else if (vx == 0)
 		{
@@ -176,6 +176,6 @@ void CPlayer::KeyState(BYTE* states)
 		SetState(PLAYER_STATE_WALKING_RIGHT);
 	else if (game->IsKeyDown(DIK_LEFT))
 		SetState(PLAYER_STATE_WALKING_LEFT);
-	else
+	else if (state == PLAYER_STATE_WALKING_RIGHT || state == PLAYER_STATE_WALKING_LEFT)
 		SetState(PLAYER_STATE_IDLE);
 }
