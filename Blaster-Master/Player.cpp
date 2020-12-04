@@ -92,7 +92,11 @@ void CPlayer::Render()
 		ani = 5;
 	else
 	{
-		if (vx == 0)
+		if (isSophia)
+		{
+			ani = 9;
+		}
+		else if (vx == 0)
 		{
 			ani = 0;
 		}
@@ -114,8 +118,16 @@ void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& botto
 {
 	left = x;
 	top = y;
-	bottom = y - 16;
-	right = x + 8;
+	if (isSophia)
+	{
+		bottom = y - 18;
+		right = x + 26;
+	}
+	else
+	{
+		bottom = y - 16;
+		right = x + 8;
+	}
 }
 
 /*
@@ -134,16 +146,21 @@ void CPlayer::SetState(int state)
 	switch (state)
 	{
 	case PLAYER_STATE_WALKING_RIGHT:
+		DebugOut(L"[STATE] Walking Right\n");
 		vx = 0.15f;
 		nx = 1;
 		break;
 	case PLAYER_STATE_WALKING_LEFT:
+		DebugOut(L"[STATE] Walking Left\n");
 		vx = -0.15f;
 		nx = -1;
 		break;
 	case PLAYER_STATE_JUMP:
+		DebugOut(L"[STATE] Jump\n");
 		vy = GameDefine::START_JUMP_SPEED;
+		break;
 	case PLAYER_STATE_IDLE:
+		DebugOut(L"[STATE] Idle\n");
 		vx = 0;
 		break;
 	}
