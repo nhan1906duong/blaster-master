@@ -77,7 +77,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			//LPCOLLISIONEVENT e = coEventsResult[i];
+			LPCOLLISIONEVENT e = coEventsResult[i];
 		}
 	}
 
