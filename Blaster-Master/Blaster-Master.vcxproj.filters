@@ -78,6 +78,9 @@
     <ClCompile Include="Camera.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ChongNhon.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="GameDefine.h">
       <Filter>Framework</Filter>
+    </ClInclude>
+    <ClInclude Include="ChongNhon.h">
+      <Filter>Framework\Objects\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

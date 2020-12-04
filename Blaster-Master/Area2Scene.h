@@ -19,6 +19,7 @@ protected:
 
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSecion_BRICK(string line);
+	void _ParseSection_CHONG_NHON(string);
 	void _CheckCameraAndWorldMap();
 
 public:

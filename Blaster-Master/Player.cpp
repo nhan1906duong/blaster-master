@@ -94,7 +94,7 @@ void CPlayer::Render()
 	{
 		if (isSophia)
 		{
-			ani = 11;
+			ani = 9;
 		}
 		else if (vx == 0)
 		{

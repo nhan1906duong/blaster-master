@@ -23,6 +23,7 @@
     <ClCompile Include="Area2Scene.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="ChongNhon.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
@@ -39,6 +40,7 @@
     <ClInclude Include="Area2Scene.h" />
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="ChongNhon.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDefine.h" />
     <ClInclude Include="GameObject.h" />

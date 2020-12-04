@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "ChongNhon.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath, CCamera* camera) : CScene(id,
 #define SCENE_SECTION_UNKNOWN -1
 #define SCENE_SECTION_OBJECTS	1
 #define SCENE_SECTION_BRICK		2
+#define SCENE_SECTION_CHONG_NHON		3
 
 #define OBJECT_TYPE_MARIO	101
 
@@ -99,6 +101,19 @@ void CArea2Scene::_ParseSecion_BRICK(string line)
 	objects.push_back(brick);
 }
 
+void CArea2Scene::_ParseSection_CHONG_NHON(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 5) return;
+	int identity = atoi(tokens[0].c_str());
+	float left = atof(tokens[1].c_str());
+	float top = atof(tokens[2].c_str());
+	float right = atof(tokens[3].c_str());
+	float bottom = atof(tokens[4].c_str());
+	ChongNhon* brick = new ChongNhon(identity, left, top, right, bottom);
+	objects.push_back(brick);
+}
+
 void CArea2Scene::Load()
 {
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
@@ -123,12 +138,17 @@ void CArea2Scene::Load()
 		{
 			section = SCENE_SECTION_BRICK; continue;
 		}
+		if (line == "[CHONG_NHON]")
+		{
+			section = SCENE_SECTION_CHONG_NHON; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
 		{
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
+		case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
 		}
 	}
 
