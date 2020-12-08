@@ -21,6 +21,9 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	start_y = y;
 	this->x = x;
 	this->y = y;
+
+	bloodSophia = 7;
+	bloodJason = 7;
 }
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -78,6 +81,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (!dynamic_cast<CBrick*>(e->obj))
+			{
+				StartUntouchable();
+			}
 		}
 	}
 
@@ -111,7 +118,7 @@ void CPlayer::Render()
 
 	animation_set->at(ani)->Render(x, y, alpha, nx > 0);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)

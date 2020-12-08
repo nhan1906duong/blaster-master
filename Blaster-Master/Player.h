@@ -16,6 +16,9 @@ private:
 	bool isSophia;
 	bool isOverworld;
 
+	int bloodSophia;
+	int bloodJason;
+
 	float sophia_x;
 	float sophia_y;
 
