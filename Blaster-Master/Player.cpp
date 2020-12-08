@@ -81,7 +81,12 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (!dynamic_cast<CBrick*>(e->obj))
+			if (dynamic_cast<CPortal*>(e->obj))
+			{
+				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+				CGame::GetInstance()->SwitchScene(portal->GetSceneId());
+			}
+			else if (!dynamic_cast<CBrick*>(e->obj))
 			{
 				StartUntouchable();
 			}
