@@ -91,10 +91,10 @@ void CGameObject::FilterCollision(
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
-		if (!dynamic_cast<CBrick*>(c->obj))
+		/*if (!dynamic_cast<CBrick*>(c->obj))
 		{
 			continue;
-		}
+		}*/
 
 		if (c->t < min_tx && c->nx != 0) {
 			min_tx = c->t; nx = c->nx; min_ix = i; rdx = c->dx;
