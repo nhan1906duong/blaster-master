@@ -2,7 +2,7 @@
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
-101	576	924	1
+101	364	95	1
 [BRICK]
 # left	top	right	bottom
 1	512	1792	543	0
@@ -13,4 +13,4 @@
 [CHONG_NHON]
 #1	512	816	543	800
 [PORTAL]
-1	543	128	576	95	3
+1	543	128	576	95	1

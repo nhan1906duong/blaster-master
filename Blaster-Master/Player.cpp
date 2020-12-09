@@ -28,7 +28,6 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isSwitchScene) return;
 	CGameObject::Update(dt);
 
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
@@ -86,7 +85,6 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId());
-				isSwitchScene = true;
 			}
 			else if (!dynamic_cast<CBrick*>(e->obj))
 			{
