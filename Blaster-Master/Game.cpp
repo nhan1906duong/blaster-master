@@ -390,17 +390,11 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 6) return;
+	if (tokens.size() < 2) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
 	LPSCENE scene = new CArea2Scene(id, path);
-
-	float left = atof(tokens[2].c_str());
-	float top = atof(tokens[3].c_str());
-	float right = atof(tokens[4].c_str());
-	float bottom = atof(tokens[5].c_str());
-	scene->SetBouncingScene(left, top, right, bottom);
 	scenes[id] = scene;
 }
 

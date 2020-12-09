@@ -4,9 +4,9 @@ resources\map\tile2\	143
 start	1
 #scene list
 [SCENES]
-1	resources\scene1\scene.txt	0	272	1024	0
-2	resources\scene2.txt	512	1792	1024	0
-3	resources\scene3.txt	1792	240	512	0
+1	resources\scene1\scene.txt
+2	resources\scene2.txt
+3	resources\scene3.txt
 #
 #
 # id 	file_path	transparent_color_r	g	b

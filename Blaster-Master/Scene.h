@@ -8,7 +8,6 @@ class CScene
 protected:
 	CKeyEventHandler* key_handler;
 	int id;
-	float left, top, right, bottom;
 	LPCWSTR sceneFilePath;
 
 public:
@@ -19,9 +18,6 @@ public:
 	virtual void Unload() = 0;
 	virtual void Update(DWORD dt) = 0;
 	virtual void Render() = 0;
-
-	void SetBouncingScene(float l, float t, float  r, float b);
-	void GetBouncingScene(float& l, float& t, float& r, float& b);
 };
 typedef CScene* LPSCENE;
 

@@ -127,14 +127,14 @@ void CArea2Scene::_ParseSection_MAP(string line)
 	int numRow = atoi(tokens[1].c_str());
 	int numColumn = atoi(tokens[2].c_str());
 	map = new CMap(ToLPCWSTR(path), numRow, numColumn);
+	camera->SetBouncingMap(0, numRow * 16, numColumn * 16, 0);
 }
 
 void CArea2Scene::Load()
 {
 	//TODO Khoi tao camera
 	camera = new CCamera();
-	camera->SetBouncingMap(left, top, right, bottom);
-	camera->SetPosition(left, top);
+	camera->SetPosition(0, CGame::GetInstance()->GetScreenHeight());
 
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
