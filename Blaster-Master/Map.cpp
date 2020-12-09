@@ -12,11 +12,9 @@
 #define MAP_SECTION_SIZE 1
 #define MAP_SECTION_MAP 2
 
-CMap::CMap(LPCWSTR filePath, int numRow, int numColumn)
+CMap::CMap(LPCWSTR filePath)
 {
 	DebugOut(L"[INFO] Start loading map %s\n", filePath);
-	this->numRow = numRow;
-	this->numColumn = numColumn;
 
 	ifstream f;
 	f.open(filePath);
@@ -29,22 +27,23 @@ CMap::CMap(LPCWSTR filePath, int numRow, int numColumn)
 	{
 		string line(str);
 		vector<string> tokens = split(line, " ");
+		bouncingRight = tokens.size() * 16 - 16;
 		for (int i = 0; i < tokens.size(); i++)
 		{
 			map[row][i] = atoi(tokens[i].c_str());
 		}
 		++row;
 	}
-
+	bouncingTop = row * 16 - 16;
 	DebugOut(L"[INFO] Load map success!");
 	f.close();
 }
 
 void CMap::Render(CCamera * camera)
 {
-	for (int row = 0; row < numRow; row++)
+	for (int row = 0; row < bouncingTop / 16; row++)
 	{
-		for (int column = 0; column < numColumn; ++column)
+		for (int column = 0; column < bouncingRight / 16; ++column)
 		{
 			float tileLeft = column * 16;
 			float tileRight = column * 16 + 16;
@@ -59,9 +58,15 @@ void CMap::Render(CCamera * camera)
 				continue;
 			}
 
-			int texId = map[numRow - row][column];
+			int texId = map[bouncingTop/16 - row][column];
 			LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
 			CGame::GetInstance()->Draw(tileLeft, tileTop, tex, 0, 0, 16, 16);
 		}
 	}
+}
+
+void CMap::GetBouncing(float& top, float& right)
+{
+	top = bouncingTop;
+	right = bouncingRight;
 }

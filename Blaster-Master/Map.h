@@ -6,9 +6,10 @@ class CMap
 {
 private:
 	int map[128][128];
-	int numRow, numColumn;
+	int bouncingTop, bouncingRight;
 public:
-	CMap(LPCWSTR filePath, int numRow, int column);
+	CMap(LPCWSTR filePath);
 	void Render(CCamera*);
+	void GetBouncing(float&, float&);
 };
 

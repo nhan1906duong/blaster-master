@@ -33,6 +33,26 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 
 #define MAX_SCENE_LINE 1024
 
+void CArea2Scene::_Init_Player(float player_x, float player_y)
+{
+	if (player != NULL)
+	{
+		DebugOut(L"[ERROR] PLAYER object was created before!\n");
+		return;
+	}
+
+	player = new CPlayer(player_x, player_y);
+	player->SetAnimationSet(CAnimationSets::GetInstance()->Get(1));
+	objects.push_back(player);
+
+	//TODO Khoi tao camera
+	camera = new CCamera();
+	_CheckCameraAndWorldMap();
+
+
+	DebugOut(L"[INFO] Player object created!\n");
+}
+
 void CArea2Scene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
@@ -53,18 +73,6 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_MARIO:
-		if (player != NULL)
-		{
-			DebugOut(L"[ERROR] MARIO object was created before!\n");
-			return;
-		}
-		obj = new CPlayer(x, y);
-		player = (CPlayer*)obj;
-
-		DebugOut(L"[INFO] Player object created!\n");
-		break;
-	break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -108,33 +116,33 @@ void CArea2Scene::_ParseSection_CHONG_NHON(string line)
 void CArea2Scene::_ParseSection_PORTAL(string line)
 {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 5) return;
+	if (tokens.size() < 8) return;
 	int identity = atoi(tokens[0].c_str());
 	float left = atof(tokens[1].c_str());
 	float top = atof(tokens[2].c_str());
 	float right = atof(tokens[3].c_str());
 	float bottom = atof(tokens[4].c_str());
 	int scene_id = atoi(tokens[5].c_str());
-	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id);
+	float cam_x = atoi(tokens[6].c_str());
+	float cam_y = atoi(tokens[7].c_str());
+	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id, cam_x, cam_y);
 	objects.push_back(portal);
 }
 
 void CArea2Scene::_ParseSection_MAP(string line)
 {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 3) return;
+	if (tokens.size() < 1) return;
 	string path = tokens[0];
-	int numRow = atoi(tokens[1].c_str());
-	int numColumn = atoi(tokens[2].c_str());
-	map = new CMap(ToLPCWSTR(path), numRow, numColumn);
-	camera->SetBouncingMap(0, numRow * 16, numColumn * 16, 0);
+	map = new CMap(ToLPCWSTR(path));
+	float top, right;
+	map->GetBouncing(top, right);
+	camera->SetBouncingMap(0, top, right, 0);
 }
 
-void CArea2Scene::Load()
+void CArea2Scene::Load(float player_x, float player_y)
 {
-	//TODO Khoi tao camera
-	camera = new CCamera();
-	camera->SetPosition(0, CGame::GetInstance()->GetScreenHeight());
+	_Init_Player(player_x, player_y);
 
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
@@ -202,9 +210,7 @@ void CArea2Scene::_CheckCameraAndWorldMap()
 
 void CArea2Scene::Update(DWORD dt)
 {
-	// We know that Mario is the first object in the list hence we won't add him into the colliable object list
-	// TO-DO: This is a "dirty" way, need a more organized way 
-
+	if (player == NULL) return;
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
 	{

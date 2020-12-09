@@ -5,8 +5,8 @@ start	1
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt
-2	resources\scene2.txt
-3	resources\scene3.txt
+2	resources\scene2\scene.txt
+3	resources\scene3\scene.txt
 #
 #
 # id 	file_path	transparent_color_r	g	b

@@ -17,6 +17,7 @@ protected:
 
 	vector<LPGAMEOBJECT> objects;
 
+	void _Init_Player(float player_x, float player_y);
 	void _ParseSection_MAP(string map);
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSecion_BRICK(string line);
@@ -27,7 +28,7 @@ protected:
 public:
 	CArea2Scene(int id, LPCWSTR filePath);
 
-	virtual void Load();
+	virtual void Load(float player_x, float player_y);
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
