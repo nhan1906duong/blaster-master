@@ -27,6 +27,8 @@ private:
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
+
+	bool isSwitchScene = false;
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);

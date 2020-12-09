@@ -1,5 +1,3 @@
-[CAMERA]
-1024.0	1024.0
 [TILES]
 resources\map\tile2\	143
 [MAP]
@@ -8,8 +6,8 @@ resources\map\map.txt
 start	1
 #scene list
 [SCENES]
-1	resources\scene1.txt
-2	resources\scene2.txt
+1	resources\scene1.txt	1024	1024	2048	736
+2	resources\scene2.txt	512	1792	1024	0
 #
 #
 # id 	file_path	transparent_color_r	g	b

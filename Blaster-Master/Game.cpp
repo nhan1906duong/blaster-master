@@ -373,7 +373,6 @@ CGame* CGame::GetInstance()
 #define GAME_FILE_SECTION_ANIMATIONS 5
 #define GAME_FILE_SECTION_ANIMATION_SETS 6
 #define GAME_FILE_SECTION_TILES 7
-#define GAME_FILE_SECTION_CAMERA 8
 
 void CGame::_ParseSection_SETTINGS(string line)
 {
@@ -390,11 +389,17 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 6) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
 	LPSCENE scene = new CArea2Scene(id, path, camera);
+
+	float left = atof(tokens[2].c_str());
+	float top = atof(tokens[3].c_str());
+	float right = atof(tokens[4].c_str());
+	float bottom = atof(tokens[5].c_str());
+	scene->SetBouncingScene(left, top, right, bottom);
 	scenes[id] = scene;
 }
 
@@ -480,13 +485,6 @@ void CGame::_ParseSection_ANIMATION_SETS(string line)
 	CAnimationSets::GetInstance()->Add(ani_setId, aniSet);
 }
 
-void CGame::_ParseSection_CAMERA(string line)
-{
-	vector<string> tokens = split(line);
-	float cam_x = atof(tokens[0].c_str());
-	float cam_y = atof(tokens[1].c_str());
-	camera->SetPosition(cam_x, cam_y);
-}
 /*
 	Load game campaign file and load/initiate first scene
 */
@@ -509,7 +507,6 @@ void CGame::Load(LPCWSTR gameFile)
 
 		if (line[0] == '#') continue;	// skip comment lines	
 
-		if (line == "[CAMERA]") { section = GAME_FILE_SECTION_CAMERA; continue; }
 		if (line == "[TILES]") { section = GAME_FILE_SECTION_TILES; continue; }
 		if (line == "[MAP]") { section = GAME_FILE_SECTION_MAP; continue; }
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
@@ -523,9 +520,6 @@ void CGame::Load(LPCWSTR gameFile)
 		//
 		switch (section)
 		{
-			case GAME_FILE_SECTION_CAMERA:
-				_ParseSection_CAMERA(line);
-				break;
 			case GAME_FILE_SECTION_TILES:
 				_ParseSection_TILES(line);
 				break;
@@ -559,6 +553,10 @@ void CGame::SwitchScene(int scene_id)
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
+	float left, top, right, bottom;
+	s->GetBouncingScene(left, top, right, bottom);
+	camera->SetPosition(left, top);
+	camera->SetBouncingMap(left, top, right, bottom);
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
 }

@@ -15,6 +15,14 @@ void CCamera::GetBouncingBox(float &l, float &t, float &r, float &b)
 	b = cam_y - CGame::GetInstance()->GetScreenHeight();
 }
 
+void CCamera::SetBouncingMap(float l, float t, float r, float b)
+{
+	bouncingMapLeft = l;
+	bouncingMapTop = t;
+	bouncingMapRight = r;
+	bouncingMapBottom = b;
+}
+
 
 void CCamera::UpdateCamera(float player_x, float player_y)
 {
@@ -33,27 +41,27 @@ void CCamera::UpdateCamera(float player_x, float player_y)
 	if (player_x < bouncing.left) // move left
 	{
 		cam_x += player_x - bouncing.left;
-		if (cam_x < 0) cam_x = 0;
+		if (cam_x < bouncingMapLeft) cam_x = bouncingMapLeft;
 	}
 
 	if (player_x > bouncing.right)
 	{
 		cam_x += player_x - bouncing.right;
-		if (cam_x > 128 * 16 - CGame::GetInstance()->GetScreenWidth())
+		if (cam_x > bouncingMapRight - screen_width)
 		{
-			cam_x = 128 * 16 - CGame::GetInstance()->GetScreenWidth();
+			cam_x = bouncingMapRight - screen_width;
 		}
 	}
 
 	if (player_y > bouncing.top)
 	{
 		cam_y += player_y - bouncing.top;
-		if (cam_y > 128 * 16) cam_y = 128 * 16;
+		if (cam_y > bouncingMapTop) cam_y = bouncingMapTop;
 	}
 
 	if (player_y < bouncing.bottom)
 	{
 		cam_y += player_y - bouncing.bottom;
-		if (cam_y < screen_height) cam_y = screen_height;
+		if (cam_y < bouncingMapBottom + screen_height) cam_y = bouncingMapBottom + screen_height;
 	}
 }
