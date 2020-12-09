@@ -270,3 +270,9 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 
 	player->KeyState(states);
 }
+
+void CArea2Scene::GetCameraPosition(float& x, float& y)
+{
+	x = camera->GetCamX();
+	y = camera->GetCamY();
+}

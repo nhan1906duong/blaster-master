@@ -104,11 +104,13 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 
 void CGame::SetRenderData(D3DXVECTOR2& center, D3DXVECTOR2& translate, D3DXVECTOR2& scaling)
 {
+	float cam_x, cam_y;
+	((CArea2Scene*)GetCurrentScene())->GetCameraPosition(cam_x, cam_y);
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1;
-	mt._41 = -this->cam_x;
-	mt._42 = this->cam_y;
+	mt._41 = -cam_x;
+	mt._42 = cam_y;
 	D3DXVECTOR4 curTranslate;
 	D3DXVECTOR4 curCenter;
 

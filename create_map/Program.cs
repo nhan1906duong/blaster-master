@@ -14,9 +14,9 @@ namespace create_map
             using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\scene1\map.txt"))
             {
                 var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overwold-map.png");
-                for (int row = 64; row < 128; row++)
+                for (int row = 64; row < 82; row++)
                 {
-                    for (int column = 64; column < 78; column++)
+                    for (int column = 64; column < 128; column++)
                     {
                         bool isFind = false;
                         Rectangle rect = new Rectangle(new Point(column * 16, row * 16), new Size(16, 16));

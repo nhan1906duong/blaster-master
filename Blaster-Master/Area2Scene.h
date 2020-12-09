@@ -34,6 +34,8 @@ public:
 
 	CPlayer* GetPlayer() { return player; }
 
+	void GetCameraPosition(float& x, float& y);
+
 	//friend class CPlayScenceKeyHandler;
 };
 

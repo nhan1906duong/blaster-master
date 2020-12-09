@@ -28,7 +28,6 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	return;
 	CGameObject::Update(dt);
 
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
