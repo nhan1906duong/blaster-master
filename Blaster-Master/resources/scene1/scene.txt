@@ -1,8 +1,10 @@
+[MAP]
+resources\scene1\map.txt	14	36
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
-101	1102	900	1
+101	56	56	1
 [BRICK]
 # left	top	right	bottom
 1	1024	800	2048	736

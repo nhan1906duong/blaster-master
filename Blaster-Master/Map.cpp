@@ -12,16 +12,11 @@
 #define MAP_SECTION_SIZE 1
 #define MAP_SECTION_MAP 2
 
-CMap::CMap(CCamera* camera, LPCWSTR filePath)
+CMap::CMap(LPCWSTR filePath, int numRow, int numColumn)
 {
-	this->camera = camera;
 	DebugOut(L"[INFO] Start loading map %s\n", filePath);
-
-	map = (int**)malloc(128 /*dong*/ * sizeof(int*));
-	for (int i = 0; i < 128 /*row*/; i++)
-	{
-		map[i] = (int*)malloc(128/*cot*/ * sizeof(int));
-	}
+	this->numRow = numRow;
+	this->numColumn = numColumn;
 
 	ifstream f;
 	f.open(filePath);
@@ -34,19 +29,22 @@ CMap::CMap(CCamera* camera, LPCWSTR filePath)
 	{
 		string line(str);
 		vector<string> tokens = split(line, " ");
-		for (int i = 0; i < 128; i++)
+		for (int i = 0; i < tokens.size(); i++)
 		{
 			map[row][i] = atoi(tokens[i].c_str());
 		}
 		++row;
 	}
+
+	DebugOut(L"[INFO] Load map success!");
+	f.close();
 }
 
-void CMap::Render()
+void CMap::Render(CCamera * camera)
 {
-	for (int row = 0; row < 128; row++)
+	for (int row = 0; row < numRow; row++)
 	{
-		for (int column = 0; column < 128; ++column)
+		for (int column = 0; column < numColumn; ++column)
 		{
 			float tileLeft = column * 16;
 			float tileRight = column * 16 + 16;
@@ -61,7 +59,7 @@ void CMap::Render()
 				continue;
 			}
 
-			int texId = map[127 - row][column];
+			int texId = map[numRow - row][column];
 			LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
 			CGame::GetInstance()->Draw(tileLeft, tileTop, tex, 0, 0, 16, 16);
 		}

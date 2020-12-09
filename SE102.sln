@@ -5,22 +5,40 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blaster-Master", "Blaster-Master\Blaster-Master.vcxproj", "{0A729A60-4505-433D-BD17-3F76C78C4997}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "create_map", "create_map\create_map.csproj", "{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0A729A60-4505-433D-BD17-3F76C78C4997}.Debug|Any CPU.ActiveCfg = Debug|Win32
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Debug|x64.ActiveCfg = Debug|x64
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Debug|x64.Build.0 = Debug|x64
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Debug|x86.ActiveCfg = Debug|Win32
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Debug|x86.Build.0 = Debug|Win32
+		{0A729A60-4505-433D-BD17-3F76C78C4997}.Release|Any CPU.ActiveCfg = Release|Win32
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Release|x64.ActiveCfg = Release|x64
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Release|x64.Build.0 = Release|x64
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Release|x86.ActiveCfg = Release|Win32
 		{0A729A60-4505-433D-BD17-3F76C78C4997}.Release|x86.Build.0 = Release|Win32
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|x64.Build.0 = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Debug|x86.Build.0 = Debug|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|x64.ActiveCfg = Release|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|x64.Build.0 = Release|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|x86.ActiveCfg = Release|Any CPU
+		{2CE39CA0-DDFE-4456-BD14-C259C233DCD4}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

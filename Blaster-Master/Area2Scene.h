@@ -12,11 +12,12 @@ class CArea2Scene : public CScene
 {
 protected:
 	CPlayer* player;					// A play scene has to have player, right? 
-	//CMap* map;
+	CMap* map;
 	CCamera* camera;
 
 	vector<LPGAMEOBJECT> objects;
 
+	void _ParseSection_MAP(string map);
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSecion_BRICK(string line);
 	void _ParseSection_CHONG_NHON(string);
@@ -24,7 +25,7 @@ protected:
 	void _CheckCameraAndWorldMap();
 
 public:
-	CArea2Scene(int id, LPCWSTR filePath, CCamera* camera);
+	CArea2Scene(int id, LPCWSTR filePath);
 
 	virtual void Load();
 	virtual void Update(DWORD dt);

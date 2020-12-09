@@ -107,8 +107,8 @@ void CGame::SetRenderData(D3DXVECTOR2& center, D3DXVECTOR2& translate, D3DXVECTO
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1;
-	mt._41 = -this->camera->GetCamX();
-	mt._42 = this->camera->GetCamY();
+	mt._41 = -this->cam_x;
+	mt._42 = this->cam_y;
 	D3DXVECTOR4 curTranslate;
 	D3DXVECTOR4 curCenter;
 
@@ -365,7 +365,6 @@ CGame* CGame::GetInstance()
 
 
 #define GAME_FILE_SECTION_UNKNOWN -1
-#define GAME_FILE_SECTION_MAP 0
 #define GAME_FILE_SECTION_SETTINGS 1
 #define GAME_FILE_SECTION_SCENES 2
 #define GAME_FILE_SECTION_TEXTURES 3
@@ -393,7 +392,7 @@ void CGame::_ParseSection_SCENES(string line)
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
-	LPSCENE scene = new CArea2Scene(id, path, camera);
+	LPSCENE scene = new CArea2Scene(id, path);
 
 	float left = atof(tokens[2].c_str());
 	float top = atof(tokens[3].c_str());
@@ -492,8 +491,6 @@ void CGame::Load(LPCWSTR gameFile)
 {
 	DebugOut(L"[INFO] Start loading game file : %s\n", gameFile);
 
-	camera = new CCamera();
-
 	ifstream f;
 	f.open(gameFile);
 	char str[MAX_GAME_LINE];
@@ -508,7 +505,6 @@ void CGame::Load(LPCWSTR gameFile)
 		if (line[0] == '#') continue;	// skip comment lines	
 
 		if (line == "[TILES]") { section = GAME_FILE_SECTION_TILES; continue; }
-		if (line == "[MAP]") { section = GAME_FILE_SECTION_MAP; continue; }
 		if (line == "[SETTINGS]") { section = GAME_FILE_SECTION_SETTINGS; continue; }
 		if (line == "[SCENES]") { section = GAME_FILE_SECTION_SCENES; continue; }
 		if (line == "[TEXTURES]") { section = GAME_FILE_SECTION_TEXTURES; continue; }
@@ -522,9 +518,6 @@ void CGame::Load(LPCWSTR gameFile)
 		{
 			case GAME_FILE_SECTION_TILES:
 				_ParseSection_TILES(line);
-				break;
-			case GAME_FILE_SECTION_MAP: 
-				map = new CMap(camera, ToLPCWSTR(line));
 				break;
 			case GAME_FILE_SECTION_SETTINGS: _ParseSection_SETTINGS(line); break;
 			case GAME_FILE_SECTION_SCENES: _ParseSection_SCENES(line); break;
@@ -553,15 +546,6 @@ void CGame::SwitchScene(int scene_id)
 
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
-	float left, top, right, bottom;
-	s->GetBouncingScene(left, top, right, bottom);
-	camera->SetPosition(left, top);
-	camera->SetBouncingMap(left, top, right, bottom);
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());
 	s->Load();
-}
-
-void CGame::DrawMap()
-{
-	map->Render();
 }

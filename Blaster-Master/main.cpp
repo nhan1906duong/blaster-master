@@ -55,7 +55,6 @@ void Render()
 
 		spriteHandler->Begin(D3DXSPRITE_ALPHABLEND);
 
-		CGame::GetInstance()->DrawMap();
 		CGame::GetInstance()->GetCurrentScene()->Render();
 
 		spriteHandler->End();

@@ -10,9 +10,8 @@
 
 using namespace std;
 
-CArea2Scene::CArea2Scene(int id, LPCWSTR filePath, CCamera* camera) : CScene(id, filePath)
+CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 {
-	this->camera = camera;
 	key_handler = new CPlayScenceKeyHandler(this);
 }
 
@@ -21,11 +20,12 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath, CCamera* camera) : CScene(id,
 	See scene1.txt, scene2.txt for detail format specification
 */
 
-#define SCENE_SECTION_UNKNOWN -1
-#define SCENE_SECTION_OBJECTS	1
-#define SCENE_SECTION_BRICK		2
-#define SCENE_SECTION_CHONG_NHON		3
-#define SCENE_SECTION_PORTAL	4
+#define SCENE_SECTION_UNKNOWN		-1
+#define SCENE_SECTION_MAP			0
+#define SCENE_SECTION_OBJECTS		1
+#define SCENE_SECTION_BRICK			2
+#define SCENE_SECTION_CHONG_NHON	3
+#define SCENE_SECTION_PORTAL		4
 
 #define OBJECT_TYPE_MARIO	101
 
@@ -33,9 +33,6 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath, CCamera* camera) : CScene(id,
 
 #define MAX_SCENE_LINE 1024
 
-/*
-	Parse a line in section [OBJECTS]
-*/
 void CArea2Scene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
@@ -122,8 +119,23 @@ void CArea2Scene::_ParseSection_PORTAL(string line)
 	objects.push_back(portal);
 }
 
+void CArea2Scene::_ParseSection_MAP(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 3) return;
+	string path = tokens[0];
+	int numRow = atoi(tokens[1].c_str());
+	int numColumn = atoi(tokens[2].c_str());
+	map = new CMap(ToLPCWSTR(path), numRow, numColumn);
+}
+
 void CArea2Scene::Load()
 {
+	//TODO Khoi tao camera
+	camera = new CCamera();
+	camera->SetBouncingMap(left, top, right, bottom);
+	camera->SetPosition(left, top);
+
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);
 
 	ifstream f;
@@ -138,6 +150,11 @@ void CArea2Scene::Load()
 		string line(str);
 
 		if (line[0] == '#') continue;	// skip comment lines	
+
+		if (line == "[MAP]")
+		{
+			section = SCENE_SECTION_MAP; continue;
+		}
 
 		if (line == "[OBJECTS]") {
 			section = SCENE_SECTION_OBJECTS; continue;
@@ -158,6 +175,7 @@ void CArea2Scene::Load()
 
 		switch (section)
 		{
+		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
 		case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
@@ -207,6 +225,7 @@ void CArea2Scene::Update(DWORD dt)
 
 void CArea2Scene::Render()
 {
+	if (map) map->Render(camera);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 }

@@ -1,12 +1,10 @@
 [TILES]
 resources\map\tile2\	143
-[MAP]
-resources\map\map.txt
 [SETTINGS]
 start	1
 #scene list
 [SCENES]
-1	resources\scene1.txt	1024	1024	2048	736
+1	resources\scene1\scene.txt	0	112	112	0
 2	resources\scene2.txt	512	1792	1024	0
 3	resources\scene3.txt	1792	240	512	0
 #

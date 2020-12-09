@@ -1,14 +1,14 @@
 #pragma once
 #include <d3d9.h>
-
 #include "Camera.h"
 
 class CMap
 {
-	int** map;
-	CCamera* camera;
+private:
+	int map[128][128];
+	int numRow, numColumn;
 public:
-	CMap(CCamera* camera, LPCWSTR filePath);
-	void Render();
+	CMap(LPCWSTR filePath, int numRow, int column);
+	void Render(CCamera*);
 };
 

@@ -1,22 +1,17 @@
 #pragma once
 
 #include <unordered_map>
-
 #include <Windows.h>
 #include <d3d9.h>
 #include <d3dx9.h>
-
-
-#define DIRECTINPUT_VERSION 0x0800
 #include <dinput.h>
 
 #include "Scene.h"
-#include "Map.h"
-#include "Camera.h"
 
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
+#define DIRECTINPUT_VERSION 0x0800
 
 class CGame
 {
@@ -37,8 +32,7 @@ class CGame
 
 	LPKEYEVENTHANDLER keyHandler;
 
-	CCamera* camera;
-	CMap* map;
+	float cam_x = 0.0, cam_y = 112.0;
 
 	int screen_width;
 	int screen_height;
@@ -93,8 +87,6 @@ public:
 	LPD3DXSPRITE GetSpriteHandler() { return this->spriteHandler; }
 
 	static CGame* GetInstance();
-
-	void DrawMap();
 
 	~CGame();
 };
