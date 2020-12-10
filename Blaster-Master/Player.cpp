@@ -5,6 +5,7 @@
 
 #include "Portal.h"
 #include "Brick.h"
+#include "ConSau.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
@@ -76,7 +77,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny != 0) vy = 0;
 
 
-		/*for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CPortal*>(e->obj))
@@ -85,11 +86,11 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				isSwitch = true;
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
-			else if (!dynamic_cast<CBrick*>(e->obj))
+			else if (dynamic_cast<ConSau*>(e->obj))
 			{
 				StartUntouchable();
 			}
-		}*/
+		}
 	}
 
 	// clean up collision events
