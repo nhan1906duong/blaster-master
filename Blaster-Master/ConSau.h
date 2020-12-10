@@ -7,7 +7,7 @@
 #define ANIMATION_IDLE 0
 #define ANIMATION_MOVE 1
 
-#define STATE_IDLE 0
+#define STATE_FALL 0
 #define STATE_MOVE 1
 
 #define MOVE_SPEED 0.05f

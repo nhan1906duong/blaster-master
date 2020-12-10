@@ -46,8 +46,20 @@ void ConSau::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + nx * 0.1f;
 		y += min_ty * dy + ny * 0.1f;
 
-		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (nx != 0)
+		{
+			vx = -vx;
+			this->nx = nx;
+		}
+		if (ny != 0)
+		{
+			vy = 0;
+			SetState(STATE_MOVE);
+		}
+		else
+		{
+			SetState(STATE_FALL);
+		}
 	}
 
 	// clean up collision events
@@ -57,18 +69,20 @@ void ConSau::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void ConSau::Render()
 {
 	int ani;
-	if (vy != 0)
-	{
-		ani = 0;
-	}
-	else
+	if (state == STATE_MOVE)
 	{
 		ani = 1;
 	}
-	animation_set->at(ani)->Render(x, y);
+	else
+	{
+		ani = 0;
+	}
+	animation_set->at(ani)->Render(x, y, 255, nx > 0);
 }
 
 ConSau::ConSau()
 {
+	SetState(STATE_FALL);
 	vx = -MOVE_SPEED;
+	nx = -1;
 }
