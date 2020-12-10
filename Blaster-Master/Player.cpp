@@ -69,17 +69,14 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		//	x += nx*abs(rdx); 
 
 		// block every object first!
-		x += min_tx * dx + nx * 0.4f;
-		y += min_ty * dy + ny * 0.4f;
+		x += min_tx * dx + 0.1f * nx;
+		y += min_ty * dy + 0.1f * ny;
 
 		if (nx != 0) vx = 0;
 		if (ny != 0) vy = 0;
 
 
-		//
-		// Collision logic with other objects
-		//
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		/*for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<CPortal*>(e->obj))
@@ -92,7 +89,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				StartUntouchable();
 			}
-		}
+		}*/
 	}
 
 	// clean up collision events

@@ -34,6 +34,9 @@
     <Filter Include="Framework\Objects\Player">
       <UniqueIdentifier>{3e3cdc5e-c12a-4ac0-84c7-effd24d74b00}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Objects\Enemies">
+      <UniqueIdentifier>{c15659e1-dde2-489b-ad70-bc429112e771}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -80,6 +83,9 @@
     </ClCompile>
     <ClCompile Include="ChongNhon.cpp">
       <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="ConSau.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +136,12 @@
     </ClInclude>
     <ClInclude Include="ChongNhon.h">
       <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="ConSau.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

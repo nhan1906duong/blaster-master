@@ -413,15 +413,16 @@ void CGame::_ParseSection_TILES(string line)
 void CGame::_ParseSection_TEXTURES(string line)
 {
 	vector<string> tokens = split(line);
-	if (tokens.size() < 5) return;
+	if (tokens.size() < 6) return;
 	int texId = atoi(tokens[0].c_str());
 	LPCWSTR texPath = ToLPCWSTR(tokens[1].c_str());
 
-	int red = atoi(tokens[2].c_str());
-	int green = atoi(tokens[3].c_str());
-	int blue = atoi(tokens[4].c_str());
+	int alpha = atoi(tokens[2].c_str());
+	int red = atoi(tokens[3].c_str());
+	int green = atoi(tokens[4].c_str());
+	int blue = atoi(tokens[5].c_str());
 
-	CTextures::GetInstance()->Add(texId, texPath, D3DCOLOR_XRGB(red, green, blue));
+	CTextures::GetInstance()->Add(texId, texPath, D3DCOLOR_ARGB(alpha, red, green, blue));
 }
 
 void CGame::_ParseSection_SPRITES(string line)

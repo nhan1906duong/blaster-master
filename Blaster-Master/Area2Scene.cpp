@@ -6,6 +6,7 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
+#include "ConSau.h"
 #include "ChongNhon.h"
 
 using namespace std;
@@ -27,9 +28,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_CHONG_NHON	3
 #define SCENE_SECTION_PORTAL		4
 
-#define OBJECT_TYPE_MARIO	101
-
-#define OBJECT_TYPE_PORTAL	50
+#define OBJECT_TYPE_CON_SAU	10
 
 #define MAX_SCENE_LINE 1024
 
@@ -73,6 +72,9 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
+	case OBJECT_TYPE_CON_SAU:
+		obj = new ConSau();
+		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
