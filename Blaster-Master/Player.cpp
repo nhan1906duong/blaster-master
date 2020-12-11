@@ -6,6 +6,7 @@
 #include "Portal.h"
 #include "Brick.h"
 #include "ConSau.h"
+#include "ChongNhon.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
@@ -62,14 +63,8 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float rdx = 0;
 		float rdy = 0;
 
-		// TODO: This is a very ugly designed function!!!!
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
 
-		// how to push back Mario if collides with a moving objects, what if Mario is pushed this way into another object?
-		//if (rdx != 0 && rdx!=dx)
-		//	x += nx*abs(rdx); 
-
-		// block every object first!
 		x += min_tx * dx + 0.1f * nx;
 		y += min_ty * dy + 0.1f * ny;
 
@@ -87,6 +82,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
 			else if (dynamic_cast<ConSau*>(e->obj))
+			{
+				StartUntouchable();
+			}
+			else if (dynamic_cast<ChongNhon*>(e->obj))
 			{
 				StartUntouchable();
 			}
