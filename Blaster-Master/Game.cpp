@@ -340,10 +340,10 @@ void CGame::SweptAABB(
 	t_entry = max(tx_entry, ty_entry);
 	t_exit = min(tx_exit, ty_exit);
 
-	/*if (t_entry > t_exit)
+	if (t_entry > t_exit)
 	{
 		return;
-	}*/
+	}
 
 	t = t_entry;
 
