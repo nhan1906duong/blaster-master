@@ -3,6 +3,7 @@ resources\scene1\map.txt
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 10	180	180	10
+11	100	120	11
 [BRICK]
 # left	top	right	bottom
 1	0	32	1024	0
@@ -23,7 +24,6 @@ resources\scene1\map.txt
 5	776	80	784	72
 5	784	96	1024	32
 6	0	224	32	96
-7	0	256	1024	224
 8	48	224	80	192
 9	112	224	144	176
 10	176	224	208	192
@@ -38,6 +38,7 @@ resources\scene1\map.txt
 19	752	224	784	192
 20	816	224	848	176
 21	880	224	912	144
+22	0	256	1024	224
 [CHONG_NHON]
 1	288	48	400	32
 2	480	48	592	32

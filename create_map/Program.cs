@@ -11,12 +11,12 @@ namespace create_map
     {
         static void Main(string[] args)
         {
-            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\scene2\map.txt"))
+            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\scene3\map.txt"))
             {
                 var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overwold-map.png");
-                for (int row = 0; row < 80; row++)
+                for (int row = 12; row < 128; row++)
                 {
-                    for (int column = 0; column < 32; column++)
+                    for (int column = 32; column < 64; column++)
                     {
                         bool isFind = false;
                         Rectangle rect = new Rectangle(new Point(column * 16, row * 16), new Size(16, 16));

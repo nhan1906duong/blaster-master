@@ -9,6 +9,8 @@
 #include "ConSau.h"
 #include "ChongNhon.h"
 
+#include "Dome.h"
+
 using namespace std;
 
 CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
@@ -29,6 +31,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_PORTAL		4
 
 #define OBJECT_TYPE_CON_SAU	10
+#define OBJECT_TYPE_DOME	11
 
 #define MAX_SCENE_LINE 1024
 
@@ -74,6 +77,9 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_CON_SAU:
 		obj = new ConSau();
+		break;
+	case OBJECT_TYPE_DOME:
+		obj = new Dome();
 		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);

@@ -1,7 +1,7 @@
 [TILES]
 resources\map\tile2\	143
 [SETTINGS]
-start	1
+start	2
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt
@@ -66,6 +66,19 @@ start	1
 #	<CON SAU>
 51	46	412	63	422	202
 52	64	412	82	422	202
+#	<DOME>
+# Top
+53	67	424	85	441	202
+54	87	424	105	441	202
+# Left
+55	50	441	57	459	202
+56	50	461	67	479	202
+# Bottom
+57	67	479	85	496	202
+58	87	479	105	496	202
+# Right
+59	105	441	122	459	202
+60	105	461	122	479	202
 # ani_id	sprite_id	time ...
 [ANIMATIONS]
 # Jason idle left ani
@@ -99,6 +112,11 @@ start	1
 #	<CON SAU>
 51	52	100
 52	52	100	51	100
+#	<DOME>
+53	54	100	53	100
+54	56	100	55	100
+55	58	100	57	100
+56	60	100	59	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	20	21	22
@@ -107,3 +125,5 @@ start	1
 # <----------------- ENEMIES ----------------->
 #	<CON SAU>
 10	51	52
+#	<DOME>
+11	56	55	54	53

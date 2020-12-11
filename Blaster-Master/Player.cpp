@@ -5,7 +5,7 @@
 
 #include "Portal.h"
 #include "Brick.h"
-#include "ConSau.h"
+#include "Enemy.h"
 #include "ChongNhon.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
@@ -75,13 +75,13 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CPortal*>(e->obj))
+			if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
 			{
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
 				isSwitch = true;
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
-			else if (dynamic_cast<ConSau*>(e->obj))
+			else if (dynamic_cast<Enemy*>(e->obj))
 			{
 				StartUntouchable();
 			}
