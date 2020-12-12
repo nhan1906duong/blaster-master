@@ -190,3 +190,12 @@ void CPlayer::KeyState(BYTE* states)
 	else if (state == PLAYER_STATE_WALKING_RIGHT || state == PLAYER_STATE_WALKING_LEFT)
 		SetState(PLAYER_STATE_IDLE);
 }
+
+void CPlayer::Reverse()
+{
+	if (!isSophia)
+	{
+		y += 3;
+	}
+	isSophia = !isSophia;
+}

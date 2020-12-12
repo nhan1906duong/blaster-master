@@ -266,6 +266,10 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	case DIK_X:
 		mario->SetState(PLAYER_STATE_JUMP);
 		break;
+	case DIK_RSHIFT:
+	case DIK_LSHIFT:
+		mario->Reverse();
+		break;
 	case DIK_A:
 		mario->Reset();
 		break;

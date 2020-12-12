@@ -42,4 +42,6 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	void KeyState(BYTE* states);
+
+	void Reverse();
 };
