@@ -6,6 +6,7 @@ resources\scene4\map.txt	15	64
 # MARIO
 16	142	144	16
 16	302	144	16
+16	410	144	16
 [BRICK]
 # left	top	right	bottom
 1	0	96	512	64
