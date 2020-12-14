@@ -4,7 +4,6 @@ resources\scene5\map.txt	15	64
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
-101	56	156	1
 10	128	234	10
 10	254	282	10
 15	96	466	15
