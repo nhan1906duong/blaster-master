@@ -27,6 +27,7 @@
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="Insect.cpp" />
     <ClCompile Include="Jumper.cpp" />
+    <ClCompile Include="Mine.cpp" />
     <ClCompile Include="Orb.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="Worm.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="Floater.h" />
     <ClInclude Include="Insect.h" />
     <ClInclude Include="Jumper.h" />
+    <ClInclude Include="Mine.h" />
     <ClInclude Include="Orb.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="Worm.h" />

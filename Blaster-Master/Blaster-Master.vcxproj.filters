@@ -99,11 +99,14 @@
     <ClCompile Include="Insect.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="Mine.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
     <ClCompile Include="Orb.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="Skull.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -173,11 +176,14 @@
     <ClInclude Include="Insect.h">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="Orb.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Mine.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="Skull.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Orb.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

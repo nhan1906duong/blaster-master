@@ -103,6 +103,9 @@ start	3
 #	<SKULL>
 75	42	530	60	548	202
 76	62	527	80	548	202
+#	<MINE> Current doesn't sprite
+77	0	0	16	10	202
+78	0	0	16	10	202
 # ani_id	sprite_id	time ...
 [ANIMATIONS]
 # Jason idle left ani
@@ -154,6 +157,8 @@ start	3
 #	<SKULL>
 63	75	100
 64	76	100
+#	<MINE>
+65	78	100	77	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	20	21	22
@@ -171,3 +176,4 @@ start	3
 #	+ 61	62
 15	60
 16	63	64
+17	65

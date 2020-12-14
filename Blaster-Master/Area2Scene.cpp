@@ -13,6 +13,7 @@
 #include "Insect.h"
 #include "Orb.h"
 #include "Skull.h"
+#include "Mine.h"
 
 #include "Dome.h"
 
@@ -42,6 +43,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define OBJECT_TYPE_INSECT		14
 #define OBJECT_TYPE_ORB			15
 #define OBJECT_TYPE_SKULL		16
+#define OBJECT_TYPE_MINE		17
 
 #define MAX_SCENE_LINE 1024
 
@@ -105,6 +107,9 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 		break;
 	case OBJECT_TYPE_SKULL:
 		obj = new Skull();
+		break;
+	case OBJECT_TYPE_MINE:
+		obj = new Mine();
 		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
