@@ -12,12 +12,12 @@
 
 #define MOVE_SPEED 0.05f
 
-class ConSau : public Enemy
+class Worm : public Enemy
 {
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();
 public:
-	ConSau();
+	Worm();
 };
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "GameObject.h"
 
-#define PLAYER_UNTOUCHABLE_TIME 5000
+#define PLAYER_UNTOUCHABLE_TIME 500
 
 
 #define PLAYER_STATE_IDLE			0
@@ -29,6 +29,8 @@ private:
 	float start_y;
 
 	bool isSwitch = false;
+
+	void TruMang();
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);

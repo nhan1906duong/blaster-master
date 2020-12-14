@@ -84,11 +84,26 @@
     <ClCompile Include="ChongNhon.cpp">
       <Filter>Framework\Objects\Static</Filter>
     </ClCompile>
-    <ClCompile Include="ConSau.cpp">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="Dome.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Worm.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Floater.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Jumper.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Insect.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Orb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Skull.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -143,11 +158,26 @@
     <ClInclude Include="Enemy.h">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="ConSau.h">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="Dome.h">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Worm.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Floater.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Jumper.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Insect.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Orb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Skull.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

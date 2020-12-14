@@ -6,8 +6,13 @@
 #include "Textures.h"
 #include "Sprites.h"
 #include "Portal.h"
-#include "ConSau.h"
+#include "Worm.h"
 #include "ChongNhon.h"
+#include "Floater.h"
+#include "Jumper.h"
+#include "Insect.h"
+#include "Orb.h"
+#include "Skull.h"
 
 #include "Dome.h"
 
@@ -30,8 +35,13 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_CHONG_NHON	3
 #define SCENE_SECTION_PORTAL		4
 
-#define OBJECT_TYPE_CON_SAU	10
-#define OBJECT_TYPE_DOME	11
+#define OBJECT_TYPE_CON_SAU		10
+#define OBJECT_TYPE_DOME		11
+#define OBJECT_TYPE_FLOATER		12
+#define OBJECT_TYPE_JUMPER		13
+#define OBJECT_TYPE_INSECT		14
+#define OBJECT_TYPE_ORB			15
+#define OBJECT_TYPE_SKULL		16
 
 #define MAX_SCENE_LINE 1024
 
@@ -76,10 +86,25 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	switch (object_type)
 	{
 	case OBJECT_TYPE_CON_SAU:
-		obj = new ConSau();
+		obj = new Worm();
 		break;
 	case OBJECT_TYPE_DOME:
 		obj = new Dome();
+		break;
+	case OBJECT_TYPE_FLOATER:
+		obj = new Floater();
+		break;
+	case OBJECT_TYPE_JUMPER:
+		obj = new Jumper();
+		break;
+	case OBJECT_TYPE_INSECT:
+		obj = new Insect();
+		break;
+	case OBJECT_TYPE_ORB:
+		obj = new Orb();
+		break;
+	case OBJECT_TYPE_SKULL:
+		obj = new Skull();
 		break;
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);

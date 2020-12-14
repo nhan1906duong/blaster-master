@@ -30,7 +30,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isSwitch) return;
+	if (isSwitch || state == PLAYER_STATE_DIE) return;
 	CGameObject::Update(dt);
 
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
@@ -75,6 +75,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (isSwitch) return;
 			if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
 			{
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
@@ -83,10 +84,12 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 			else if (dynamic_cast<Enemy*>(e->obj))
 			{
+				TruMang();
 				StartUntouchable();
 			}
 			else if (dynamic_cast<ChongNhon*>(e->obj))
 			{
+				TruMang();
 				StartUntouchable();
 			}
 		}
@@ -174,6 +177,10 @@ void CPlayer::SetState(int state)
 		DebugOut(L"[STATE] Idle\n");
 		vx = 0;
 		break;
+	case PLAYER_STATE_DIE:
+		vx = 0;
+		vy = 0;
+		break;
 	}
 }
 
@@ -198,4 +205,22 @@ void CPlayer::Reverse()
 		y += 3;
 	}
 	isSophia = !isSophia;
+}
+
+void CPlayer::TruMang()
+{
+	bool isDie = false;
+	if (isSophia)
+	{
+		--bloodSophia;
+		if (bloodSophia == 0) isDie = true;
+	}
+	else {
+		--bloodJason;
+		if (bloodJason == 0) isDie = true;
+	}
+	if (isDie)
+	{
+		SetState(PLAYER_STATE_DIE);
+	}
 }

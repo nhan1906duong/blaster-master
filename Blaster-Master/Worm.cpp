@@ -1,10 +1,10 @@
-#include "ConSau.h"
+#include "Worm.h"
 #include "GameDefine.h"
 
 #include "Utils.h"
 #include "ChongNhon.h"
 
-void ConSau::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
@@ -12,9 +12,9 @@ void ConSau::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	bottom = y - CONSAU_HEIGHT;
 }
 
-void ConSau::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt);
+	/*CGameObject::Update(dt);
 
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
 
@@ -73,9 +73,10 @@ void ConSau::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	*/
 }
 
-void ConSau::Render()
+void Worm::Render()
 {
 	int ani;
 	if (state == STATE_MOVE)
@@ -90,7 +91,7 @@ void ConSau::Render()
 	RenderBoundingBox();
 }
 
-ConSau::ConSau()
+Worm::Worm()
 {
 	SetState(STATE_FALL);
 	vx = -MOVE_SPEED;

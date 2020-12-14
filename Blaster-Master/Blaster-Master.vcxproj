@@ -24,7 +24,12 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChongNhon.cpp" />
-    <ClCompile Include="ConSau.cpp" />
+    <ClCompile Include="Floater.cpp" />
+    <ClCompile Include="Insect.cpp" />
+    <ClCompile Include="Jumper.cpp" />
+    <ClCompile Include="Orb.cpp" />
+    <ClCompile Include="Skull.cpp" />
+    <ClCompile Include="Worm.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameObject.cpp" />
@@ -43,7 +48,12 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChongNhon.h" />
-    <ClInclude Include="ConSau.h" />
+    <ClInclude Include="Floater.h" />
+    <ClInclude Include="Insect.h" />
+    <ClInclude Include="Jumper.h" />
+    <ClInclude Include="Orb.h" />
+    <ClInclude Include="Skull.h" />
+    <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Game.h" />
