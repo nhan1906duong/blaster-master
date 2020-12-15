@@ -1,7 +1,7 @@
 [TILES]
 resources\map\tile2\	143
 [SETTINGS]
-start	7
+start	1
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt
@@ -11,6 +11,9 @@ start	7
 5	resources\scene5\scene.txt
 6	resources\scene6\scene.txt
 7	resources\scene7\scene.txt
+8	resources\scene8\scene.txt
+9	resources\scene9\scene.txt
+10	resources\scene10\scene.txt
 #
 #
 # id 	file_path	transparent_color_alpha		r	g	b
