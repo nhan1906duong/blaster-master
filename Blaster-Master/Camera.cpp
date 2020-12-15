@@ -64,4 +64,6 @@ void CCamera::UpdateCamera(float player_x, float player_y)
 		cam_y += player_y - bouncing.bottom;
 		if (cam_y < bouncingMapBottom + screen_height) cam_y = bouncingMapBottom + screen_height;
 	}
+
+	if (cam_y < screen_height) cam_y = screen_height;
 }
