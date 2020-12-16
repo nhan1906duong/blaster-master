@@ -6,16 +6,22 @@
 #include "GameObject.h"
 #include "Brick.h"
 #include "Player.h"
+#include "CollisionExplosion.h"
+
+using namespace std;
 
 
 class CArea2Scene : public CScene
 {
+private:
+	void RemoveCollisionObject();
 protected:
 	CPlayer* player;					// A play scene has to have player, right? 
 	CMap* map;
 	CCamera* camera;
 
 	vector<LPGAMEOBJECT> objects;
+	vector<CollisionExplosion*> collisions;
 
 	void _Init_Player(float player_x, float player_y);
 	void _ParseSection_MAP(string map);
@@ -37,7 +43,9 @@ public:
 
 	void GetCameraPosition(float& x, float& y);
 
-	//friend class CPlayScenceKeyHandler;
+	void AddObject(LPGAMEOBJECT object);
+	void RemoveObject(LPGAMEOBJECT object);
+	void AddCollision(float, float);
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler

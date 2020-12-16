@@ -8,6 +8,10 @@
 #include "Enemy.h"
 #include "ChongNhon.h"
 
+// Bullet
+#include "SophiaBullet.h"
+#include "CollisionExplosion.h"
+
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
 	untouchable = 0;
@@ -223,4 +227,20 @@ void CPlayer::TruMang()
 	{
 		SetState(PLAYER_STATE_DIE);
 	}
+}
+
+LPGAMEOBJECT CPlayer::fire()
+{
+	int direction;
+	if (nx > 0)
+	{
+		direction = 1;
+	}
+	else
+	{
+		direction = 2;
+	}
+	SophiaBullet* bullet = new SophiaBullet(direction);
+	bullet->SetPosition(x, y);
+	return bullet;
 }

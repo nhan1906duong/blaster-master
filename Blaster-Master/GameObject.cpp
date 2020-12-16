@@ -11,6 +11,7 @@
 
 CGameObject::CGameObject()
 {
+	shouldRemove = false;
 	x = y = 0;
 	vx = vy = 0;
 	nx = 1;
@@ -132,5 +133,11 @@ void CGameObject::RenderBoundingBox()
 
 CGameObject::~CGameObject()
 {
+
+}
+
+void CGameObject::PrepareToRemove()
+{
+	shouldRemove = true;
 
 }

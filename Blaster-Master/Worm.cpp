@@ -3,6 +3,7 @@
 
 #include "Utils.h"
 #include "ChongNhon.h"
+#include "Bullet.h"
 
 void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
@@ -14,7 +15,7 @@ void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*CGameObject::Update(dt);
+	CGameObject::Update(dt);
 
 	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
 
@@ -67,13 +68,16 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(STATE_FALL);
 				vy = 0.5;
 			}
+			else if (dynamic_cast<Bullet*>(e->obj))
+			{
+				shouldRemove = true;
+			}
 		}
 
 	}
 
 	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
-	*/
 }
 
 void Worm::Render()

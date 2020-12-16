@@ -62,6 +62,8 @@ public:
 
 	LPANIMATION_SET animation_set;
 
+	bool shouldRemove;
+
 public:
 	void SetPosition(float x, float y) { this->x = x, this->y = y; }
 	void SetSpeed(float vx, float vy) { this->vx = vx, this->vy = vy; }
@@ -103,6 +105,7 @@ public:
 	virtual void Render() = 0;
 	virtual void SetState(int state) { this->state = state; }
 
+	void PrepareToRemove();
 
 	~CGameObject();
 };

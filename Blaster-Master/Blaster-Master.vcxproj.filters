@@ -37,14 +37,14 @@
     <Filter Include="Framework\Objects\Enemies">
       <UniqueIdentifier>{c15659e1-dde2-489b-ad70-bc429112e771}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Objects\Bullets">
+      <UniqueIdentifier>{c714ac65-5a81-4b90-983a-a7c1167df749}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Items">
+      <UniqueIdentifier>{a2a75739-b215-4519-a897-24273b5a4e7c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -75,12 +75,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Framework\Objects\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="ChongNhon.cpp">
       <Filter>Framework\Objects\Static</Filter>
     </ClCompile>
@@ -108,19 +102,40 @@
     <ClCompile Include="Skull.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="JasonBullet.cpp">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaBullet.cpp">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Framework\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Framework\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Framework\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionExplosion.cpp">
+      <Filter>Framework\Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="HPItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Utils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Scene.h">
       <Filter>Framework\SceneManager</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Textures.h">
       <Filter>Framework\Core</Filter>
@@ -145,12 +160,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Framework\Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="GameDefine.h">
       <Filter>Framework</Filter>
@@ -184,6 +193,36 @@
     </ClInclude>
     <ClInclude Include="Orb.h">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Framework\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Framework\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionExplosion.h">
+      <Filter>Framework\Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="HPItem.h">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Framework\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

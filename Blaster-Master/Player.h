@@ -1,5 +1,6 @@
 #pragma once
 #include "GameObject.h"
+#include "Bullet.h"
 
 #define PLAYER_UNTOUCHABLE_TIME 500
 
@@ -46,4 +47,6 @@ public:
 	void KeyState(BYTE* states);
 
 	void Reverse();
+
+	LPGAMEOBJECT fire();
 };

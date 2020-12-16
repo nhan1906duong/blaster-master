@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
 
 #include "Area2Scene.h"
 #include "Utils.h"
@@ -14,6 +15,7 @@
 #include "Orb.h"
 #include "Skull.h"
 #include "Mine.h"
+#include "SophiaBullet.h"
 
 #include "Dome.h"
 
@@ -248,6 +250,7 @@ void CArea2Scene::_CheckCameraAndWorldMap()
 
 void CArea2Scene::Update(DWORD dt)
 {
+	RemoveCollisionObject();
 	if (player == NULL) return;
 	vector<LPGAMEOBJECT> coObjects;
 	for (size_t i = 1; i < objects.size(); i++)
@@ -272,6 +275,8 @@ void CArea2Scene::Render()
 	if (map) map->Render(camera);
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
+	for (int i = 0; i < collisions.size(); i++)
+		collisions[i]->Render();
 }
 
 /*
@@ -288,6 +293,34 @@ void CArea2Scene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
+void CArea2Scene::AddObject(LPGAMEOBJECT object)
+{
+	objects.push_back(object);
+}
+
+void CArea2Scene::RemoveObject(LPGAMEOBJECT object)
+{
+	objects.erase(remove(objects.begin(), objects.end(), object), objects.end());
+}
+
+void CArea2Scene::RemoveCollisionObject()
+{
+	objects.erase(remove_if(objects.begin(), objects.end(), [](const LPGAMEOBJECT obj) {
+		return obj->shouldRemove == true;
+	}), objects.end());
+
+	collisions.erase(remove_if(collisions.begin(), collisions.end(), [](const CollisionExplosion* obj) {
+		return obj->shouldRemove == true;
+	}), collisions.end());
+}
+
+void CArea2Scene::AddCollision(float x1, float y1)
+{
+	CollisionExplosion* collision = new CollisionExplosion();
+	collision->SetPosition(x1, y1);
+	collisions.push_back(collision);
+}
+
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
 	CPlayer* mario = ((CArea2Scene*)scence)->GetPlayer();
@@ -295,6 +328,9 @@ void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 	{
 	case DIK_X:
 		mario->SetState(PLAYER_STATE_JUMP);
+		break;
+	case DIK_Z:
+		((CArea2Scene*)scence)->AddObject(mario->fire());
 		break;
 	case DIK_RSHIFT:
 	case DIK_LSHIFT:
