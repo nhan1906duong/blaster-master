@@ -1,29 +1,28 @@
-#include "JasonJumpingState.h"
+#include "SophiaJumpingState.h"
 
-#include "JasonFallingState.h"
+
+#include "SophiaFallingState.h"
 #include "Player.h"
-#include "Utils.h"
 
-JasonJumpingState::JasonJumpingState(PlayerData* data): JasonState(data)
+SophiaJumpingState::SophiaJumpingState(PlayerData* data) : SophiaState(data)
 {
 	acceleratorX = 0.01f;
-	data->player->SetVy(0.01f);
-	DebugOut(L"JasonJumpingState\n");
+	data->player->SetVy(0.7f);
 }
 
-int JasonJumpingState::CurrentAnimationId()
+int SophiaJumpingState::CurrentAnimationId()
 {
-	return 2;
+	return 5;
 }
 
-void JasonJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SophiaJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
-	right = left + JASON_STANDING_WIDTH;
-	bottom = top - JASON_STANDING_HEIGHT;
+	right = left + SOPHIA_DEFAULT_WIDTH;
+	bottom = top - SOPHIA_DEFAULT_HEIGHT;
 }
 
-void JasonJumpingState::KeyState(BYTE* states)
+void SophiaJumpingState::KeyState(BYTE* states)
 {
 
 	if (IsKeyDown(states, DIK_LEFT))
@@ -60,16 +59,12 @@ void JasonJumpingState::KeyState(BYTE* states)
 	}
 }
 
-void JasonJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SophiaJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (data->player->SwitchToSophia())
-	{
-		return;
-	}
 	data->player->AddVy(0.03);
 	if (data->player->GetVy() > 0.2)
 	{
 		data->player->SetVy(0.2);
-		data->player->SetState(new JasonFallingState(data));
+		data->player->SetState(new SophiaFallingState(data));
 	}
 }

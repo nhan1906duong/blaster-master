@@ -1,13 +1,13 @@
 #pragma once
 #include "GameObject.h"
 #include "PlayerData.h"
+#include "SophiaState.h"
 
 #define PLAYER_UNTOUCHABLE_TIME 500
 
 class CPlayer : public CGameObject
 {
 private:
-	bool isSophia;
 	bool isOverworld;
 
 	int bloodSophia;
@@ -15,6 +15,9 @@ private:
 
 	float sophia_x;
 	float sophia_y;
+	int sophia_nx;
+
+	bool isSwitchState;
 
 	int untouchable;
 	DWORD untouchable_start;
@@ -36,6 +39,13 @@ private:
 		return (states[keyCode] & 0x80) > 0;
 	}
 
+	bool IsSophiaState()
+	{
+		return dynamic_cast<SophiaState*>(playerData->playerState);
+	}
+
+	void Switch();
+
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
@@ -53,7 +63,7 @@ public:
 
 	void SetState(PlayerState* state);
 
-	void Reverse();
+	bool SwitchToSophia();
 
 	LPGAMEOBJECT fire();
 };

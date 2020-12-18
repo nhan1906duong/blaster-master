@@ -162,6 +162,18 @@
     <ClCompile Include="JasonDieState.cpp">
       <Filter>Framework\Objects\Player\jason</Filter>
     </ClCompile>
+    <ClCompile Include="SophiaFallingState.cpp">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaDieState.cpp">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaJumpingState.cpp">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaRunningState.cpp">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -292,6 +304,18 @@
     </ClInclude>
     <ClInclude Include="JasonDieState.h">
       <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaFallingState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaDieState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaRunningState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaJumpingState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

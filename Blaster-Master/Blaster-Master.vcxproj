@@ -42,6 +42,10 @@
     <ClCompile Include="Orb.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="SophiaBullet.cpp" />
+    <ClCompile Include="SophiaDieState.cpp" />
+    <ClCompile Include="SophiaFallingState.cpp" />
+    <ClCompile Include="SophiaJumpingState.cpp" />
+    <ClCompile Include="SophiaRunningState.cpp" />
     <ClCompile Include="SophiaStandingState.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="Dome.cpp" />
@@ -84,6 +88,10 @@
     <ClInclude Include="PlayerState.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="SophiaBullet.h" />
+    <ClInclude Include="SophiaDieState.h" />
+    <ClInclude Include="SophiaFallingState.h" />
+    <ClInclude Include="SophiaJumpingState.h" />
+    <ClInclude Include="SophiaRunningState.h" />
     <ClInclude Include="SophiaStandingState.h" />
     <ClInclude Include="SophiaState.h" />
     <ClInclude Include="Worm.h" />
