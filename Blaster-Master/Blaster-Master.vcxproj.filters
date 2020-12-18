@@ -43,6 +43,15 @@
     <Filter Include="Framework\Objects\Items">
       <UniqueIdentifier>{a2a75739-b215-4519-a897-24273b5a4e7c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Objects\Player\jason">
+      <UniqueIdentifier>{d626e1b1-9555-4c4d-a0c7-fa4ad8961465}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Player\sophia">
+      <UniqueIdentifier>{7e2e767b-0822-44a1-8092-04f54c43e9dd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Objects\Player\overworld">
+      <UniqueIdentifier>{21b47d97-fa96-47af-a3f0-a5f7b41573c7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -128,6 +137,30 @@
     </ClCompile>
     <ClCompile Include="Item.cpp">
       <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="SophiaStandingState.cpp">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonStandingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonRunningState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonJumpingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonCrawlingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonLieingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonFallingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonDieState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -223,6 +256,42 @@
     </ClInclude>
     <ClInclude Include="Item.h">
       <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerState.h">
+      <Filter>Framework\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerData.h">
+      <Filter>Framework\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="SophiaStandingState.h">
+      <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonStandingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonRunningState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonJumpingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonCrawlingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonLieingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonFallingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonDieState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

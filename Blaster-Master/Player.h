@@ -1,15 +1,8 @@
 #pragma once
 #include "GameObject.h"
-#include "Bullet.h"
+#include "PlayerData.h"
 
 #define PLAYER_UNTOUCHABLE_TIME 500
-
-
-#define PLAYER_STATE_IDLE			0
-#define PLAYER_STATE_WALKING_RIGHT	100
-#define PLAYER_STATE_WALKING_LEFT	200
-#define PLAYER_STATE_JUMP			300
-#define PLAYER_STATE_DIE			400
 
 class CPlayer : public CGameObject
 {
@@ -32,12 +25,22 @@ private:
 	bool isSwitch = false;
 
 	void TruMang();
+	
+	PlayerData* playerData;
+
+	bool isLeftOrRightPressed = false;
+
+
+	int IsKeyDown(BYTE* states, int keyCode)
+	{
+		return (states[keyCode] & 0x80) > 0;
+	}
+
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
-	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();
@@ -45,6 +48,10 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	void KeyState(BYTE* states);
+	void OnKeyDown(int keyCode);
+	void OnKeyUp(int keyCode);
+
+	void SetState(PlayerState* state);
 
 	void Reverse();
 

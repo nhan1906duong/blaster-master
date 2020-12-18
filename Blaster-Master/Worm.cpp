@@ -92,7 +92,7 @@ void Worm::Render()
 		ani = 0;
 	}
 	animation_set->at(ani)->Render(x, y, 255, nx > 0);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 Worm::Worm()
