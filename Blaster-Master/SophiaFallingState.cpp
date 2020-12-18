@@ -1,28 +1,29 @@
-#include "JasonFallingState.h"
+#include "SophiaFallingState.h"
+
 #include "Player.h"
 
 #include "Utils.h"
 
-JasonFallingState::JasonFallingState(PlayerData* data) : JasonState(data)
+SophiaFallingState::SophiaFallingState(PlayerData* data) : SophiaState(data)
 {
 	acceleratorX = 0.01f;
 	isLeftOrRightPressed = false;
-	DebugOut(L"JasonFallingState\n");
+	DebugOut(L"SophiaFallingState\n");
 }
 
-int JasonFallingState::CurrentAnimationId()
+int SophiaFallingState::CurrentAnimationId()
 {
-	return 2;
+	return 12;
 }
 
-void JasonFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SophiaFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
-	right = left + JASON_STANDING_WIDTH;
-	bottom = top - JASON_STANDING_HEIGHT;
+	right = left + SOPHIA_DEFAULT_WIDTH;
+	bottom = top - SOPHIA_FALLING_HEIGHT;
 }
 
-void JasonFallingState::KeyState(BYTE* states)
+void SophiaFallingState::KeyState(BYTE* states)
 {
 
 	if (IsKeyDown(states, DIK_LEFT))
@@ -65,13 +66,7 @@ void JasonFallingState::KeyState(BYTE* states)
 	}
 }
 
-void JasonFallingState::OnKeyDown(int keyCode)
+void SophiaFallingState::OnKeyDown(int keyCode)
 {
 
-}
-
-
-void JasonFallingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
-{
-	data->player->SwitchToSophia();
 }

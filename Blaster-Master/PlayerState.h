@@ -12,8 +12,8 @@ public:
 	PlayerState(PlayerData* data) { this->data = data; };
 
 	virtual int CurrentAnimationId() = 0;
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects) {};
 	virtual void GetBoundingBox(float&, float&, float&, float&) = 0;
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects) {};
 	virtual void KeyState(BYTE* states) {};
 	virtual void OnKeyDown(int keyCode) {};
 	virtual void OnKeyUp(int keyCode) {};

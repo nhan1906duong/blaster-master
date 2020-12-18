@@ -1,19 +1,16 @@
 #pragma once
-#include "JasonState.h"
-
-class JasonFallingState: public JasonState
+#include "SophiaState.h"
+class SophiaRunningState: public SophiaState
 {
 private:
 	float acceleratorX;
-	bool isLeftOrRightPressed;
 public:
-	JasonFallingState(PlayerData* data);
+	SophiaRunningState(PlayerData* data);
 
 	int CurrentAnimationId();
 	void GetBoundingBox(float&, float&, float&, float&);
 
 	void KeyState(BYTE* states);
 	void OnKeyDown(int keyCode);
-	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects);
 };
 
