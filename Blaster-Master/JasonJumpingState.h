@@ -3,6 +3,8 @@
 
 class JasonJumpingState: public JasonState
 {
+private:
+	float acceleratorX;
 public:
 	JasonJumpingState(PlayerData* data);
 	int CurrentAnimationId();

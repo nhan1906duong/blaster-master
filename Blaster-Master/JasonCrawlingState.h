@@ -3,6 +3,9 @@
 
 class JasonCrawlingState: public JasonState
 {
+private:
+	float acceleratorX;
+	bool isLeftOrRightPressed;
 public:
 	JasonCrawlingState(PlayerData* data);
 

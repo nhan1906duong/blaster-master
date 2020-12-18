@@ -1,8 +1,6 @@
 #pragma once
 #include "JasonState.h"
 
-#define MAX_VX 0.05f
-
 class JasonRunningState: public JasonState
 {
 private:

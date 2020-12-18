@@ -2,12 +2,16 @@
 
 #include "JasonRunningState.h"
 #include "JasonJumpingState.h"
+#include "JasonLieingState.h"
 
 #include "Player.h"
+#include "Utils.h"
 
 JasonStandingState::JasonStandingState(PlayerData* data) : JasonState(data)
 {
+	DebugOut(L"JasonStandingState\n");
 	data->player->SetVx(0);
+	data->player->SetVy(0);
 }
 
 int JasonStandingState::CurrentAnimationId()
@@ -42,6 +46,10 @@ void JasonStandingState::OnKeyDown(int keyCode)
 	{
 		case DIK_X:
 			data->player->SetState(new JasonJumpingState(data));
+			break;
+		case DIK_DOWN:
+			data->player->AddPosition(0, -7.9);
+			data->player->SetState(new JasonLieingState(data));
 			break;
 	}
 }

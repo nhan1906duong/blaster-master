@@ -7,7 +7,7 @@
 
 JasonRunningState::JasonRunningState(PlayerData* data) : JasonState(data)
 {
-	acceleratorX = 0.01f;
+	acceleratorX = 0.02f;
 }
 
 int JasonRunningState::CurrentAnimationId()

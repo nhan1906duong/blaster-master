@@ -4,13 +4,6 @@
 
 #define PLAYER_UNTOUCHABLE_TIME 500
 
-
-#define PLAYER_STATE_IDLE			0
-#define PLAYER_STATE_WALKING_RIGHT	100
-#define PLAYER_STATE_WALKING_LEFT	200
-#define PLAYER_STATE_JUMP			300
-#define PLAYER_STATE_DIE			400
-
 class CPlayer : public CGameObject
 {
 private:
@@ -35,12 +28,19 @@ private:
 	
 	PlayerData* playerData;
 
+	bool isLeftOrRightPressed = false;
+
+
+	int IsKeyDown(BYTE* states, int keyCode)
+	{
+		return (states[keyCode] & 0x80) > 0;
+	}
+
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
-	void SetState(int state);
 	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
 
 	void Reset();

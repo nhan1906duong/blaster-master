@@ -3,6 +3,9 @@
 
 class JasonFallingState: public JasonState
 {
+private:
+	float acceleratorX;
+	bool isLeftOrRightPressed;
 public:
 	JasonFallingState(PlayerData* data);
 

@@ -159,6 +159,9 @@
     <ClCompile Include="JasonFallingState.cpp">
       <Filter>Framework\Objects\Player\jason</Filter>
     </ClCompile>
+    <ClCompile Include="JasonDieState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -285,6 +288,9 @@
       <Filter>Framework\Objects\Player\jason</Filter>
     </ClInclude>
     <ClInclude Include="JasonFallingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonDieState.h">
       <Filter>Framework\Objects\Player\jason</Filter>
     </ClInclude>
   </ItemGroup>
