@@ -12,9 +12,15 @@
 #include "SophiaBullet.h"
 #include "CollisionExplosion.h"
 
+// State
+#include "SophiaStandingState.h"
+#include "JasonStandingState.h"
+#include "JasonJumpingState.h"
+#include "JasonFallingState.h"
+
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
-	untouchable = 0;
+	/*untouchable = 0;
 
 	isSophia = true;
 
@@ -25,11 +31,15 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 	start_x = x;
 	start_y = y;
+
+	bloodSophia = 7;
+	bloodJason = 7;*/
 	this->x = x;
 	this->y = y;
 
-	bloodSophia = 7;
-	bloodJason = 7;
+	playerData = new PlayerData();
+	playerData->player = this;
+	SetState(new JasonStandingState(playerData));
 }
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -60,6 +70,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
+		SetState(new JasonFallingState(playerData));
 	}
 	else
 	{
@@ -73,7 +84,14 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y += min_ty * dy + 0.1f * ny;
 
 		if (nx != 0) vx = 0;
-		if (ny != 0) vy = 0;
+		if (ny != 0)
+		{
+			vy = 0;
+			if (dynamic_cast<JasonJumpingState*>(playerData->playerState) || dynamic_cast<JasonFallingState*>(playerData->playerState))
+			{
+				SetState(new JasonStandingState(playerData));
+			}
+		}
 
 
 		for (UINT i = 0; i < coEventsResult.size(); i++)
@@ -105,7 +123,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 void CPlayer::Render()
 {
-	int ani = -1;
+	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, 255, nx > 0);
+	//playerData->playerState->Render();
+	/*int ani = -1;
 	if (state == PLAYER_STATE_DIE)
 		ani = 5;
 	else
@@ -130,11 +150,13 @@ void CPlayer::Render()
 	animation_set->at(ani)->Render(x, y, alpha, nx > 0);
 
 	//RenderBoundingBox();
+	*/
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
-	left = x;
+	playerData->playerState->GetBoundingBox(left, top, right, bottom);
+	/*left = x;
 	top = y;
 	if (isSophia)
 	{
@@ -145,7 +167,7 @@ void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& botto
 	{
 		bottom = y - 16;
 		right = x + 8;
-	}
+	}*/
 }
 
 /*
@@ -191,15 +213,7 @@ void CPlayer::SetState(int state)
 
 void CPlayer::KeyState(BYTE* states)
 {
-	CGame* game = CGame::GetInstance();
-	// disable control key when Mario die 
-	if (state == PLAYER_STATE_DIE) return;
-	if (game->IsKeyDown(DIK_RIGHT))
-		SetState(PLAYER_STATE_WALKING_RIGHT);
-	else if (game->IsKeyDown(DIK_LEFT))
-		SetState(PLAYER_STATE_WALKING_LEFT);
-	else if (state == PLAYER_STATE_WALKING_RIGHT || state == PLAYER_STATE_WALKING_LEFT)
-		SetState(PLAYER_STATE_IDLE);
+	playerData->playerState->KeyState(states);
 }
 
 void CPlayer::Reverse()
@@ -243,4 +257,21 @@ LPGAMEOBJECT CPlayer::fire()
 	SophiaBullet* bullet = new SophiaBullet(direction);
 	bullet->SetPosition(x, y);
 	return bullet;
+}
+
+void CPlayer::OnKeyUp(int keyCode)
+{
+	playerData->playerState->OnKeyUp(keyCode);
+}
+
+void CPlayer::OnKeyDown(int keyCode)
+{
+	playerData->playerState->OnKeyDown(keyCode);
+
+}
+
+void CPlayer::SetState(PlayerState* newState)
+{
+	delete playerData->playerState;
+	playerData->playerState = newState;
 }

@@ -77,6 +77,7 @@ public:
 	float GetVx() { return this->vx; }
 	float GetVy() { return this->vy; }
 
+	void AddPosition(float dx, float dy) { x += dx; y += dy; }
 	void GetPosition(float& x, float& y) { x = this->x; y = this->y; }
 	void GetSpeed(float& vx, float& vy) { vx = this->vx; vy = this->vy; }
 

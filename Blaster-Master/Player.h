@@ -1,6 +1,6 @@
 #pragma once
 #include "GameObject.h"
-#include "Bullet.h"
+#include "PlayerData.h"
 
 #define PLAYER_UNTOUCHABLE_TIME 500
 
@@ -32,6 +32,9 @@ private:
 	bool isSwitch = false;
 
 	void TruMang();
+	
+	PlayerData* playerData;
+
 public:
 	CPlayer(float x = 0.0f, float y = 0.0f);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
@@ -45,6 +48,10 @@ public:
 	virtual void GetBoundingBox(float& left, float& top, float& right, float& bottom);
 
 	void KeyState(BYTE* states);
+	void OnKeyDown(int keyCode);
+	void OnKeyUp(int keyCode);
+
+	void SetState(PlayerState* state);
 
 	void Reverse();
 

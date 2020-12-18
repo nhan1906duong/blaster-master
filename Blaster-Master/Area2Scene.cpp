@@ -323,36 +323,17 @@ void CArea2Scene::AddCollision(float x1, float y1)
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
 {
-	CPlayer* mario = ((CArea2Scene*)scence)->GetPlayer();
-	switch (KeyCode)
-	{
-	case DIK_X:
-		mario->SetState(PLAYER_STATE_JUMP);
-		break;
-	case DIK_Z:
-		((CArea2Scene*)scence)->AddObject(mario->fire());
-		break;
-	case DIK_RSHIFT:
-	case DIK_LSHIFT:
-		mario->Reverse();
-		break;
-	case DIK_A:
-		mario->Reset();
-		break;
-	}
+	((CArea2Scene*)scence)->GetPlayer()->OnKeyDown(KeyCode);
 }
 
 void CPlayScenceKeyHandler::OnKeyUp(int keyCode)
 {
-
+	((CArea2Scene*)scence)->GetPlayer()->OnKeyUp(keyCode);
 }
 
 void CPlayScenceKeyHandler::KeyState(BYTE* states)
 {
-	CGame* game = CGame::GetInstance();
-	CPlayer* player = ((CArea2Scene*)scence)->GetPlayer();
-
-	player->KeyState(states);
+	((CArea2Scene*)scence)->GetPlayer()->KeyState(states);
 }
 
 void CArea2Scene::GetCameraPosition(float& x, float& y)
