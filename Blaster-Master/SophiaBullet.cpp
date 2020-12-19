@@ -78,9 +78,6 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		
 		PrepareToRemove();
 
-		//((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(collision_x, collision_y);*/
-
-
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
