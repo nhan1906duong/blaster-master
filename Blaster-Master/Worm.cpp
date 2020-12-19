@@ -68,10 +68,6 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(STATE_FALL);
 				vy = 0.5;
 			}
-			else if (dynamic_cast<Bullet*>(e->obj))
-			{
-				shouldRemove = true;
-			}
 		}
 
 	}

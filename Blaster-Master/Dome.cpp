@@ -3,7 +3,7 @@
 
 Dome::Dome()
 {
-
+	blood = 4;
 }
 
 void Dome::Render()
@@ -14,9 +14,6 @@ void Dome::Render()
 void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	CGameObject::Update(dt);
-
-	//vy += GameDefine::ACCELERATOR_GRAVITY * dt;
-
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -49,15 +46,6 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (ny != 0)
 		{
 			vy = 0;
-		}
-
-		for (int i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Bullet*>(e->obj))
-			{
-				shouldRemove = true;
-			}
 		}
 
 	}

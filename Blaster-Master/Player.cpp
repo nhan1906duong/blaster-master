@@ -10,6 +10,7 @@
 
 // Bullet
 #include "SophiaBullet.h"
+#include "JasonBullet.h"
 #include "CollisionExplosion.h"
 
 // State
@@ -26,6 +27,8 @@
 #include "JasonRunningState.h"
 #include "JasonDieState.h"
 #include "JasonCrawlingState.h"
+
+#include "Area2Scene.h"
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
@@ -215,20 +218,29 @@ void CPlayer::TruMang()
 	}
 }
 
-LPGAMEOBJECT CPlayer::fire()
+void CPlayer::fire()
 {
-	int direction;
-	if (nx > 0)
+	if (IsSophiaState())
 	{
-		direction = 1;
+		int direction;
+		if (nx > 0)
+		{
+			direction = 1;
+		}
+		else
+		{
+			direction = 2;
+		}
+		SophiaBullet* bullet = new SophiaBullet(direction);
+		bullet->SetPosition(x, y);
+		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddObject(bullet);
 	}
 	else
 	{
-		direction = 2;
+		JasonBullet* bullet = new JasonBullet(nx);
+		bullet->SetPosition(x, y);
+		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddObject(bullet);
 	}
-	SophiaBullet* bullet = new SophiaBullet(direction);
-	bullet->SetPosition(x, y);
-	return bullet;
 }
 
 void CPlayer::OnKeyUp(int keyCode)
@@ -241,6 +253,9 @@ void CPlayer::OnKeyDown(int keyCode)
 	playerData->playerState->OnKeyDown(keyCode);
 	switch (keyCode)
 	{
+		case DIK_Z:
+			fire();
+			break;
 		case DIK_LSHIFT:
 		case DIK_RSHIFT:
 			Switch();

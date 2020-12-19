@@ -3,6 +3,12 @@
 
 class Bullet: public CGameObject
 {
-
+protected:
+	int power;
+public:
+	int GetPower()
+	{
+		return power;
+	}
 };
 

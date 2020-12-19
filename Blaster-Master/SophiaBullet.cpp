@@ -1,6 +1,7 @@
 #include "SophiaBullet.h"
 #include "Game.h"
 #include "Area2Scene.h"
+#include "Enemy.h"
 
 /** direct	1	LeftToRight
 *			2	RightToLeft
@@ -8,6 +9,7 @@
 */
 SophiaBullet::SophiaBullet(int direct)
 {
+	power = 2;
 	this->direct = direct;
 	if (direct == 1)
 	{
@@ -73,20 +75,22 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		x += min_tx * dx + nx * 0.1f;
 		y += min_ty * dy + ny * 0.1f;
-		vx = vy = 0;
+		
 		PrepareToRemove();
-		float collision_x, collision_y;
-		if (direct == 1)
+
+		//((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(collision_x, collision_y);*/
+
+
+		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
-			collision_x = x + 12;
-			collision_y = y;
+			LPCOLLISIONEVENT e = coEventsResult[i];
+			if (dynamic_cast<Enemy*>(e->obj))
+			{
+				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+				enemy->BeenShot(this);
+			}
 		}
-		else
-		{
-			collision_x = x - 12;
-			collision_y = y;
-		}
-		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(collision_x, collision_y);
+
 	}
 
 	// clean up collision events

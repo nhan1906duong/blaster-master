@@ -65,5 +65,5 @@ public:
 
 	bool SwitchToSophia();
 
-	LPGAMEOBJECT fire();
+	void fire();
 };
