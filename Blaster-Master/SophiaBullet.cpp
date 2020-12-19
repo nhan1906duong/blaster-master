@@ -13,15 +13,15 @@ SophiaBullet::SophiaBullet(int direct)
 	this->direct = direct;
 	if (direct == 1)
 	{
-		vx = 0.03f;
+		vx = V_SPEED;
 	}
 	else if (direct == 2)
 	{
-		vx = -0.03f;
+		vx = -V_SPEED;
 	}
 	else
 	{
-		vy = 0.03f;
+		vy = V_SPEED;
 	}
 	animation_set = CAnimationSets::GetInstance()->Get(18);
 }

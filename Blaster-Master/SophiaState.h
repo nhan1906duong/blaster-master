@@ -6,9 +6,9 @@
 
 #define SOPHIA_FALLING_HEIGHT	16
 
-#define MAX_VX		0.1f
+#define MAX_VX		0.07f
 #define MAX_VY		0.15f
-#define MAX_HOLD_VY 0.2f
+#define MAX_HOLD_VY 0.18f
 
 class SophiaState : public PlayerState
 {

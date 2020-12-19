@@ -2,7 +2,7 @@
 #include "Bullet.h"
 
 #define SIZE	4
-#define VX		0.1f
+#define V_SPEED		0.1f
 
 class JasonBullet: public Bullet
 {

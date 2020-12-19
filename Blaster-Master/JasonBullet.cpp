@@ -7,7 +7,7 @@ JasonBullet::JasonBullet(int nx)
 	power = 1;
 	this->nx = nx;
 	animation_set = CAnimationSets::GetInstance()->Get(21);
-	SetVx(nx*VX);
+	SetVx(nx*V_SPEED);
 }
 
 void JasonBullet::Render()
