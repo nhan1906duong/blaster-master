@@ -7,12 +7,14 @@
 SophiaJumpingState::SophiaJumpingState(PlayerData* data) : SophiaState(data)
 {
 	acceleratorX = 0.01f;
-	data->player->SetVy(0.7f);
+	data->player->SetVy(0.01f);
+	acceleratorY = 0.015f;
+	isHoldJump = false;
 }
 
 int SophiaJumpingState::CurrentAnimationId()
 {
-	return 5;
+	return 12;
 }
 
 void SophiaJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -57,14 +59,31 @@ void SophiaJumpingState::KeyState(BYTE* states)
 			}
 		}
 	}
+	if (IsKeyDown(states, DIK_X))
+	{
+		isHoldJump = true;
+	}
+	else
+	{
+		isHoldJump = false;
+	}
 }
 
 void SophiaJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	data->player->AddVy(0.03);
-	if (data->player->GetVy() > 0.2)
+	float max_vy;
+	if (isHoldJump)
 	{
-		data->player->SetVy(0.2);
+		max_vy = MAX_HOLD_VY;
+	}
+	else
+	{
+		max_vy = MAX_VY;
+	}
+	data->player->AddVy(acceleratorY);
+	if (data->player->GetVy() > max_vy)
+	{
+		data->player->SetVy(max_vy);
 		data->player->SetState(new SophiaFallingState(data));
 	}
 }

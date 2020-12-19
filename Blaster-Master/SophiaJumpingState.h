@@ -4,7 +4,8 @@
 class SophiaJumpingState: public SophiaState
 {
 private:
-	float acceleratorX;
+	float acceleratorX, acceleratorY;
+	bool isHoldJump;
 public:
 	SophiaJumpingState(PlayerData* data);
 	int CurrentAnimationId();
