@@ -22,6 +22,7 @@
 #include "SophiaStraightJumpingState.h"
 #include "SophiaStraightRunningState.h"
 #include "SophiaStraightStandingState.h"
+#include "SophiaDieState.h"
 
 
 #include "JasonStandingState.h"
@@ -57,7 +58,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isSwitch || dynamic_cast<JasonDieState*>(playerData->playerState)) return;
+	if (isSwitch || dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
 
 	playerData->playerState->Update(dt, coObjects);
 
@@ -232,19 +233,21 @@ void CPlayer::KeyState(BYTE* states)
 
 void CPlayer::TruMang()
 {
-	bool isDie = false;
 	if (IsSophiaState())
 	{
 		--bloodSophia;
-		if (bloodSophia == 0) isDie = true;
+		if (bloodSophia == 0)
+		{
+			SetState(new SophiaDieState(playerData));
+		}
+
 	}
 	else {
 		--bloodJason;
-		if (bloodJason == 0) isDie = true;
-	}
-	if (isDie)
-	{
-		SetState(new JasonDieState(playerData));
+		if (bloodJason == 0)
+		{
+			SetState(new JasonDieState(playerData));
+		}
 	}
 }
 

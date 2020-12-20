@@ -277,6 +277,7 @@ void CArea2Scene::Render()
 		objects[i]->Render();
 	for (int i = 0; i < collisions.size(); i++)
 		collisions[i]->Render();
+	_DrawBlood();
 }
 
 /*
@@ -340,4 +341,41 @@ void CArea2Scene::GetCameraPosition(float& x, float& y)
 {
 	x = camera->GetCamX();
 	y = camera->GetCamY();
+}
+
+void CArea2Scene::_DrawBlood()
+{
+	int blood = player->GetBlood();
+	int sprite;
+	switch (blood)
+	{
+		case 8:
+			sprite = 86;
+			break;
+		case 7:
+			sprite = 87;
+			break;
+		case 6:
+			sprite = 88;
+			break;
+		case 5:
+			sprite = 89;
+			break;
+		case 4:
+			sprite = 90;
+			break;
+		case 3:
+			sprite = 91;
+			break;
+		case 2:
+			sprite = 92;
+			break;
+		case 1:
+			sprite = 93;
+			break;
+		default:
+			sprite = 94;
+			break;
+	}
+	CSprites::GetInstance()->Get(sprite)->Draw(camera->GetCamX() + 20, camera->GetCamY() + 100 - CGame::GetInstance()->GetScreenHeight());
 }

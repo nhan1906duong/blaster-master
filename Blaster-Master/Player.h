@@ -66,5 +66,17 @@ public:
 
 	bool SwitchToSophia();
 
+	int GetBlood()
+	{
+		if (IsSophiaState())
+		{
+			return bloodSophia;
+		}
+		else
+		{
+			return bloodJason;
+		}
+	}
+
 	void fire();
 };

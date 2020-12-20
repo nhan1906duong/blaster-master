@@ -23,6 +23,7 @@ start	1
 201	resources\player\sophia.png	255	128	128	128
 202	resources\enemies\enemies.png	0	255	255	255
 203	resources\items\items.png	0	255	255	255
+204	resources\items\blood.png	255	45	52	205
 # sprite_id	left	top	right	bottom	texture_id
 [SPRITES]
 # Jason idle left
@@ -133,6 +134,16 @@ start	1
 
 #	<Items>
 85	255	109	271	125	203
+#	<Blood-state>
+86	10	10	29	82	204
+87	32	10	51	82	204
+88	55	10	74	82	204
+89	78	10	97	82	204
+90	102	10	121	82	204
+91	126	10	145	82	204
+92	150	10	169	82	204
+93	175	10	194	82	204
+94	200	10	219	82	204
 
 # ani_id	sprite_id	time ...
 [ANIMATIONS]

@@ -31,6 +31,7 @@ protected:
 	void _ParseSection_PORTAL(string);
 	void _CheckCameraAndWorldMap();
 
+	void _DrawBlood();
 public:
 	CArea2Scene(int id, LPCWSTR filePath);
 
