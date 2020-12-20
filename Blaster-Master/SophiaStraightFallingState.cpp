@@ -1,30 +1,31 @@
-#include "SophiaFallingState.h"
+#include "SophiaStraightFallingState.h"
+
 
 #include "Player.h"
-#include "SophiaStraightFallingState.h"
+#include "SophiaFallingState.h"
 
 #include "Utils.h"
 
-SophiaFallingState::SophiaFallingState(PlayerData* data) : SophiaState(data)
+SophiaStraightFallingState::SophiaStraightFallingState(PlayerData* data) : SophiaStraightState(data)
 {
 	acceleratorX = 0.01f;
 	isLeftOrRightPressed = false;
 	DebugOut(L"SophiaStraightFallingState\n");
 }
 
-int SophiaFallingState::CurrentAnimationId()
+int SophiaStraightFallingState::CurrentAnimationId()
 {
-	return 12;
+	return 16;
 }
 
-void SophiaFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SophiaStraightFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
 	bottom = top - SOPHIA_FALLING_HEIGHT;
 }
 
-void SophiaFallingState::KeyState(BYTE* states)
+void SophiaStraightFallingState::KeyState(BYTE* states)
 {
 
 	if (IsKeyDown(states, DIK_LEFT))
@@ -67,12 +68,17 @@ void SophiaFallingState::KeyState(BYTE* states)
 	}
 }
 
-void SophiaFallingState::OnKeyDown(int keyCode)
+void SophiaStraightFallingState::OnKeyDown(int keyCode)
+{
+
+}
+
+void SophiaStraightFallingState::OnKeyUp(int keyCode)
 {
 	switch (keyCode)
 	{
 		case DIK_UP:
-			data->player->SetState(new SophiaStraightFallingState(data));
+			data->player->SetState(new SophiaFallingState(data));
 			break;
 	}
 }

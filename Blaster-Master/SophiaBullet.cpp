@@ -38,14 +38,23 @@ void SophiaBullet::Render()
 		ani = 0;
 	}
 	animation_set->at(ani)->Render(x, y, 255, direct == 1);
+	RenderBoundingBox();
 }
 
 void SophiaBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
 	top = y;
-	right = x + SOPHIA_BULLET_WIDTH;
-	bottom = y - SOPHIA_BULLET_HEIGHT;
+	if (direct == 3)
+	{
+		right = x + SOPHIA_BULLET_HEIGHT;
+		bottom = y - SOPHIA_BULLET_WIDTH;
+	}
+	else
+	{
+		right = x + SOPHIA_BULLET_WIDTH;
+		bottom = y - SOPHIA_BULLET_HEIGHT;
+	}
 }
 
 void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

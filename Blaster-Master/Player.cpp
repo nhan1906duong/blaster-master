@@ -18,6 +18,10 @@
 #include "SophiaFallingState.h"
 #include "SophiaJumpingState.h"
 #include "SophiaRunningState.h"
+#include "SophiaStraightFallingState.h"
+#include "SophiaStraightJumpingState.h"
+#include "SophiaStraightRunningState.h"
+#include "SophiaStraightStandingState.h"
 
 
 #include "JasonStandingState.h"
@@ -84,11 +88,20 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (!dynamic_cast<JasonJumpingState*>(playerData->playerState) &&
 			!dynamic_cast<JasonFallingState*>(playerData->playerState) &&
 			!dynamic_cast<SophiaFallingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaJumpingState*>(playerData->playerState))
+			!dynamic_cast<SophiaJumpingState*>(playerData->playerState) &&
+			!dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) &&
+			!dynamic_cast<SophiaStraightFallingState*>(playerData->playerState))
 		{
 			if (IsSophiaState())
 			{
-				SetState(new SophiaFallingState(playerData));
+				if (isUpPressed)
+				{
+					SetState(new SophiaStraightFallingState(playerData));
+				}
+				else
+				{
+					SetState(new SophiaFallingState(playerData));
+				}
 			}
 			else
 			{
@@ -113,13 +126,22 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = 0;
 			if (dynamic_cast<JasonJumpingState*>(playerData->playerState) ||
 				dynamic_cast<JasonFallingState*>(playerData->playerState) ||
-				dynamic_cast<SophiaFallingState*>(playerData->playerState) || 
-				dynamic_cast<SophiaJumpingState*>(playerData->playerState))
+				dynamic_cast<SophiaFallingState*>(playerData->playerState) ||
+				dynamic_cast<SophiaJumpingState*>(playerData->playerState) ||
+				dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) ||
+				dynamic_cast<SophiaStraightFallingState*>(playerData->playerState))
 			{
 				if (IsSophiaState())
 				{
 					AddPosition(0, 2.1);
-					SetState(new SophiaStandingState(playerData));
+					if (isUpPressed)
+					{
+						SetState(new SophiaStraightStandingState(playerData));
+					}
+					else
+					{
+						SetState(new SophiaStandingState(playerData));
+					}
 				}
 				else
 				{
@@ -198,6 +220,14 @@ void CPlayer::KeyState(BYTE* states)
 	{
 		isLeftOrRightPressed = false;
 	}
+	if (IsKeyDown(states, DIK_UP))
+	{
+		isUpPressed = true;
+	}
+	else
+	{
+		isUpPressed = false;
+	}
 }
 
 void CPlayer::TruMang()
@@ -223,13 +253,20 @@ void CPlayer::fire()
 	if (IsSophiaState())
 	{
 		int direction;
-		if (nx > 0)
+		if (dynamic_cast<SophiaStraightState*>(playerData->playerState))
 		{
-			direction = 1;
+			direction = 3;
 		}
 		else
 		{
-			direction = 2;
+			if (nx > 0)
+			{
+				direction = 1;
+			}
+			else
+			{
+				direction = 2;
+			}
 		}
 		SophiaBullet* bullet = new SophiaBullet(direction);
 		bullet->SetPosition(x, y);

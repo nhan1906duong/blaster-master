@@ -2,6 +2,7 @@
 
 #include "SophiaRunningState.h"
 #include "SophiaJumpingState.h"
+#include "SophiaDiagonalStandingState.h"
 
 #include "JasonStandingState.h"
 
@@ -49,27 +50,18 @@ void SophiaStandingState::OnKeyDown(int keyCode)
 {
 	switch (keyCode)
 	{
-	case DIK_X:
-		data->player->SetState(new SophiaJumpingState(data));
-		break;
+		case DIK_UP:
+			data->player->SetState(new SophiaDiagonalStandingState(data));
+			break;
+		case DIK_X:
+			data->player->SetState(new SophiaJumpingState(data));
+			break;
 	}
 }
 
 void SophiaStandingState::OnKeyUp(int keyCode)
 {
-	/*switch (keyCode)
-	{
-		case DIK_UP:
-			if (huong == 2)
-			{
-				huong = 1;
-			}
-			else
-			{
-				huong = 0;
-			}
-			break;
-	}*/
+
 }
 
 void SophiaStandingState::KeyState(BYTE* states)

@@ -1,31 +1,32 @@
-#include "SophiaRunningState.h"
-
-#include "SophiaStandingState.h"
 #include "SophiaStraightRunningState.h"
-#include "SophiaJumpingState.h"
+
+
+#include "SophiaStraightStandingState.h"
+#include "SophiaStraightJumpingState.h"
+#include "SophiaRunningState.h"
 #include "Player.h"
 #include "Utils.h"
 
 
-SophiaRunningState::SophiaRunningState(PlayerData* data) : SophiaState(data)
+SophiaStraightRunningState::SophiaStraightRunningState(PlayerData* data) : SophiaStraightState(data)
 {
-	DebugOut(L"SophaRunningState\n");
+	DebugOut(L"SophiaStraightRunningState\n");
 	acceleratorX = 0.02f;
 }
 
-int SophiaRunningState::CurrentAnimationId()
+int SophiaStraightRunningState::CurrentAnimationId()
 {
-	return 9;
+	return 16;
 }
 
-void SophiaRunningState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SophiaStraightRunningState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
 	bottom = top - SOPHIA_DEFAULT_HEIGHT;
 }
 
-void SophiaRunningState::KeyState(BYTE* states)
+void SophiaStraightRunningState::KeyState(BYTE* states)
 {
 	if (IsKeyDown(states, DIK_LEFT))
 	{
@@ -61,19 +62,27 @@ void SophiaRunningState::KeyState(BYTE* states)
 	}
 	else
 	{
-		data->player->SetState(new SophiaStandingState(data));
+		data->player->SetState(new SophiaStraightStandingState(data));
 	}
 }
 
-void SophiaRunningState::OnKeyDown(int keyCode)
+void SophiaStraightRunningState::OnKeyDown(int keyCode)
+{
+	switch (keyCode)
+	{
+	case DIK_X:
+		data->player->SetState(new SophiaStraightJumpingState(data));
+		break;
+	}
+}
+
+
+void SophiaStraightRunningState::OnKeyUp(int keyCode)
 {
 	switch (keyCode)
 	{
 		case DIK_UP:
-			data->player->SetState(new SophiaStraightRunningState(data));
-			break;
-		case DIK_X:
-			data->player->SetState(new SophiaJumpingState(data));
+			data->player->SetState(new SophiaRunningState(data));
 			break;
 	}
 }

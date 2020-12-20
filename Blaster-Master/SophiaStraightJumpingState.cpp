@@ -1,11 +1,14 @@
-#include "SophiaJumpingState.h"
-
 #include "SophiaStraightJumpingState.h"
-#include "SophiaFallingState.h"
+
+#include "SophiaStraightFallingState.h"
+#include "SophiaJumpingState.h"
 #include "Player.h"
 
-SophiaJumpingState::SophiaJumpingState(PlayerData* data, bool reset) : SophiaState(data)
+#include "Utils.h"
+
+SophiaStraightJumpingState::SophiaStraightJumpingState(PlayerData* data, bool reset) : SophiaStraightState(data)
 {
+	DebugOut(L"SophiaStraightJumpingState\n");
 	acceleratorX = 0.01f;
 	if (reset)
 	{
@@ -15,19 +18,19 @@ SophiaJumpingState::SophiaJumpingState(PlayerData* data, bool reset) : SophiaSta
 	isHoldJump = false;
 }
 
-int SophiaJumpingState::CurrentAnimationId()
+int SophiaStraightJumpingState::CurrentAnimationId()
 {
-	return 12;
+	return 16;
 }
 
-void SophiaJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
+void SophiaStraightJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
 	bottom = top - SOPHIA_DEFAULT_HEIGHT;
 }
 
-void SophiaJumpingState::KeyState(BYTE* states)
+void SophiaStraightJumpingState::KeyState(BYTE* states)
 {
 
 	if (IsKeyDown(states, DIK_LEFT))
@@ -72,7 +75,7 @@ void SophiaJumpingState::KeyState(BYTE* states)
 	}
 }
 
-void SophiaJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
+void SophiaStraightJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
 	float max_vy;
 	if (isHoldJump)
@@ -87,16 +90,16 @@ void SophiaJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (data->player->GetVy() > max_vy)
 	{
 		data->player->SetVy(max_vy);
-		data->player->SetState(new SophiaFallingState(data));
+		data->player->SetState(new SophiaStraightFallingState(data));
 	}
 }
 
-void SophiaJumpingState::OnKeyDown(int keyCode)
+void SophiaStraightJumpingState::OnKeyUp(int keyCode)
 {
 	switch (keyCode)
 	{
-		case DIK_UP:
-			data->player->SetState(new SophiaStraightJumpingState(data, false));
-			break;
+	case DIK_UP:
+		data->player->SetState(new SophiaJumpingState(data, false));
+		break;
 	}
 }

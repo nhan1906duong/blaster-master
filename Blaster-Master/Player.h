@@ -32,6 +32,7 @@ private:
 	PlayerData* playerData;
 
 	bool isLeftOrRightPressed = false;
+	bool isUpPressed = false;
 
 
 	int IsKeyDown(BYTE* states, int keyCode)
