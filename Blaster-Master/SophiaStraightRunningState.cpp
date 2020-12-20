@@ -23,7 +23,7 @@ void SophiaStraightRunningState::GetBoundingBox(float& left, float& top, float& 
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
-	bottom = top - SOPHIA_DEFAULT_HEIGHT;
+	bottom = top - 34;
 }
 
 void SophiaStraightRunningState::KeyState(BYTE* states)
@@ -82,6 +82,7 @@ void SophiaStraightRunningState::OnKeyUp(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, -16);
 			data->player->SetState(new SophiaRunningState(data));
 			break;
 	}

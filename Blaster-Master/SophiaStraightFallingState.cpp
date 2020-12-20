@@ -22,7 +22,7 @@ void SophiaStraightFallingState::GetBoundingBox(float& left, float& top, float& 
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
-	bottom = top - SOPHIA_FALLING_HEIGHT;
+	bottom = top - 34;
 }
 
 void SophiaStraightFallingState::KeyState(BYTE* states)

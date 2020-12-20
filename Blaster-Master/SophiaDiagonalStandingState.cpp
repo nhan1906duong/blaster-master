@@ -6,10 +6,11 @@
 #include "SophiaStraightStandingState.h"
 
 #include "Player.h"
-
+#include "Utils.h"
 
 SophiaDiagonalStandingState::SophiaDiagonalStandingState(PlayerData* data) : SophiaState(data)
 {
+	DebugOut(L"SophiaDiagonalStandingState\n");
 	times = 0;
 	data->player->SetVx(0);
 }
@@ -28,8 +29,8 @@ void SophiaDiagonalStandingState::Update(DWORD dt, vector<LPGAMEOBJECT>* objects
 void SophiaDiagonalStandingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
-	right = left + SOPHIA_DEFAULT_WIDTH;
-	bottom = top - SOPHIA_DEFAULT_HEIGHT;
+	right = left + 25;
+	bottom = top - 26;
 }
 
 void SophiaDiagonalStandingState::OnKeyDown(int keyCode)
@@ -47,6 +48,7 @@ void SophiaDiagonalStandingState::OnKeyUp(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, -8);
 			data->player->SetState(new SophiaStandingState(data));
 			break;
 	}
@@ -69,10 +71,12 @@ void SophiaDiagonalStandingState::KeyState(BYTE* states)
 	{
 		if (IsKeyDown(states, DIK_UP))
 		{
+			data->player->AddPosition(0, 8.1f);
 			data->player->SetState(new SophiaStraightStandingState(data));
 		}
 		else
 		{
+			data->player->AddPosition(0, -8);
 			data->player->SetState(new SophiaStandingState(data));
 		}
 	}

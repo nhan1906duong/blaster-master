@@ -9,7 +9,7 @@ SophiaFallingState::SophiaFallingState(PlayerData* data) : SophiaState(data)
 {
 	acceleratorX = 0.01f;
 	isLeftOrRightPressed = false;
-	DebugOut(L"SophiaStraightFallingState\n");
+	DebugOut(L"SophiaFallingState\n");
 }
 
 int SophiaFallingState::CurrentAnimationId()
@@ -72,6 +72,7 @@ void SophiaFallingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, 16);
 			data->player->SetState(new SophiaStraightFallingState(data));
 			break;
 	}

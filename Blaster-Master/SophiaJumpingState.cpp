@@ -3,9 +3,11 @@
 #include "SophiaStraightJumpingState.h"
 #include "SophiaFallingState.h"
 #include "Player.h"
+#include "Utils.h"
 
 SophiaJumpingState::SophiaJumpingState(PlayerData* data, bool reset) : SophiaState(data)
 {
+	DebugOut(L"SophiaJumpingState\n");
 	acceleratorX = 0.01f;
 	if (reset)
 	{
@@ -96,6 +98,7 @@ void SophiaJumpingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, 16);
 			data->player->SetState(new SophiaStraightJumpingState(data, false));
 			break;
 	}

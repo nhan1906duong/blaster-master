@@ -27,7 +27,7 @@ void SophiaStraightJumpingState::GetBoundingBox(float& left, float& top, float& 
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
-	bottom = top - SOPHIA_DEFAULT_HEIGHT;
+	bottom = top - 34;
 }
 
 void SophiaStraightJumpingState::KeyState(BYTE* states)

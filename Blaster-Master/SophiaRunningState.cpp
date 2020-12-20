@@ -70,6 +70,7 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, 16.1);
 			data->player->SetState(new SophiaStraightRunningState(data));
 			break;
 		case DIK_X:

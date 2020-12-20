@@ -51,6 +51,7 @@ void SophiaStandingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+			data->player->AddPosition(0, 8.1);
 			data->player->SetState(new SophiaDiagonalStandingState(data));
 			break;
 		case DIK_X:

@@ -134,13 +134,13 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (IsSophiaState())
 				{
-					AddPosition(0, 2.1);
 					if (isUpPressed)
 					{
 						SetState(new SophiaStraightStandingState(playerData));
 					}
 					else
 					{
+						AddPosition(0, 2.1);
 						SetState(new SophiaStandingState(playerData));
 					}
 				}
@@ -197,6 +197,8 @@ void CPlayer::Render()
 		animation_set->at(12)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, 255, nx > 0);
+
+	RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
