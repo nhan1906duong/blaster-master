@@ -5,6 +5,14 @@
 #include "ChongNhon.h"
 #include "Bullet.h"
 
+Worm::Worm()
+{
+	animation_set = CAnimationSets::GetInstance()->Get(10);
+	SetState(STATE_FALL);
+	vx = -MOVE_SPEED;
+	nx = -1;
+}
+
 void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	left = x;
@@ -89,11 +97,4 @@ void Worm::Render()
 	}
 	animation_set->at(ani)->Render(x, y, 255, nx > 0);
 	//RenderBoundingBox();
-}
-
-Worm::Worm()
-{
-	SetState(STATE_FALL);
-	vx = -MOVE_SPEED;
-	nx = -1;
 }

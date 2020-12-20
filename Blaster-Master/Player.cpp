@@ -37,6 +37,7 @@
 
 CPlayer::CPlayer(float x, float y) : CGameObject()
 {
+	animation_set = CAnimationSets::GetInstance()->Get(1);
 	untouchable = 0;
 
 	this->x = x;

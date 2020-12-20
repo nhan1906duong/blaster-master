@@ -3,7 +3,7 @@
 
 Skull::Skull()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(16);
 }
 
 void Skull::Render()

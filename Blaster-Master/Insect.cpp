@@ -2,7 +2,7 @@
 
 Insect::Insect()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(14);
 }
 
 void Insect::Render()

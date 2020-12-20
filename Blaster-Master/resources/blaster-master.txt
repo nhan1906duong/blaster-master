@@ -235,13 +235,20 @@ start	1
 11	56	55	54	53
 #	<FLOATER>
 12	57
+#	<JUMPER>
 13	58
+#	<INSECT>
 14	59
 #	+ 61	62
+#	<ORB>
 15	60
+#	<SKULL>
 16	63	64
+#	<MINE>
 17	65
+#	<SOPHIA BULLET>
 18	66	67	
+#	<COLLISION>
 19	68	69	70	71
 20	72
 #	jason bullet

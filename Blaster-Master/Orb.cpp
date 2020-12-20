@@ -2,7 +2,7 @@
 
 Orb::Orb()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(15);
 }
 
 void Orb::Render()

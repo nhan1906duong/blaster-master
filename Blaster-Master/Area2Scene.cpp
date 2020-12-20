@@ -58,7 +58,6 @@ void CArea2Scene::_Init_Player(float player_x, float player_y)
 	}
 
 	player = new CPlayer(player_x, player_y);
-	player->SetAnimationSet(CAnimationSets::GetInstance()->Get(1));
 	objects.push_back(player);
 
 	//TODO Khoi tao camera
@@ -73,15 +72,11 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
 
-	//DebugOut(L"--> %s\n",ToWSTR(line).c_str());
-
-	if (tokens.size() < 3) return; // skip invalid lines - an object set must have at least id, x, y
+	if (tokens.size() < 2) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int object_type = atoi(tokens[0].c_str());
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
-
-	int ani_set_id = atoi(tokens[3].c_str());
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
@@ -121,9 +116,6 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	// General object setup
 	obj->SetPosition(x, y);
 
-	LPANIMATION_SET ani_set = animation_sets->Get(ani_set_id);
-
-	obj->SetAnimationSet(ani_set);
 	objects.push_back(obj);
 }
 

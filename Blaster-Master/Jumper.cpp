@@ -2,7 +2,7 @@
 
 Jumper::Jumper()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(13);
 }
 
 void Jumper::Render()

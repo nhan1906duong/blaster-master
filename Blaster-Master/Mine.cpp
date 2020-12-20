@@ -3,7 +3,7 @@
 
 Mine::Mine()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(17);
 }
 
 void Mine::Render()

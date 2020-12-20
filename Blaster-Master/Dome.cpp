@@ -3,6 +3,7 @@
 
 Dome::Dome()
 {
+	animation_set = CAnimationSets::GetInstance()->Get(11);
 	blood = 4;
 }
 

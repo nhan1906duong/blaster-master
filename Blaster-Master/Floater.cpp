@@ -2,7 +2,7 @@
 
 Floater::Floater()
 {
-
+	animation_set = CAnimationSets::GetInstance()->Get(12);
 }
 
 void Floater::Render()
