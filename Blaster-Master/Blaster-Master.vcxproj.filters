@@ -189,6 +189,12 @@
     <ClCompile Include="SophiaStraightJumpingState.cpp">
       <Filter>Framework\Objects\Player\sophia</Filter>
     </ClCompile>
+    <ClCompile Include="FireZone.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="SecretWall.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -349,6 +355,12 @@
     </ClInclude>
     <ClInclude Include="SophiaStraightState.h">
       <Filter>Framework\Objects\Player\sophia</Filter>
+    </ClInclude>
+    <ClInclude Include="FireZone.h">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="SecretWall.h">
+      <Filter>Framework\Objects\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

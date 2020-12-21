@@ -25,6 +25,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChongNhon.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
+    <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
@@ -40,6 +41,7 @@
     <ClCompile Include="Jumper.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="Orb.cpp" />
+    <ClCompile Include="SecretWall.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="SophiaBullet.cpp" />
     <ClCompile Include="SophiaDiagonalStandingState.cpp" />
@@ -73,6 +75,7 @@
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChongNhon.h" />
     <ClInclude Include="CollisionExplosion.h" />
+    <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
@@ -91,6 +94,7 @@
     <ClInclude Include="Orb.h" />
     <ClInclude Include="PlayerData.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="SecretWall.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="SophiaBullet.h" />
     <ClInclude Include="SophiaDiagonalStandingState.h" />
