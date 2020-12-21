@@ -23,7 +23,7 @@ void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state == STATE_JUMPING)
+	/*if (state == STATE_JUMPING)
 	{
 		AddVy(0.02);
 		if (GetVy() > 0.2)
@@ -115,7 +115,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];*/
 }
 
 void Worm::Render()
