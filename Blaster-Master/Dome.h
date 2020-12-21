@@ -8,6 +8,10 @@
 #define V_GRAVITY		0.01f
 
 // 2 vien dan moi die
+
+#define DOME_NORMAL_STATE	0
+#define DOME_ATTACK_STATE	1
+
 class Dome : public Enemy
 {
 private:

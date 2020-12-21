@@ -199,7 +199,7 @@ void CPlayer::Render()
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, 255, nx > 0);
 
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)

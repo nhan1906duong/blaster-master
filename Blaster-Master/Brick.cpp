@@ -13,7 +13,7 @@ CBrick::CBrick(int identity, float left, float top, float right, float bottom)
 
 void CBrick::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void CBrick::GetBoundingBox(float& l, float& t, float& r, float& b)
