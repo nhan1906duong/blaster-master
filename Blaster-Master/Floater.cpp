@@ -2,6 +2,7 @@
 
 Floater::Floater()
 {
+	blood = 2;
 	SetVx(-0.03f);
 	SetVy(0.03f);
 	animation_set = CAnimationSets::GetInstance()->Get(12);

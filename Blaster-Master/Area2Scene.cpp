@@ -90,7 +90,8 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 		case OBJECT_TYPE_DOME:
 			{
 				int initDirection = atoi(tokens[3].c_str());
-				obj = new Dome(initDirection);
+				int huong = atoi(tokens[4].c_str());
+				obj = new Dome(initDirection, huong);
 			}
 			break;
 		case OBJECT_TYPE_FLOATER:

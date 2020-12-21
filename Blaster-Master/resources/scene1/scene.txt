@@ -4,8 +4,8 @@ resources\scene1\map.txt
 # type	x	y	ani_set_id	extra_settings per object type
 10	144	224
 10	208	224
-11	286	224	2
-11	302	114	3
+11	285.9	224	2	2
+11	302	114.1	3	1
 10	400	224
 #FLOATER
 12	604	200
