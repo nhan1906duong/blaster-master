@@ -23,7 +23,7 @@ void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	/*if (state == STATE_JUMPING)
+	if (state == STATE_JUMPING)
 	{
 		AddVy(0.02);
 		if (GetVy() > 0.2)
@@ -68,6 +68,19 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		CPlayer* player = ((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
 
+		if (ny != 0)
+		{
+			vy = 0;
+			if (ny == 1)
+			{
+				state = STATE_MOVE;
+			}
+			else if (ny == -1)
+			{
+				state = STATE_FALLING;
+			}
+		}
+
 		if (brickNx != 0)
 		{
 			if (player->IsDie())
@@ -101,21 +114,9 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 
-
-		if (ny != 0)
-		{
-			if (ny == 1)
-			{
-				state = STATE_MOVE;
-			}
-			else if (ny == -1)
-			{
-				state = STATE_FALLING;
-			}
-		}
 	}
 
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];*/
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void Worm::Render()
