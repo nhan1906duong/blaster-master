@@ -1,15 +1,24 @@
 #include "Dome.h"
 #include "Bullet.h"
 
-Dome::Dome()
+Dome::Dome(int initDirection)
 {
 	animation_set = CAnimationSets::GetInstance()->Get(11);
 	blood = 4;
+
+	this->initDirection = initDirection;
+
+	switch (initDirection)
+	{
+		case 3:
+			SetVx(-0.03f);
+			break;
+	}
 }
 
 void Dome::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(initDirection)->Render(x, y);
 }
 
 void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -40,15 +49,44 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + nx * 0.1f;
 		y += min_ty * dy + ny * 0.1f;
 
-		if (nx != 0)
+		for (int i = 0; i < coEvents.size(); i++)
 		{
-			vx = -vx;
-		}
-		if (ny != 0)
-		{
-			vy = 0;
-		}
+			LPCOLLISIONEVENT e = coEvents[i];
+			if (dynamic_cast<CBrick*>(e->obj))
+			{
+				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
+				float left, top, right, bottom;
+				brick->GetBoundingBox(left, top, right, bottom);
 
+
+				if (e->nx == -1) // LeftToRight
+				{
+					initDirection = 2;
+					SetVx(0.0f);
+					SetVy(-0.03f);
+				}
+				else if (e->nx == 1) // RightToLeft
+				{
+					initDirection = 0;
+					SetVx(0.0f);
+					SetVy(0.03f);
+				}
+
+				if (e->ny == -1) // BottomToTop
+				{
+					initDirection = 1;
+					SetVx(0.03);
+					SetVy(0.0);
+				}
+				else if (e->ny == 1) // TopToBottom
+				{
+					initDirection = 3;
+					SetVx(-0.03);
+					SetVy(0.0);
+				}
+
+			}
+		}
 	}
 
 	// clean up collision events

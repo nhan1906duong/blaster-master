@@ -49,8 +49,8 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 	playerData->player = this;
 	SetState(new SophiaStandingState(playerData));
 
-	bloodJason = 7;
-	bloodSophia = 7;
+	bloodJason = 8;
+	bloodSophia = 8;
 
 	isLeftOrRightPressed = false;
 

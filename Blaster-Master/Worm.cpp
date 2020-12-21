@@ -67,7 +67,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			SetState(STATE_FALL);
 		}
 
-		for (int i = 0; i < coEventsResult.size(); i++)
+		/*for (int i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
 			if (dynamic_cast<ChongNhon*>(e->obj))
@@ -76,7 +76,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				SetState(STATE_FALL);
 				vy = 0.5;
 			}
-		}
+		}*/
 
 	}
 

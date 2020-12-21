@@ -84,33 +84,36 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 
 	switch (object_type)
 	{
-	case OBJECT_TYPE_CON_SAU:
-		obj = new Worm();
-		break;
-	case OBJECT_TYPE_DOME:
-		obj = new Dome();
-		break;
-	case OBJECT_TYPE_FLOATER:
-		obj = new Floater();
-		break;
-	case OBJECT_TYPE_JUMPER:
-		obj = new Jumper();
-		break;
-	case OBJECT_TYPE_INSECT:
-		obj = new Insect();
-		break;
-	case OBJECT_TYPE_ORB:
-		obj = new Orb();
-		break;
-	case OBJECT_TYPE_SKULL:
-		obj = new Skull();
-		break;
-	case OBJECT_TYPE_MINE:
-		obj = new Mine();
-		break;
-	default:
-		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
-		return;
+		case OBJECT_TYPE_CON_SAU:
+			obj = new Worm();
+			break;
+		case OBJECT_TYPE_DOME:
+			{
+				int initDirection = atoi(tokens[3].c_str());
+				obj = new Dome(initDirection);
+			}
+			break;
+		case OBJECT_TYPE_FLOATER:
+			obj = new Floater();
+			break;
+		case OBJECT_TYPE_JUMPER:
+			obj = new Jumper();
+			break;
+		case OBJECT_TYPE_INSECT:
+			obj = new Insect();
+			break;
+		case OBJECT_TYPE_ORB:
+			obj = new Orb();
+			break;
+		case OBJECT_TYPE_SKULL:
+			obj = new Skull();
+			break;
+		case OBJECT_TYPE_MINE:
+			obj = new Mine();
+			break;
+		default:
+			DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
+			return;
 	}
 
 	// General object setup

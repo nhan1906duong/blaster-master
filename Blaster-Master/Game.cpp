@@ -531,7 +531,7 @@ void CGame::Load(LPCWSTR gameFile)
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
 
-	SwitchScene(current_scene, 128, 128);
+	SwitchScene(current_scene, 64, 128);
 }
 
 void CGame::SwitchScene(int scene_id, float player_x, float player_y)
