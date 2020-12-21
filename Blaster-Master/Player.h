@@ -78,5 +78,7 @@ public:
 		}
 	}
 
+	bool IsDie();
+
 	void fire();
 };

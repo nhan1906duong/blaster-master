@@ -8,7 +8,7 @@
 Worm::Worm()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(10);
-	SetState(STATE_FALL);
+	SetState(STATE_FALLING);
 	vx = -MOVE_SPEED;
 	nx = -1;
 }
@@ -23,10 +23,19 @@ void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (state == STATE_JUMPING)
+	{
+		AddVy(0.02);
+		if (GetVy() > 0.2)
+		{
+			SetVy(0.2);
+			SetState(STATE_FALLING);
+		}
+	}
+
+	vy += GameDefine::ACCELERATOR_GRAVITY;
+
 	CGameObject::Update(dt);
-
-	vy += GameDefine::ACCELERATOR_GRAVITY * dt;
-
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -35,52 +44,77 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	CalcPotentialCollisions(coObjects, coEvents);
 
-	// No collision occured, proceed normally
 	if (coEvents.size() == 0)
 	{
 		x += dx;
 		y += dy;
+		if (state != STATE_FALLING &&
+			state != STATE_JUMPING)
+		{
+			state = STATE_FALLING;
+		}
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
+		float min_tx, min_ty, brickNx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, brickNx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;
+		x += min_tx * dx + 0.01f * brickNx;
+		y += min_ty * dy + 0.01f * ny;
 
-		if (nx != 0)
+
+		CPlayer* player = ((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+
+		if (brickNx != 0)
 		{
-			vx = -vx;
-			this->nx = nx;
+			if (player->IsDie())
+			{
+				this->nx = -this->nx;
+				vx = -vx;
+			}
+			else
+			{
+				if (state == STATE_MOVE)
+				{
+					SetVy(0.01);
+					SetState(STATE_JUMPING);
+				}
+			}
 		}
+
+		if (!player->IsDie())
+		{
+			float left, top, right, bottom;
+			player->GetBoundingBox(left, top, right, bottom);
+			if (x < left + 5)
+			{
+				this->nx = 1;
+				SetVx(MOVE_SPEED);
+			}
+			else if (x > right + 5)
+			{
+				this->nx = -1;
+				SetVx(-MOVE_SPEED);
+			}
+		}
+
+
 		if (ny != 0)
 		{
-			vy = 0;
-			SetState(STATE_MOVE);
-		}
-		else
-		{
-			SetState(STATE_FALL);
-		}
-
-		/*for (int i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<ChongNhon*>(e->obj))
+			if (ny == 1)
 			{
-				ChongNhon* chongNhon = dynamic_cast<ChongNhon*>(e->obj);
-				SetState(STATE_FALL);
-				vy = 0.5;
+				state = STATE_MOVE;
 			}
-		}*/
-
+			else if (ny == -1)
+			{
+				state = STATE_FALLING;
+			}
+		}
 	}
 
-	// clean up collision events
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
@@ -97,4 +131,18 @@ void Worm::Render()
 	}
 	animation_set->at(ani)->Render(x, y, 255, nx > 0);
 	//RenderBoundingBox();
+}
+
+void Worm::SetState(int state)
+{
+	CGameObject::SetState(state);
+	switch (state)
+	{
+	case STATE_FALLING:
+		vy = 0.0f;
+		break;
+	case STATE_JUMPING:
+		vy = 0.1f;
+		break;
+	}
 }

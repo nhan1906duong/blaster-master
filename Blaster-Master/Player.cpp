@@ -359,3 +359,8 @@ bool CPlayer::SwitchToSophia()
 	}
 	return isChangeState;
 }
+
+bool CPlayer::IsDie()
+{
+	return dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonDieState*>(playerData->playerState);
+}
