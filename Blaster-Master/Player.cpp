@@ -35,15 +35,21 @@
 
 #include "Area2Scene.h"
 
-CPlayer::CPlayer(float x, float y) : CGameObject()
+CPlayer* CPlayer::__instance = NULL;
+
+CPlayer* CPlayer::GetInstance()
+{
+	if (__instance == NULL)
+	{
+		__instance = new CPlayer();
+	}
+	return __instance;
+}
+
+CPlayer::CPlayer() : CGameObject()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(1);
 	untouchable = 0;
-
-	this->x = x;
-	this->y = y;
-	this->sophia_x = x;
-	this->sophia_y = y;
 
 	playerData = new PlayerData();
 	playerData->player = this;
@@ -59,7 +65,7 @@ CPlayer::CPlayer(float x, float y) : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (isSwitch || dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
+	if (dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
 
 	playerData->playerState->Update(dt, coObjects);
 
@@ -163,11 +169,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (isSwitch) return;
 			if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
 			{
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
-				isSwitch = true;
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
 			else if (dynamic_cast<Enemy*>(e->obj))
@@ -215,6 +219,7 @@ void CPlayer::Reset()
 
 void CPlayer::KeyState(BYTE* states)
 {
+	if (playerData == NULL || playerData->playerState == NULL) return;
 	playerData->playerState->KeyState(states);
 	if (IsKeyDown(states, DIK_LEFT) || IsKeyDown(states, DIK_RIGHT))
 	{

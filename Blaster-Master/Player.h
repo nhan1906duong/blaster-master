@@ -8,6 +8,8 @@
 class CPlayer : public CGameObject
 {
 private:
+	static CPlayer* __instance;
+	CPlayer();
 	bool isOverworld;
 
 	int bloodSophia;
@@ -24,8 +26,6 @@ private:
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;
-
-	bool isSwitch = false;
 
 	void TruMang();
 	
@@ -48,7 +48,7 @@ private:
 	void Switch();
 
 public:
-	CPlayer(float x = 0.0f, float y = 0.0f);
+	static CPlayer* GetInstance();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 

@@ -57,7 +57,8 @@ void CArea2Scene::_Init_Player(float player_x, float player_y)
 		return;
 	}
 
-	player = new CPlayer(player_x, player_y);
+	player = CPlayer::GetInstance();
+	player->SetPosition(player_x, player_y);
 	objects.push_back(player);
 
 	//TODO Khoi tao camera
@@ -282,10 +283,14 @@ void CArea2Scene::Render()
 void CArea2Scene::Unload()
 {
 	for (int i = 0; i < objects.size(); i++)
-		delete objects[i];
-
+	{
+		if (dynamic_cast<CPlayer*>(objects[i]))
+			continue;
+		else
+			delete objects[i];
+	}
+		
 	objects.clear();
-	player = NULL;
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
