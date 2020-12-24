@@ -170,8 +170,11 @@ void CArea2Scene::_ParseSection_MAP(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 1) return;
-	string path = tokens[0];
-	map = new CMap(ToLPCWSTR(path));
+	LPCWSTR filePath = ToLPCWSTR(tokens[0]);
+
+	map = Map::GetInstance();
+	map->GenerateANewMap(filePath);
+
 	float top, right;
 	map->GetBouncing(top, right);
 	camera->SetBouncingMap(0, top, right, 0);

@@ -17,7 +17,7 @@ private:
 	void RemoveCollisionObject();
 protected:
 	CPlayer* player;					// A play scene has to have player, right? 
-	CMap* map;
+	Map* map;
 	CCamera* camera;
 
 	vector<LPGAMEOBJECT> objects;

@@ -2,13 +2,19 @@
 #include <d3d9.h>
 #include "Camera.h"
 
-class CMap
+class Map
 {
 private:
+	Map();
+
+	static Map* __instance;
+
 	int map[128][128];
 	int bouncingTop, bouncingRight;
 public:
-	CMap(LPCWSTR filePath);
+	static Map* GetInstance();
+
+	void GenerateANewMap(LPCWSTR filePath);
 	void Render(CCamera*);
 	void GetBouncing(float&, float&);
 };

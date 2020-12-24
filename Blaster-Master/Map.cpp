@@ -12,7 +12,23 @@
 #define MAP_SECTION_SIZE 1
 #define MAP_SECTION_MAP 2
 
-CMap::CMap(LPCWSTR filePath)
+Map* Map::__instance = NULL;
+
+Map* Map::GetInstance()
+{
+	if (__instance == NULL)
+	{
+		__instance = new Map();
+	}
+	return __instance;
+}
+
+Map::Map()
+{
+
+}
+
+void Map::GenerateANewMap(LPCWSTR filePath)
 {
 	DebugOut(L"[INFO] Start loading map %s\n", filePath);
 
@@ -39,7 +55,7 @@ CMap::CMap(LPCWSTR filePath)
 	f.close();
 }
 
-void CMap::Render(CCamera * camera)
+void Map::Render(CCamera * camera)
 {
 	for (int row = 0; row < bouncingTop / 16; row++)
 	{
@@ -65,7 +81,7 @@ void CMap::Render(CCamera * camera)
 	}
 }
 
-void CMap::GetBouncing(float& top, float& right)
+void Map::GetBouncing(float& top, float& right)
 {
 	top = bouncingTop;
 	right = bouncingRight;
