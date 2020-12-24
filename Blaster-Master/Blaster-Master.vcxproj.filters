@@ -55,6 +55,15 @@
     <Filter Include="Framework\Core\Grid">
       <UniqueIdentifier>{f777f795-5928-4c10-a0f1-cc14db1f3d05}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Core\CameraAndMap">
+      <UniqueIdentifier>{f73eba9b-eaed-447b-a79f-4a9dfad4b414}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Core\Keyboard">
+      <UniqueIdentifier>{fc95e11b-8d2e-4823-9175-7db578313137}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\Core\Collision">
+      <UniqueIdentifier>{6d75c9cf-00b4-43e4-82b8-103e8294d5ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -119,12 +128,6 @@
     </ClCompile>
     <ClCompile Include="SophiaBullet.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
-    </ClCompile>
-    <ClCompile Include="Camera.cpp">
-      <Filter>Framework\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Map.cpp">
-      <Filter>Framework\Core</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
       <Filter>Framework\Core</Filter>
@@ -204,6 +207,15 @@
     <ClCompile Include="GridManager.cpp">
       <Filter>Framework\Core\Grid</Filter>
     </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Framework\Core\CameraAndMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Map.cpp">
+      <Filter>Framework\Core\CameraAndMap</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -278,16 +290,7 @@
     <ClInclude Include="SophiaBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
-    <ClInclude Include="Map.h">
-      <Filter>Framework\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Camera.h">
-      <Filter>Framework\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Game.h">
-      <Filter>Framework\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="KeyEventHandler.h">
       <Filter>Framework\Core</Filter>
     </ClInclude>
     <ClInclude Include="CollisionExplosion.h">
@@ -376,6 +379,18 @@
     </ClInclude>
     <ClInclude Include="GridManager.h">
       <Filter>Framework\Core\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Framework\Core\CameraAndMap</Filter>
+    </ClInclude>
+    <ClInclude Include="Map.h">
+      <Filter>Framework\Core\CameraAndMap</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyEventHandler.h">
+      <Filter>Framework\Core\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -24,6 +24,7 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChongNhon.cpp" />
+    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
@@ -76,6 +77,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChongNhon.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionExplosion.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />

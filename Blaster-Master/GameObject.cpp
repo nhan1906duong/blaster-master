@@ -9,6 +9,8 @@
 #include "Sprites.h"
 #include "Brick.h"
 
+#include "Collision.h"
+
 CGameObject::CGameObject()
 {
 	shouldRemove = false;
@@ -45,7 +47,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 	GetBoundingBox(ml, mt, mr, mb);
 
-	CGame::SweptAABB(
+	Collision::SweptAABB(
 		ml, mt, mr, mb,
 		rdx, rdy,
 		sl, st, sr, sb,

@@ -11,7 +11,6 @@ private:
 	int map[128][128];
 	int bouncingTop, bouncingRight;
 
-
 public:
 	static Map* GetInstance();
 
