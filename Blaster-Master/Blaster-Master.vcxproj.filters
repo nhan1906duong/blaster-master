@@ -52,6 +52,9 @@
     <Filter Include="Framework\Objects\Player\overworld">
       <UniqueIdentifier>{21b47d97-fa96-47af-a3f0-a5f7b41573c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Core\Grid">
+      <UniqueIdentifier>{f777f795-5928-4c10-a0f1-cc14db1f3d05}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -194,6 +197,12 @@
     </ClCompile>
     <ClCompile Include="SecretWall.cpp">
       <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Grid.cpp">
+      <Filter>Framework\Core\Grid</Filter>
+    </ClCompile>
+    <ClCompile Include="GridManager.cpp">
+      <Filter>Framework\Core\Grid</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -361,6 +370,12 @@
     </ClInclude>
     <ClInclude Include="SecretWall.h">
       <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Grid.h">
+      <Filter>Framework\Core\Grid</Filter>
+    </ClInclude>
+    <ClInclude Include="GridManager.h">
+      <Filter>Framework\Core\Grid</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

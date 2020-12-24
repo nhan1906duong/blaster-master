@@ -27,6 +27,8 @@
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -77,6 +79,8 @@
     <ClInclude Include="CollisionExplosion.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridManager.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
     <ClInclude Include="Item.h" />
