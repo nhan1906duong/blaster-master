@@ -1,8 +1,10 @@
+#include "Game.h"
+
 #include <iostream>
 #include <fstream>
 #include <string>
 
-#include "Game.h"
+#include "Camera.h"
 #include "Utils.h"
 
 #include "Area2Scene.h"
@@ -105,7 +107,8 @@ void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top
 void CGame::SetRenderData(D3DXVECTOR2& center, D3DXVECTOR2& translate, D3DXVECTOR2& scaling)
 {
 	float cam_x, cam_y;
-	((CArea2Scene*)GetCurrentScene())->GetCameraPosition(cam_x, cam_y);
+	Camera::GetInstance()->GetPosition(cam_x, cam_y);
+
 	D3DXMATRIX mt;
 	D3DXMatrixIdentity(&mt);
 	mt._22 = -1;

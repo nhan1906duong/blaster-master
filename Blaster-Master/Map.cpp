@@ -1,3 +1,5 @@
+#include "Camera.h"
+
 #include "Map.h"
 #include "Game.h"
 #include "Textures.h"
@@ -55,8 +57,11 @@ void Map::GenerateANewMap(LPCWSTR filePath)
 	f.close();
 }
 
-void Map::Render(CCamera * camera)
+void Map::Render()
 {
+	float cam_l, cam_t, cam_r, cam_b;
+	Camera::GetInstance()->GetBouncingBox(cam_l, cam_t, cam_r, cam_b);
+
 	for (int row = 0; row < bouncingTop / 16; row++)
 	{
 		for (int column = 0; column < bouncingRight / 16; ++column)
@@ -65,9 +70,6 @@ void Map::Render(CCamera * camera)
 			float tileRight = column * 16 + 16;
 			float tileTop = row * 16 + 16;
 			float tileBottom = row * 16;
-
-			float cam_l, cam_t, cam_r, cam_b;
-			camera->GetBouncingBox(cam_l, cam_t, cam_r, cam_b);
 
 			if (tileBottom >= cam_t || tileLeft >= cam_r || tileTop <= cam_b || tileRight <= cam_l)
 			{
@@ -81,7 +83,7 @@ void Map::Render(CCamera * camera)
 	}
 }
 
-void Map::GetBouncing(float& top, float& right)
+void Map::GetBouncing(long& top, long& right)
 {
 	top = bouncingTop;
 	right = bouncingRight;

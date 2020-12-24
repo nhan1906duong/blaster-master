@@ -2,6 +2,9 @@
 #include <fstream>
 #include <algorithm>
 
+#include "Camera.h"
+#include "Map.h"
+
 #include "Area2Scene.h"
 #include "Utils.h"
 #include "Textures.h"
@@ -61,8 +64,6 @@ void CArea2Scene::_Init_Player(float player_x, float player_y)
 	player->SetPosition(player_x, player_y);
 	objects.push_back(player);
 
-	//TODO Khoi tao camera
-	camera = new CCamera();
 	_CheckCameraAndWorldMap();
 
 
@@ -172,12 +173,8 @@ void CArea2Scene::_ParseSection_MAP(string line)
 	if (tokens.size() < 1) return;
 	LPCWSTR filePath = ToLPCWSTR(tokens[0]);
 
-	map = Map::GetInstance();
+	Map* map = Map::GetInstance();
 	map->GenerateANewMap(filePath);
-
-	float top, right;
-	map->GetBouncing(top, right);
-	camera->SetBouncingMap(0, top, right, 0);
 }
 
 void CArea2Scene::Load(float player_x, float player_y)
@@ -245,7 +242,7 @@ void CArea2Scene::_CheckCameraAndWorldMap()
 	float cx, cy;
 	player->GetPosition(cx, cy);
 
-	camera->UpdateCamera(cx, cy);
+	Camera::GetInstance()->UpdateCamera(cx, cy);
 }
 
 void CArea2Scene::Update(DWORD dt)
@@ -272,7 +269,7 @@ void CArea2Scene::Update(DWORD dt)
 
 void CArea2Scene::Render()
 {
-	if (map) map->Render(camera);
+	Map::GetInstance()->Render();
 	for (int i = 0; i < objects.size(); i++)
 		objects[i]->Render();
 	for (int i = 0; i < collisions.size(); i++)
@@ -341,12 +338,6 @@ void CPlayScenceKeyHandler::KeyState(BYTE* states)
 	((CArea2Scene*)scence)->GetPlayer()->KeyState(states);
 }
 
-void CArea2Scene::GetCameraPosition(float& x, float& y)
-{
-	x = camera->GetCamX();
-	y = camera->GetCamY();
-}
-
 void CArea2Scene::_DrawBlood()
 {
 	int blood = player->GetBlood();
@@ -381,5 +372,7 @@ void CArea2Scene::_DrawBlood()
 			sprite = 94;
 			break;
 	}
-	CSprites::GetInstance()->Get(sprite)->Draw(camera->GetCamX() + 20, camera->GetCamY() + 100 - CGame::GetInstance()->GetScreenHeight());
+	float cam_x, cam_y;
+	Camera::GetInstance()->GetPosition(cam_x, cam_y);
+	CSprites::GetInstance()->Get(sprite)->Draw(cam_x + 20, cam_y + 100 - CGame::GetInstance()->GetScreenHeight());
 }
