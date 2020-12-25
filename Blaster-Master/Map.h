@@ -16,6 +16,7 @@ public:
 
 	void GenerateANewMap(LPCWSTR filePath);
 	void Render();
+	void GetBouncing(int&, int&);
 	void GetBouncing(long&, long&);
 };
 

@@ -213,9 +213,6 @@
     <ClCompile Include="Map.cpp">
       <Filter>Framework\Core\CameraAndMap</Filter>
     </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -390,7 +387,10 @@
       <Filter>Framework\Core\Keyboard</Filter>
     </ClInclude>
     <ClInclude Include="Collision.h">
-      <Filter>Header Files</Filter>
+      <Filter>Framework\Core\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Static.h">
+      <Filter>Framework\Objects\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

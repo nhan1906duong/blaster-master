@@ -24,7 +24,6 @@
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="ChongNhon.cpp" />
-    <ClCompile Include="Collision.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
@@ -115,6 +114,7 @@
     <ClInclude Include="SophiaStraightRunningState.h" />
     <ClInclude Include="SophiaStraightStandingState.h" />
     <ClInclude Include="SophiaStraightState.h" />
+    <ClInclude Include="Static.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="Enemy.h" />

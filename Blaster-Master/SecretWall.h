@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Static.h"
 
-class SecretWall : public CGameObject
+class SecretWall : public Static
 {
 private:
 public:

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "GameObject.h"
+#include "Static.h"
 
 /*
 	Object that triggers scene switching
 */
-class CPortal : public CGameObject
+class CPortal : public Static
 {
 	int scene_id;	// target scene to switch to 
 	int identity;

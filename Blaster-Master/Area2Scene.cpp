@@ -4,6 +4,7 @@
 
 #include "Camera.h"
 #include "Map.h"
+#include "GridManager.h"
 
 #include "Area2Scene.h"
 #include "Utils.h"
@@ -121,8 +122,7 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 
 	// General object setup
 	obj->SetPosition(x, y);
-
-	objects.push_back(obj);
+	GridManager::GetInstance()->AddObject(obj);
 }
 
 void CArea2Scene::_ParseSecion_BRICK(string line)
@@ -135,7 +135,7 @@ void CArea2Scene::_ParseSecion_BRICK(string line)
 	float right = atof(tokens[3].c_str());
 	float bottom = atof(tokens[4].c_str());
 	CBrick* brick = new CBrick(identity, left, top, right, bottom);
-	objects.push_back(brick);
+	staticObjects.push_back(brick);
 }
 
 void CArea2Scene::_ParseSection_CHONG_NHON(string line)
@@ -148,7 +148,7 @@ void CArea2Scene::_ParseSection_CHONG_NHON(string line)
 	float right = atof(tokens[3].c_str());
 	float bottom = atof(tokens[4].c_str());
 	ChongNhon* brick = new ChongNhon(identity, left, top, right, bottom);
-	objects.push_back(brick);
+	staticObjects.push_back(brick);
 }
 
 void CArea2Scene::_ParseSection_PORTAL(string line)
@@ -164,7 +164,7 @@ void CArea2Scene::_ParseSection_PORTAL(string line)
 	float cam_x = atoi(tokens[6].c_str());
 	float cam_y = atoi(tokens[7].c_str());
 	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id, cam_x, cam_y);
-	objects.push_back(portal);
+	staticObjects.push_back(portal);
 }
 
 void CArea2Scene::_ParseSection_MAP(string line)
@@ -172,9 +172,9 @@ void CArea2Scene::_ParseSection_MAP(string line)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 1) return;
 	LPCWSTR filePath = ToLPCWSTR(tokens[0]);
-
-	Map* map = Map::GetInstance();
-	map->GenerateANewMap(filePath);
+	
+	Map::GetInstance()->GenerateANewMap(filePath);
+	GridManager::GetInstance()->Reset();
 }
 
 void CArea2Scene::Load(float player_x, float player_y)
@@ -248,16 +248,14 @@ void CArea2Scene::_CheckCameraAndWorldMap()
 void CArea2Scene::Update(DWORD dt)
 {
 	RemoveCollisionObject();
+	_RefreshObject();
+
 	if (player == NULL) return;
-	vector<LPGAMEOBJECT> coObjects;
-	for (size_t i = 1; i < objects.size(); i++)
-	{
-		coObjects.push_back(objects[i]);
-	}
 
 	for (size_t i = 0; i < objects.size(); i++)
 	{
-		objects[i]->Update(dt, &coObjects);
+		if (dynamic_cast<Static*>(objects[i])) continue;
+		objects[i]->Update(dt, &objects);
 	}
 
 	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
@@ -282,14 +280,7 @@ void CArea2Scene::Render()
 */
 void CArea2Scene::Unload()
 {
-	for (int i = 0; i < objects.size(); i++)
-	{
-		if (dynamic_cast<CPlayer*>(objects[i]))
-			continue;
-		else
-			delete objects[i];
-	}
-		
+	GridManager::GetInstance()->Clear();
 	objects.clear();
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
@@ -297,20 +288,12 @@ void CArea2Scene::Unload()
 
 void CArea2Scene::AddObject(LPGAMEOBJECT object)
 {
-	objects.push_back(object);
-}
-
-void CArea2Scene::RemoveObject(LPGAMEOBJECT object)
-{
-	objects.erase(remove(objects.begin(), objects.end(), object), objects.end());
+	//objects.push_back(object);
+	GridManager::GetInstance()->AddObject(object);
 }
 
 void CArea2Scene::RemoveCollisionObject()
 {
-	objects.erase(remove_if(objects.begin(), objects.end(), [](const LPGAMEOBJECT obj) {
-		return obj->shouldRemove == true;
-	}), objects.end());
-
 	collisions.erase(remove_if(collisions.begin(), collisions.end(), [](const CollisionExplosion* obj) {
 		return obj->shouldRemove == true;
 	}), collisions.end());
@@ -375,4 +358,15 @@ void CArea2Scene::_DrawBlood()
 	float cam_x, cam_y;
 	Camera::GetInstance()->GetPosition(cam_x, cam_y);
 	CSprites::GetInstance()->Get(sprite)->Draw(cam_x + 20, cam_y + 100 - CGame::GetInstance()->GetScreenHeight());
+}
+
+void CArea2Scene::_RefreshObject()
+{
+	objects.clear();
+	objects = GridManager::GetInstance()->GetObjectsToUpdate();
+	objects.push_back(player);
+	for (int i = 0; i < staticObjects.size(); ++i)
+	{
+		objects.push_back(staticObjects[i]);
+	}
 }

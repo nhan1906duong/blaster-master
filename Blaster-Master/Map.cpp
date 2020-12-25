@@ -83,8 +83,15 @@ void Map::Render()
 	}
 }
 
+void Map::GetBouncing(int& top, int& right)
+{
+	top = bouncingTop;
+	right = bouncingRight;
+}
+
 void Map::GetBouncing(long& top, long& right)
 {
 	top = bouncingTop;
 	right = bouncingRight;
 }
+

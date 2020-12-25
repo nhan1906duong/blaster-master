@@ -8,5 +8,8 @@ public:
 	Grid();
 	void AddObject(LPGAMEOBJECT object);
 	void RemoveObject(LPGAMEOBJECT object);
+
+	vector<LPGAMEOBJECT> GetObjects() { return objects; };
+	void ClearObjects();
 };
 

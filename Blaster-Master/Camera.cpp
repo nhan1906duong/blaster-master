@@ -77,3 +77,12 @@ void Camera::UpdateCamera(float player_x, float player_y)
 
 	if (cam_y < screen_height) cam_y = screen_height;
 }
+
+bool Camera::IsInCamera(float left, float top, float right, float bottom)
+{
+	return !(
+		right < cam_x || 
+		left > cam_x + CGame::GetInstance()->GetScreenWidth() || 
+		top < cam_y - CGame::GetInstance()->GetScreenHeight() ||
+		bottom > cam_y);
+}

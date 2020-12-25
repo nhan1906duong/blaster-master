@@ -20,3 +20,8 @@ void Grid::AddObject(LPGAMEOBJECT object)
 	}
 	objects.push_back(object);
 }
+
+void Grid::ClearObjects()
+{
+	objects.clear();
+}
