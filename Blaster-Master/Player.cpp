@@ -35,6 +35,9 @@
 
 #include "Area2Scene.h"
 
+#include "Collision.h"
+#include "FireZone.h"
+
 CPlayer* CPlayer::__instance = NULL;
 
 CPlayer* CPlayer::GetInstance()
@@ -82,7 +85,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	CalcPotentialCollisions(coObjects, coEvents);
 
 	// reset untouchable timer if untouchable time has passed
-	if (GetTickCount() - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
+	
+	DWORD current = GetTickCount();
+	if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 	{
 		untouchable_start = 0;
 		untouchable = 0;
@@ -123,7 +128,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		float rdx = 0;
 		float rdy = 0;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy, false);
 
 		x += min_tx * dx + 0.01f * nx;
 		y += min_ty * dy + 0.01f * ny;
@@ -165,7 +170,6 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 
-
 		for (UINT i = 0; i < coEventsResult.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEventsResult[i];
@@ -174,15 +178,19 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
-			else if (dynamic_cast<Enemy*>(e->obj))
+			else if (dynamic_cast<Enemy*>(e->obj) || dynamic_cast<ChongNhon*>(e->obj))
 			{
-				TruMang();
 				StartUntouchable();
 			}
-			else if (dynamic_cast<ChongNhon*>(e->obj))
+		}
+
+		for (int i = 0; i < coObjects->size(); ++i)
+		{
+			LPGAMEOBJECT obj = coObjects->at(i);
+			if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
 			{
-				TruMang();
 				StartUntouchable();
+				break;
 			}
 		}
 	}
@@ -241,6 +249,7 @@ void CPlayer::KeyState(BYTE* states)
 
 void CPlayer::TruMang()
 {
+	if (untouchable) return;
 	if (IsSophiaState())
 	{
 		--bloodSophia;
@@ -368,4 +377,13 @@ bool CPlayer::SwitchToSophia()
 bool CPlayer::IsDie()
 {
 	return dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonDieState*>(playerData->playerState);
+}
+
+void CPlayer::StartUntouchable()
+{
+	if (!untouchable)
+	{
+		TruMang();
+		untouchable = 1; untouchable_start = GetTickCount();
+	}
 }

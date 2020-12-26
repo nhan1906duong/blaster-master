@@ -1,7 +1,7 @@
 #pragma once
-#include "GameObject.h"
+#include "Static.h"
 
-class FireZone: public CGameObject
+class FireZone: public Static
 {
 private:
 public:

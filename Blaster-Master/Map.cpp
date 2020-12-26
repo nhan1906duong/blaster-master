@@ -1,3 +1,5 @@
+#include "Camera.h"
+
 #include "Map.h"
 #include "Game.h"
 #include "Textures.h"
@@ -12,7 +14,23 @@
 #define MAP_SECTION_SIZE 1
 #define MAP_SECTION_MAP 2
 
-CMap::CMap(LPCWSTR filePath)
+Map* Map::__instance = NULL;
+
+Map* Map::GetInstance()
+{
+	if (__instance == NULL)
+	{
+		__instance = new Map();
+	}
+	return __instance;
+}
+
+Map::Map()
+{
+
+}
+
+void Map::GenerateANewMap(LPCWSTR filePath)
 {
 	DebugOut(L"[INFO] Start loading map %s\n", filePath);
 
@@ -39,8 +57,11 @@ CMap::CMap(LPCWSTR filePath)
 	f.close();
 }
 
-void CMap::Render(CCamera * camera)
+void Map::Render()
 {
+	float cam_l, cam_t, cam_r, cam_b;
+	Camera::GetInstance()->GetBouncingBox(cam_l, cam_t, cam_r, cam_b);
+
 	for (int row = 0; row < bouncingTop / 16; row++)
 	{
 		for (int column = 0; column < bouncingRight / 16; ++column)
@@ -49,9 +70,6 @@ void CMap::Render(CCamera * camera)
 			float tileRight = column * 16 + 16;
 			float tileTop = row * 16 + 16;
 			float tileBottom = row * 16;
-
-			float cam_l, cam_t, cam_r, cam_b;
-			camera->GetBouncingBox(cam_l, cam_t, cam_r, cam_b);
 
 			if (tileBottom >= cam_t || tileLeft >= cam_r || tileTop <= cam_b || tileRight <= cam_l)
 			{
@@ -65,8 +83,15 @@ void CMap::Render(CCamera * camera)
 	}
 }
 
-void CMap::GetBouncing(float& top, float& right)
+void Map::GetBouncing(int& top, int& right)
 {
 	top = bouncingTop;
 	right = bouncingRight;
 }
+
+void Map::GetBouncing(long& top, long& right)
+{
+	top = bouncingTop;
+	right = bouncingRight;
+}
+

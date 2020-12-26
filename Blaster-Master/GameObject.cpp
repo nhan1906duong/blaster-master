@@ -7,7 +7,11 @@
 #include "Game.h"
 #include "GameObject.h"
 #include "Sprites.h"
+
+#include "Portal.h"
 #include "Brick.h"
+
+#include "Collision.h"
 
 CGameObject::CGameObject()
 {
@@ -45,7 +49,7 @@ LPCOLLISIONEVENT CGameObject::SweptAABBEx(LPGAMEOBJECT coO)
 
 	GetBoundingBox(ml, mt, mr, mb);
 
-	CGame::SweptAABB(
+	Collision::SweptAABB(
 		ml, mt, mr, mb,
 		rdx, rdy,
 		sl, st, sr, sb,
@@ -77,7 +81,7 @@ void CGameObject::FilterCollision(
 	vector<LPCOLLISIONEVENT>& coEvents,
 	vector<LPCOLLISIONEVENT>& coEventsResult,
 	float& min_tx, float& min_ty,
-	float& nx, float& ny, float& rdx, float& rdy)
+	float& nx, float& ny, float& rdx, float& rdy, bool includePortal)
 {
 	min_tx = 1.0f;
 	min_ty = 1.0f;
@@ -92,10 +96,23 @@ void CGameObject::FilterCollision(
 	for (UINT i = 0; i < coEvents.size(); i++)
 	{
 		LPCOLLISIONEVENT c = coEvents[i];
-		if (!dynamic_cast<CBrick*>(c->obj))
+
+		if (includePortal)
 		{
-			coEventsResult.push_back(coEvents[i]);
-			continue;
+			if (!dynamic_cast<CBrick*>(c->obj) &&
+				!dynamic_cast<CPortal*>(c->obj))
+			{
+				coEventsResult.push_back(coEvents[i]);
+				continue;
+			}
+		}
+		else
+		{
+			if (!dynamic_cast<CBrick*>(c->obj))
+			{
+				coEventsResult.push_back(coEvents[i]);
+				continue;
+			}
 		}
 
 		if (c->t < min_tx && c->nx != 0) {

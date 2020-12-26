@@ -3,7 +3,7 @@
 #include "PlayerData.h"
 #include "SophiaState.h"
 
-#define PLAYER_UNTOUCHABLE_TIME 500
+#define PLAYER_UNTOUCHABLE_TIME 1000
 
 class CPlayer : public CGameObject
 {
@@ -52,7 +52,7 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* colliable_objects = NULL);
 	virtual void Render();
 
-	void StartUntouchable() { untouchable = 1; untouchable_start = GetTickCount(); }
+	void StartUntouchable();
 
 	void Reset();
 

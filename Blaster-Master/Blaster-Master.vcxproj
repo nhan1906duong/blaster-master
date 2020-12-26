@@ -27,6 +27,8 @@
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
+    <ClCompile Include="Grid.cpp" />
+    <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -74,9 +76,12 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
     <ClInclude Include="ChongNhon.h" />
+    <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionExplosion.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
+    <ClInclude Include="Grid.h" />
+    <ClInclude Include="GridManager.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
     <ClInclude Include="Item.h" />
@@ -109,6 +114,7 @@
     <ClInclude Include="SophiaStraightRunningState.h" />
     <ClInclude Include="SophiaStraightStandingState.h" />
     <ClInclude Include="SophiaStraightState.h" />
+    <ClInclude Include="Static.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="Enemy.h" />

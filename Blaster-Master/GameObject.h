@@ -95,7 +95,8 @@ public:
 		float& nx,
 		float& ny,
 		float& rdx,
-		float& rdy);
+		float& rdy,
+		bool includePortal = true);
 
 	CGameObject();
 

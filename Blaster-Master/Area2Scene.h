@@ -1,6 +1,5 @@
 #pragma once
 #include "Game.h"
-#include "Map.h"
 #include "Textures.h"
 #include "Scene.h"
 #include "GameObject.h"
@@ -16,11 +15,11 @@ class CArea2Scene : public CScene
 private:
 	void RemoveCollisionObject();
 protected:
-	CPlayer* player;					// A play scene has to have player, right? 
-	CMap* map;
-	CCamera* camera;
+	CPlayer* player;
 
 	vector<LPGAMEOBJECT> objects;
+	vector<LPGAMEOBJECT> staticObjects;
+
 	vector<CollisionExplosion*> collisions;
 
 	void _Init_Player(float player_x, float player_y);
@@ -32,6 +31,8 @@ protected:
 	void _CheckCameraAndWorldMap();
 
 	void _DrawBlood();
+
+	void _RefreshObject();
 public:
 	CArea2Scene(int id, LPCWSTR filePath);
 
@@ -42,10 +43,7 @@ public:
 
 	CPlayer* GetPlayer() { return player; }
 
-	void GetCameraPosition(float& x, float& y);
-
 	void AddObject(LPGAMEOBJECT object);
-	void RemoveObject(LPGAMEOBJECT object);
 	void AddCollision(float, float);
 };
 

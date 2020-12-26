@@ -12,7 +12,10 @@ class Enemy : public CGameObject
 {
 protected:
 	int blood;
+	bool isAppear = false;
 public:
+	bool IsAppear() { return isAppear; }
+
 	void BeenShot(Bullet* bullet)
 	{
 		int power = bullet->GetPower();
@@ -22,5 +25,10 @@ public:
 			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 			PrepareToRemove();
 		}
+	}
+
+	void SetAppear()
+	{
+		isAppear = true;
 	}
 };

@@ -1,6 +1,7 @@
 #pragma once
-#include "GameObject.h"
-class ChongNhon: public CGameObject
+#include "Static.h"
+
+class ChongNhon: public Static
 {
 private:
 	int identity;
