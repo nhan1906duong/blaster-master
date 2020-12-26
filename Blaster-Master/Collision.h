@@ -1,4 +1,5 @@
 #pragma once
+#include "GameObject.h"
 
 class Collision
 {
@@ -102,6 +103,17 @@ public:
 			dy > 0 ? ny = -1.0f : ny = 1.0f; // huong
 		}
 
+	}
+
+	static bool CheckContain(LPGAMEOBJECT objThis, LPGAMEOBJECT objThat)
+	{
+		float l, t, r, b;
+		float lOther, tOther, rOther, bOther;
+
+		objThis->GetBoundingBox(l, t, r, b);
+		objThat->GetBoundingBox(lOther, tOther, rOther, bOther);
+
+		return !(l > rOther || r < lOther || t < bOther || b > tOther);
 	}
 };
 
