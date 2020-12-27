@@ -83,7 +83,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		if (brickNx != 0)
 		{
-			if (player->IsDie())
+			if (!player->IsALiveAndTouchable())
 			{
 				this->nx = -this->nx;
 				vx = -vx;
@@ -98,7 +98,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 
-		if (!player->IsDie())
+		if (player->IsALiveAndTouchable())
 		{
 			float left, top, right, bottom;
 			player->GetBoundingBox(left, top, right, bottom);
