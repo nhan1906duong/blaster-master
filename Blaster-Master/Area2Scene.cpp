@@ -23,6 +23,10 @@
 
 #include "Dome.h"
 
+
+#include "Brick.h"
+#include "SecretWall.h"
+
 using namespace std;
 
 CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
@@ -41,6 +45,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_BRICK			2
 #define SCENE_SECTION_CHONG_NHON	3
 #define SCENE_SECTION_PORTAL		4
+#define SCENE_SECTION_SECRET_WALL	5
 
 #define OBJECT_TYPE_CON_SAU		10
 #define OBJECT_TYPE_DOME		11
@@ -125,7 +130,7 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	GridManager::GetInstance()->AddObject(obj);
 }
 
-void CArea2Scene::_ParseSecion_BRICK(string line)
+void CArea2Scene::_ParseSecion_BRICK(string line, bool secretWall)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
@@ -134,8 +139,16 @@ void CArea2Scene::_ParseSecion_BRICK(string line)
 	float top = atof(tokens[2].c_str());
 	float right = atof(tokens[3].c_str());
 	float bottom = atof(tokens[4].c_str());
-	CBrick* brick = new CBrick(identity, left, top, right, bottom);
-	staticObjects.push_back(brick);
+	Static* obj;
+	if (secretWall)
+	{
+		obj = new SecretWall(left, top, right, bottom);
+	}
+	else
+	{
+		obj = new CBrick(identity, left, top, right, bottom);
+	}
+	staticObjects.push_back(obj);
 }
 
 void CArea2Scene::_ParseSection_CHONG_NHON(string line)
@@ -208,6 +221,10 @@ void CArea2Scene::Load(float player_x, float player_y)
 		{
 			section = SCENE_SECTION_BRICK; continue;
 		}
+		if (line == "[SECRET_WALL]")
+		{
+			section = SCENE_SECTION_SECRET_WALL; continue;
+		}
 		if (line == "[CHONG_NHON]")
 		{
 			section = SCENE_SECTION_CHONG_NHON; continue;
@@ -223,6 +240,7 @@ void CArea2Scene::Load(float player_x, float player_y)
 		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
+		case SCENE_SECTION_SECRET_WALL: _ParseSecion_BRICK(line, true); break;
 		case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
 		case SCENE_SECTION_PORTAL: _ParseSection_PORTAL(line); break;
 		}

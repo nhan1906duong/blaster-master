@@ -1,8 +1,7 @@
 #include "Dome.h"
-#include "Bullet.h"
 
-#include "Game.h"
-#include "Area2Scene.h"
+#include "Bullet.h"
+#include "Player.h"
 
 
 Dome::Dome(int currentAnimation, int huong)
@@ -293,7 +292,7 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 
 		float left, top, right, bottom;
-		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer()->GetBoundingBox(left, top, right, bottom);
+		CPlayer::GetInstance()->GetBoundingBox(left, top, right, bottom);
 
 		if (y < top && y > bottom)
 		{

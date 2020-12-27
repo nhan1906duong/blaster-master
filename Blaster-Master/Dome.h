@@ -1,6 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
+#include "Brick.h"
+
 #define DOME_WIDTH		18
 #define DOME_HEIGHT		18
 

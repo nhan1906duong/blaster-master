@@ -1,7 +1,7 @@
 [TILES]
 resources\map\tile2\	143
 [SETTINGS]
-start	1
+start	2
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt

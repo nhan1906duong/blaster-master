@@ -10,6 +10,7 @@
 
 #include "Portal.h"
 #include "Brick.h"
+#include "SecretWall.h"
 
 #include "Collision.h"
 
@@ -100,6 +101,7 @@ void CGameObject::FilterCollision(
 		if (includePortal)
 		{
 			if (!dynamic_cast<CBrick*>(c->obj) &&
+				!dynamic_cast<SecretWall*>(c->obj) &&
 				!dynamic_cast<CPortal*>(c->obj))
 			{
 				coEventsResult.push_back(coEvents[i]);
@@ -108,7 +110,8 @@ void CGameObject::FilterCollision(
 		}
 		else
 		{
-			if (!dynamic_cast<CBrick*>(c->obj))
+			if (!dynamic_cast<CBrick*>(c->obj) &&
+				!dynamic_cast<SecretWall*>(c->obj))
 			{
 				coEventsResult.push_back(coEvents[i]);
 				continue;
