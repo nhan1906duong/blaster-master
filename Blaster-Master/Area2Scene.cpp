@@ -16,7 +16,10 @@
 #include "Floater.h"
 #include "Jumper.h"
 #include "Insect.h"
-#include "Orb.h"
+
+#include "DoomieOrb.h"
+#include "AttackOrb.h"
+
 #include "Skull.h"
 #include "Mine.h"
 #include "SophiaBullet.h"
@@ -26,6 +29,7 @@
 
 #include "Brick.h"
 #include "SecretWall.h"
+#include "FireZone.h"
 
 using namespace std;
 
@@ -46,6 +50,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_CHONG_NHON	3
 #define SCENE_SECTION_PORTAL		4
 #define SCENE_SECTION_SECRET_WALL	5
+#define SCENE_SECTION_FIRE_ZONE		6
 
 #define OBJECT_TYPE_CON_SAU		10
 #define OBJECT_TYPE_DOME		11
@@ -112,7 +117,7 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 			obj = new Insect();
 			break;
 		case OBJECT_TYPE_ORB:
-			obj = new Orb();
+			obj = new DoomieOrb();
 			break;
 		case OBJECT_TYPE_SKULL:
 			obj = new Skull();
@@ -130,7 +135,7 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	GridManager::GetInstance()->AddObject(obj);
 }
 
-void CArea2Scene::_ParseSecion_BRICK(string line, bool secretWall)
+void CArea2Scene::_ParseSecion_BRICK(string line, int type)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
@@ -140,9 +145,13 @@ void CArea2Scene::_ParseSecion_BRICK(string line, bool secretWall)
 	float right = atof(tokens[3].c_str());
 	float bottom = atof(tokens[4].c_str());
 	Static* obj;
-	if (secretWall)
+	if (type == 1)
 	{
 		obj = new SecretWall(left, top, right, bottom);
+	}
+	else if (type == 2)
+	{
+		obj = new FireZone(left, top, right, bottom);
 	}
 	else
 	{
@@ -233,6 +242,10 @@ void CArea2Scene::Load(float player_x, float player_y)
 		{
 			section = SCENE_SECTION_PORTAL; continue;
 		}
+		if (line == "[FIRE]")
+		{
+			section = SCENE_SECTION_FIRE_ZONE; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
@@ -240,7 +253,8 @@ void CArea2Scene::Load(float player_x, float player_y)
 		case SCENE_SECTION_MAP: _ParseSection_MAP(line); break;
 		case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 		case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
-		case SCENE_SECTION_SECRET_WALL: _ParseSecion_BRICK(line, true); break;
+		case SCENE_SECTION_SECRET_WALL: _ParseSecion_BRICK(line, 1); break;
+		case SCENE_SECTION_FIRE_ZONE: _ParseSecion_BRICK(line, 2); break;
 		case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
 		case SCENE_SECTION_PORTAL: _ParseSection_PORTAL(line); break;
 		}

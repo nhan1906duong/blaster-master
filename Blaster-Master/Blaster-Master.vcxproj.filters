@@ -213,6 +213,12 @@
     <ClCompile Include="Map.cpp">
       <Filter>Framework\Core\CameraAndMap</Filter>
     </ClCompile>
+    <ClCompile Include="DoomieOrb.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="AttackOrb.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -391,6 +397,12 @@
     </ClInclude>
     <ClInclude Include="Static.h">
       <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="DoomieOrb.h">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackOrb.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

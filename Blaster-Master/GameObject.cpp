@@ -161,3 +161,25 @@ void CGameObject::PrepareToRemove()
 	shouldRemove = true;
 
 }
+
+void CGameObject::GetMidPosition(float& x, float& y)
+{
+	float left, top, right, bottom;
+	GetBoundingBox(left, top, right, bottom);
+	x = (right - left) / 2;
+	y = (top - bottom) / 2;
+}
+
+float CGameObject::GetMidX()
+{
+	float x, y;
+	GetMidPosition(x, y);
+	return x;
+}
+
+float CGameObject::GetMidY()
+{
+	float x, y;
+	GetMidPosition(x, y);
+	return y;
+}

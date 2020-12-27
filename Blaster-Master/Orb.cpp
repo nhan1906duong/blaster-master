@@ -7,12 +7,18 @@ Orb::Orb()
 
 void Orb::Render()
 {
-	animation_set->at(0)->Render(x, y);
-}
-
-void Orb::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
-{
-
+	int ani;
+	bool flip = false;
+	if (state == STATE_WALKING)
+	{
+		ani = 1;
+		flip = nx > 0;
+	}
+	else
+	{
+		ani = 0;
+	}
+	animation_set->at(ani)->Render(x, y, 255, flip);
 }
 
 void Orb::GetBoundingBox(float& left, float& top, float& right, float& bottom)

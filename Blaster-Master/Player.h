@@ -78,7 +78,7 @@ public:
 		}
 	}
 
-	bool IsDie();
+	bool IsALiveAndTouchable();
 
 	void fire();
 };

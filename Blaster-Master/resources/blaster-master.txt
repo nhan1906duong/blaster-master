@@ -1,7 +1,7 @@
 [TILES]
 resources\map\tile2\	143
 [SETTINGS]
-start	2
+start	3
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt
@@ -205,8 +205,8 @@ start	2
 59	67	100	66	100
 #	<ORB>
 60	69	100	70	100	71	100	72	100
-#61
-#62
+61	69	100
+62	71	100
 #	<SKULL>
 63	75	100
 64	76	100
@@ -239,9 +239,8 @@ start	2
 13	58
 #	<INSECT>
 14	59
-#	+ 61	62
 #	<ORB>
-15	60
+15	60	61	62
 #	<SKULL>
 16	63	64
 #	<MINE>

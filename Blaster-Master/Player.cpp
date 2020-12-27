@@ -374,9 +374,9 @@ bool CPlayer::SwitchToSophia()
 	return isChangeState;
 }
 
-bool CPlayer::IsDie()
+bool CPlayer::IsALiveAndTouchable()
 {
-	return dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonDieState*>(playerData->playerState);
+	return !untouchable && !(dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonDieState*>(playerData->playerState));
 }
 
 void CPlayer::StartUntouchable()
