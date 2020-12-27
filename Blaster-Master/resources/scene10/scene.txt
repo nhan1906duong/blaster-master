@@ -4,7 +4,11 @@ resources\scene10\map.txt	15	64
 # type	x	y	ani_set_id	extra_settings per object type
 [BRICK]
 # left	top	right	bottom
-1	0	32	512	0
+1	0	64	288	0
+1	0	288	64	64
+1	192	96	288	64
+2	256	128	288	96
+2	256	288	288	128
+2	64	288	256	192
 [PORTAL]
-1	32	128	64	96	2 	100	1000
-1	448	128	480	96	5 	80	128
+1	224	128	256	96	3	80	128

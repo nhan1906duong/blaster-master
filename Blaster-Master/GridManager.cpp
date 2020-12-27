@@ -138,9 +138,11 @@ vector<LPGAMEOBJECT> GridManager::GetObjectsToUpdate()
 	int fromColumn = x / ceil_width;
 	int toRow = y / ceil_height;
 
+	int toColumn = fromColumn + 2 >= grids.at(0).size() - 1 ? grids.at(0).size() - 1 : fromColumn + 2;
+
 	for (int row = toRow; row >= toRow - 2; --row)
 	{
-		for (int column = fromColumn; column <= fromColumn + 2; ++column)
+		for (int column = fromColumn; column <= toColumn; ++column)
 		{
 			Grid* currentGrid = grids.at(row).at(column);
 			vector<LPGAMEOBJECT> objects = currentGrid->GetObjects();
