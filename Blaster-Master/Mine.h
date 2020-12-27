@@ -1,8 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
-#define MINE_WIDTH	16
-#define MINE_HEIGHT	10
+#define MINE_WIDTH	14
+#define MINE_HEIGHT	8
 
 class Mine: public Enemy
 {

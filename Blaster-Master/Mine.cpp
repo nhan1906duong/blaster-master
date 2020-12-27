@@ -9,7 +9,6 @@ Mine::Mine()
 void Mine::Render()
 {
 	animation_set->at(0)->Render(x, y);
-	RenderBoundingBox();
 }
 
 void Mine::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)

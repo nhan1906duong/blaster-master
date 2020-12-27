@@ -24,6 +24,7 @@ start	3
 202	resources\enemies\enemies.png	0	255	255	255
 203	resources\items\items.png	0	255	255	255
 204	resources\items\blood.png	255	45	52	205
+205	resources\enemies\mine.png	0	255	255	255
 # sprite_id	left	top	right	bottom	texture_id
 [SPRITES]
 # Jason idle left
@@ -119,8 +120,8 @@ start	3
 75	42	530	60	548	202
 76	62	527	80	548	202
 #	<MINE> Current doesn't sprite
-77	0	0	16	10	202
-78	0	0	16	10	202
+77	1	0	15	8	205
+78	17	0	31	8	205
 #	<SophiaBullet>
 #left
 79	91	20	115	28	200
