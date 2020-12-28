@@ -291,26 +291,35 @@ void CPlayer::TruMang()
 
 void CPlayer::fire()
 {
+	float l, t, r, b;
+	GetBoundingBox(l, t, r, b);
+	float bulletX = 0, bulletY = 0;
 	if (IsSophiaState())
 	{
 		int direction;
 		if (dynamic_cast<SophiaStraightState*>(playerData->playerState))
 		{
 			direction = 3;
+			bulletX = (l + r) / 2 - 4;
+			bulletY = y - 0.1;
 		}
 		else
 		{
 			if (nx > 0)
 			{
 				direction = 1;
+				bulletX = r - 24.1;
+				bulletY = y;
 			}
 			else
 			{
+				bulletX = x +0.1;
+				bulletY = y;
 				direction = 2;
 			}
 		}
 		SophiaBullet* bullet = new SophiaBullet(direction);
-		bullet->SetPosition(x, y);
+		bullet->SetPosition(bulletX, bulletY);
 		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddObject(bullet);
 	}
 	else
