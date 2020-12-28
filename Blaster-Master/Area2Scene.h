@@ -44,6 +44,8 @@ public:
 
 	void AddObject(LPGAMEOBJECT object);
 	void AddCollision(float, float);
+
+	bool CanAddPosition(float y);
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler

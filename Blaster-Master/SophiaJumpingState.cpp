@@ -5,6 +5,8 @@
 #include "Player.h"
 #include "Utils.h"
 
+#include "Area2Scene.h"
+
 SophiaJumpingState::SophiaJumpingState(PlayerData* data, bool reset) : SophiaState(data)
 {
 	DebugOut(L"SophiaJumpingState\n");
@@ -121,8 +123,14 @@ void SophiaJumpingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+		{
+			if (!((CArea2Scene*) CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.1))
+			{
+				break;
+			}
 			data->player->AddPosition(0, 16);
 			data->player->SetState(new SophiaStraightJumpingState(data, false));
 			break;
+		}
 	}
 }

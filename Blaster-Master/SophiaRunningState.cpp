@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "Utils.h"
 
+#include "Area2Scene.h"
 
 SophiaRunningState::SophiaRunningState(PlayerData* data) : SophiaState(data)
 {
@@ -75,12 +76,24 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
+		{
+			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.2))
+			{
+				break;
+			}
 			data->player->AddPosition(0, 16.1);
 			data->player->SetState(new SophiaStraightRunningState(data));
 			break;
+		}
 		case DIK_X:
+		{
+			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2))
+			{
+				break;
+			}
 			data->player->AddPosition(0, 3.1);
 			data->player->SetState(new SophiaJumpingState(data));
 			break;
+		}
 	}
 }

@@ -34,7 +34,6 @@ private:
 	bool isLeftOrRightPressed = false;
 	bool isUpPressed = false;
 
-
 	int IsKeyDown(BYTE* states, int keyCode)
 	{
 		return (states[keyCode] & 0x80) > 0;
@@ -65,7 +64,7 @@ public:
 	void SetState(PlayerState* state);
 
 	bool SwitchToSophia();
-
+	
 	int GetBlood()
 	{
 		if (IsSophiaState())

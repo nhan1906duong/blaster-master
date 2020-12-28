@@ -402,3 +402,42 @@ void CArea2Scene::_RefreshObject()
 		objects.push_back(staticObjects[i]);
 	}
 }
+
+bool CArea2Scene::CanAddPosition(float y)
+{
+	float minHeight = 99999.0f;
+	for (int i = 0; i < objects.size(); ++i)
+	{
+		LPGAMEOBJECT obj = objects[i];
+		if (dynamic_cast<CBrick*>(obj) || dynamic_cast<CPortal*>(obj))
+		{
+			float l, t, r, b;
+			obj->GetBoundingBox(l, t, r, b);
+			float pl, pt, pr, pb;
+			CPlayer::GetInstance()->GetBoundingBox(pl, pt, pr, pb);
+			if (y > 0)
+			{
+				if (!(pl > r || pr < l) && b > pt && b - pt < minHeight)
+				{
+					minHeight = b - pt;
+				}
+			}
+			else
+			{
+				if (!(pl > r || pr < l) && t < pb && pb - t < minHeight)
+				{
+					minHeight = pb - t;
+				}
+			}
+		}
+	}
+	if (minHeight >= 99999.0f) return false;
+	if (y < 0)
+	{
+		return y * -1 < minHeight;
+	}
+	else
+	{
+		return y < minHeight;
+	}
+}

@@ -109,7 +109,11 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (isUpPressed)
 				{
-					SetState(new SophiaStraightFallingState(playerData));
+					if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+					{
+						SetState(new SophiaFallingState(playerData));
+					}
+					else SetState(new SophiaStraightFallingState(playerData));
 				}
 				else
 				{
@@ -148,7 +152,19 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					if (isUpPressed)
 					{
-						SetState(new SophiaStraightStandingState(playerData));
+						if (!dynamic_cast<SophiaStraightState*>(playerData->playerState))
+						{
+							if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+							{
+								AddPosition(0, 2.1);
+								SetState(new SophiaStandingState(playerData));
+							}
+							else
+							{
+								SetState(new SophiaStraightStandingState(playerData));
+							}
+						}
+						else SetState(new SophiaStraightStandingState(playerData));
 					}
 					else
 					{

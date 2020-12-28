@@ -4,6 +4,7 @@
 #include "SophiaStraightFallingState.h"
 
 #include "Utils.h"
+#include "Area2Scene.h"
 
 SophiaFallingState::SophiaFallingState(PlayerData* data) : SophiaState(data)
 {
@@ -89,8 +90,14 @@ void SophiaFallingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
-			data->player->AddPosition(0, 16);
+		{
+			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+			{
+				break;
+			}
 			data->player->SetState(new SophiaStraightFallingState(data));
 			break;
+		}
+
 	}
 }
