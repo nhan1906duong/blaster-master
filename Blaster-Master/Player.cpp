@@ -194,7 +194,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
 				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 			}
-			else if (dynamic_cast<Enemy*>(e->obj) || dynamic_cast<ChongNhon*>(e->obj))
+			else if (dynamic_cast<Enemy*>(e->obj))
 			{
 				StartUntouchable();
 			}
@@ -225,7 +225,12 @@ void CPlayer::Render()
 	{
 		animation_set->at(9)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
 	}
-	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, 255, nx > 0);
+	int alpha = 255;
+	if (dynamic_cast<JasonState*>(playerData->playerState) && untouchable)
+	{
+		alpha = 288;
+	}
+	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, alpha, nx > 0);
 
 	RenderBoundingBox();
 }

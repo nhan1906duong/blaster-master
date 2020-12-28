@@ -66,7 +66,7 @@ void JasonJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
-	data->player->AddVy(0.03);
+	data->player->AddVy(0.018);
 	if (data->player->GetVy() > 0.2)
 	{
 		data->player->SetVy(0.2);
