@@ -404,5 +404,8 @@
     <ClInclude Include="AttackOrb.h">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

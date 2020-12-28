@@ -1,7 +1,10 @@
 #include "SophiaBullet.h"
-#include "Game.h"
-#include "Area2Scene.h"
+
 #include "Enemy.h"
+#include "Brick.h"
+#include "Portal.h"
+#include "SecretWall.h"
+#include "Area2Scene.h"
 
 /** direct	1	LeftToRight
 *			2	RightToLeft
@@ -76,25 +79,43 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
+		float deltaMin = 9999;
+		LPCOLLISIONEVENT minEvent = NULL;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;
-		
-		PrepareToRemove();
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Enemy*>(e->obj))
+			LPCOLLISIONEVENT e = coEvents[i];
+			float min = e->dx < e->dy ? e->dx : e->dy;
+			if (min < deltaMin)
 			{
-				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
+				minEvent = e;
+				deltaMin = min;
+			}
+		}
+		if (deltaMin >= 9999) return;
+		if (minEvent)
+		{
+			if (dynamic_cast<Enemy*>(minEvent->obj))
+			{
+				Enemy* enemy = dynamic_cast<Enemy*>(minEvent->obj);
 				enemy->BeenShot(this);
 			}
+			PrepareToRemove();
+			float left, top, right, bottom;
+			minEvent->obj->GetBoundingBox(left, top, right, bottom);
+			if (direct == 1)
+			{
+				x = left;
+			}
+			else if (direct == 2)
+			{
+				x = right;
+			}
+			else if (direct == 3)
+			{
+				y = bottom;
+			}
+			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
 
 	}

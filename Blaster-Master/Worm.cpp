@@ -5,6 +5,8 @@
 #include "ChongNhon.h"
 #include "Bullet.h"
 
+#include "Player.h"
+
 Worm::Worm()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(10);
@@ -66,7 +68,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		y += min_ty * dy + 0.01f * ny;
 
 
-		CPlayer* player = ((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->GetPlayer();
+		CPlayer* player = CPlayer::GetInstance();
 
 		if (ny != 0)
 		{

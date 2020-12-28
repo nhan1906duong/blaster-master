@@ -2,7 +2,7 @@
 #include "Enemy.h"
 
 #define CONSAU_WIDTH 18
-#define CONSAU_HEIGHT 10
+#define CONSAU_HEIGHT 9
 
 #define ANIMATION_IDLE 0
 #define ANIMATION_MOVE 1

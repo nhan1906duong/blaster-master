@@ -1,9 +1,6 @@
 #pragma once
 #include "GameObject.h"
 
-#include "Game.h"
-#include "Area2Scene.h"
-
 #include "Bullet.h"
 
 #define ENEMY_DIE_STATE -1
@@ -22,7 +19,6 @@ public:
 		blood -= power;
 		if (blood <= 0)
 		{
-			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 			PrepareToRemove();
 		}
 	}

@@ -159,7 +159,6 @@ CGameObject::~CGameObject()
 void CGameObject::PrepareToRemove()
 {
 	shouldRemove = true;
-
 }
 
 void CGameObject::GetMidPosition(float& x, float& y)
