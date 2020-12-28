@@ -9,10 +9,7 @@ class Enemy : public CGameObject
 {
 protected:
 	int blood;
-	bool isAppear = false;
 public:
-	bool IsAppear() { return isAppear; }
-
 	void BeenShot(Bullet* bullet)
 	{
 		int power = bullet->GetPower();
@@ -21,10 +18,5 @@ public:
 		{
 			PrepareToRemove();
 		}
-	}
-
-	void SetAppear()
-	{
-		isAppear = true;
 	}
 };
