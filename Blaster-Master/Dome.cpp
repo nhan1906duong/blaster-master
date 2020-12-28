@@ -138,7 +138,7 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (currentAnimation == 0)
 				{
 					x = right - 0.1f;
-					y = bottom + 0.1f;
+					y = bottom - 0.1f;
 					currentAnimation = 1;
 					huong = 1;
 					SetVy(V_GRAVITY);
