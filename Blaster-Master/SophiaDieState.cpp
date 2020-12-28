@@ -7,7 +7,7 @@ SophiaDieState::SophiaDieState(PlayerData* data) : SophiaState(data)
 
 int SophiaDieState::CurrentAnimationId()
 {
-	return 14;
+	return 30;
 }
 
 void SophiaDieState::GetBoundingBox(float& left, float& top, float& right, float& bottom)

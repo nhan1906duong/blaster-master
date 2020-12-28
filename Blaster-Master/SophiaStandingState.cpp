@@ -18,20 +18,12 @@ SophiaStandingState::SophiaStandingState(PlayerData* data): SophiaState(data)
 
 int SophiaStandingState::CurrentAnimationId()
 {
-	/*switch (huong)
+	int ani = 9;
+	if (data->player->IsUntouchable())
 	{
-	case 2:
-		DebugOut(L"Huong 2\n");
-		return 16;
-	case 1:
-
-		DebugOut(L"Huong 1\n");
-		return 15;
-	default:
-		return 12;
-	}*/
-	return 12;
-
+		ani = 10;
+	}
+	return ani;
 }
 
 void SophiaStandingState::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
@@ -55,6 +47,7 @@ void SophiaStandingState::OnKeyDown(int keyCode)
 			data->player->SetState(new SophiaDiagonalStandingState(data));
 			break;
 		case DIK_X:
+			data->player->AddPosition(0, 3.1);
 			data->player->SetState(new SophiaJumpingState(data));
 			break;
 	}

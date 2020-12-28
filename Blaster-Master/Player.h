@@ -80,5 +80,7 @@ public:
 
 	bool IsALiveAndTouchable();
 
+	bool IsUntouchable();
+
 	void fire();
 };

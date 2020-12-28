@@ -16,7 +16,12 @@ SophiaStraightRunningState::SophiaStraightRunningState(PlayerData* data) : Sophi
 
 int SophiaStraightRunningState::CurrentAnimationId()
 {
-	return 16;
+	int ani = 27;
+	if (data->player->IsUntouchable())
+	{
+		ani = 28;
+	}
+	return ani;
 }
 
 void SophiaStraightRunningState::GetBoundingBox(float& left, float& top, float& right, float& bottom)

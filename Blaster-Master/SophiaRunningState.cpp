@@ -15,7 +15,12 @@ SophiaRunningState::SophiaRunningState(PlayerData* data) : SophiaState(data)
 
 int SophiaRunningState::CurrentAnimationId()
 {
-	return 9;
+	int ani = 11;
+	if (data->player->IsUntouchable())
+	{
+		ani = 12;
+	}
+	return ani;
 }
 
 void SophiaRunningState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -74,6 +79,7 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 			data->player->SetState(new SophiaStraightRunningState(data));
 			break;
 		case DIK_X:
+			data->player->AddPosition(0, 3.1);
 			data->player->SetState(new SophiaJumpingState(data));
 			break;
 	}

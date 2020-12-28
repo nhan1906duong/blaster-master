@@ -5,7 +5,7 @@ class SophiaStraightJumpingState: public SophiaStraightState
 {
 private:
 	float acceleratorX, acceleratorY;
-	bool isHoldJump;
+	bool isHoldJump, isLeftOrRightPressed;
 public:
 	SophiaStraightJumpingState(PlayerData* data, bool reset = true);
 	int CurrentAnimationId();

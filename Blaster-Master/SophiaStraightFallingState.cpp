@@ -15,7 +15,24 @@ SophiaStraightFallingState::SophiaStraightFallingState(PlayerData* data) : Sophi
 
 int SophiaStraightFallingState::CurrentAnimationId()
 {
-	return 16;
+	int ani;
+	if (isLeftOrRightPressed)
+	{
+		ani = 27;
+		if (data->player->IsUntouchable())
+		{
+			ani = 28;
+		}
+	}
+	else
+	{
+		ani = 25;
+		if (data->player->IsUntouchable())
+		{
+			ani = 26;
+		}
+	}
+	return ani;
 }
 
 void SophiaStraightFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)

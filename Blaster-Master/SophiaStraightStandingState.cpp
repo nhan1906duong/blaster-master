@@ -18,8 +18,12 @@ SophiaStraightStandingState::SophiaStraightStandingState(PlayerData* data) : Sop
 
 int SophiaStraightStandingState::CurrentAnimationId()
 {
-	return 16;
-
+	int ani = 25;
+	if (data->player->IsUntouchable())
+	{
+		ani = 26;
+	}
+	return ani;
 }
 
 void SophiaStraightStandingState::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)

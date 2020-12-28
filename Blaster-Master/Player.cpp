@@ -203,15 +203,15 @@ void CPlayer::Render()
 {
 	if (isSwitchState)
 	{
-		animation_set->at(10)->Render(sophia_x, sophia_y + 8, 255, sophia_nx < 0);
+		animation_set->at(29)->Render(sophia_x, sophia_y + 8, 255, sophia_nx < 0);
 	}
 	else if (!IsSophiaState())
 	{
-		animation_set->at(12)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
+		animation_set->at(9)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, 255, nx > 0);
 
-	//RenderBoundingBox();
+	RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -386,4 +386,9 @@ void CPlayer::StartUntouchable()
 		TruMang();
 		untouchable = 1; untouchable_start = GetTickCount();
 	}
+}
+
+bool CPlayer::IsUntouchable()
+{
+	return untouchable;
 }

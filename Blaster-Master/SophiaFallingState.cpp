@@ -14,7 +14,24 @@ SophiaFallingState::SophiaFallingState(PlayerData* data) : SophiaState(data)
 
 int SophiaFallingState::CurrentAnimationId()
 {
-	return 12;
+	int ani;
+	if (isLeftOrRightPressed)
+	{
+		ani = 19;
+		if (data->player->IsUntouchable())
+		{
+			ani = 20;
+		}
+	}
+	else
+	{
+		ani = 17;
+		if (data->player->IsUntouchable())
+		{
+			ani = 18;
+		}
+	}
+	return ani;
 }
 
 void SophiaFallingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)

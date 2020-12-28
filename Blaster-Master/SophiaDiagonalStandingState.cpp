@@ -17,7 +17,12 @@ SophiaDiagonalStandingState::SophiaDiagonalStandingState(PlayerData* data) : Sop
 
 int SophiaDiagonalStandingState::CurrentAnimationId()
 {
-	return 15;
+	int ani = 21;
+	if (data->player->IsUntouchable())
+	{
+		ani = 22;
+	}
+	return ani;
 
 }
 

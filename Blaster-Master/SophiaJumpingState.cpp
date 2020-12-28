@@ -14,19 +14,36 @@ SophiaJumpingState::SophiaJumpingState(PlayerData* data, bool reset) : SophiaSta
 		data->player->SetVy(0.01f);
 	}
 	acceleratorY = 0.015f;
-	isHoldJump = false;
+	isHoldJump = isLeftOrRightPressed = false;
 }
 
 int SophiaJumpingState::CurrentAnimationId()
 {
-	return 12;
+	int ani;
+	if (isLeftOrRightPressed)
+	{
+		ani = 15;
+		if (data->player->IsUntouchable())
+		{
+			ani = 16;
+		}
+	}
+	else
+	{
+		ani = 13;
+		if (data->player->IsUntouchable())
+		{
+			ani = 14;
+		}
+	}
+	return ani;
 }
 
 void SophiaJumpingState::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 {
 	data->player->GetPosition(left, top);
 	right = left + SOPHIA_DEFAULT_WIDTH;
-	bottom = top - SOPHIA_DEFAULT_HEIGHT;
+	bottom = top - SOPHIA_JUMPING_HEIGHT;
 }
 
 void SophiaJumpingState::KeyState(BYTE* states)
@@ -34,6 +51,7 @@ void SophiaJumpingState::KeyState(BYTE* states)
 
 	if (IsKeyDown(states, DIK_LEFT))
 	{
+		isLeftOrRightPressed = true;
 		data->player->SetNx(-1);
 		if (data->player->GetVx() > 0)
 		{
@@ -50,6 +68,7 @@ void SophiaJumpingState::KeyState(BYTE* states)
 	}
 	else if (IsKeyDown(states, DIK_RIGHT))
 	{
+		isLeftOrRightPressed = true;
 		data->player->SetNx(1);
 		if (data->player->GetVx() < 0)
 		{
@@ -63,6 +82,10 @@ void SophiaJumpingState::KeyState(BYTE* states)
 				data->player->SetVx(MAX_VX);
 			}
 		}
+	}
+	else 
+	{
+		isLeftOrRightPressed = false;
 	}
 	if (IsKeyDown(states, DIK_X))
 	{
