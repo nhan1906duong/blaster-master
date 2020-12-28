@@ -152,18 +152,11 @@ vector<LPGAMEOBJECT> GridManager::GetObjectsToUpdate()
 				if (dynamic_cast<Enemy*>(obj))
 				{
 					Enemy* enemy = dynamic_cast<Enemy*>(obj);
-					if (!enemy->IsAppear())
+					float left, top, right, bottom;
+					enemy->GetBoundingBox(left, top, right, bottom);
+					if (!Camera::GetInstance()->IsInCamera(left, top, right, bottom))
 					{
-						float left, top, right, bottom;
-						enemy->GetBoundingBox(left, top, right, bottom);
-						if (!Camera::GetInstance()->IsInCamera(left, top, right, bottom))
-						{
-							continue;
-						}
-						else
-						{
-							enemy->SetAppear();
-						}
+						continue;
 					}
 				}
 				bool isExist = false;
