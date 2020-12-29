@@ -1,6 +1,7 @@
 #include "Camera.h"
-#include "Map.h"
 
+#include "Map.h"
+#include "Player.h"
 #include "Game.h"
 
 Camera* Camera::__instance = NULL;
@@ -28,8 +29,15 @@ void Camera::GetBouncingBox(float &l, float &t, float &r, float &b)
 }
 
 
-void Camera::UpdateCamera(float player_x, float player_y)
+void Camera::UpdateCamera()
 {
+	if (isSwitchScence)
+	{
+		isSwitchScence = false;
+		cam_x = cam_y = 0;
+	}
+	float player_x, player_y;
+	CPlayer::GetInstance()->GetPosition(player_x, player_y);
 	float screen_width = CGame::GetInstance()->GetScreenWidth();
 	float screen_height = CGame::GetInstance()->GetScreenHeight();
 

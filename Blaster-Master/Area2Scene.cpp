@@ -1,3 +1,5 @@
+#include "Area2Scene.h"
+
 #include <iostream>
 #include <fstream>
 #include <algorithm>
@@ -6,7 +8,6 @@
 #include "Map.h"
 #include "GridManager.h"
 
-#include "Area2Scene.h"
 #include "Utils.h"
 #include "Textures.h"
 #include "Sprites.h"
@@ -68,8 +69,8 @@ void CArea2Scene::_Init_Player(float player_x, float player_y)
 	player = CPlayer::GetInstance();
 	player->SetPosition(player_x, player_y);
 	objects.push_back(player);
-
-	_CheckCameraAndWorldMap();
+	Camera::GetInstance()->SetSwitchScene();
+	Camera::GetInstance()->UpdateCamera();
 }
 
 void CArea2Scene::_ParseSection_OBJECTS(string line)
@@ -261,33 +262,16 @@ void CArea2Scene::Load(float player_x, float player_y)
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
-void CArea2Scene::_CheckCameraAndWorldMap()
-{
-
-	// Update camera to follow mario
-	float cx, cy;
-	player->GetPosition(cx, cy);
-
-	Camera::GetInstance()->UpdateCamera(cx, cy);
-}
-
 void CArea2Scene::Update(DWORD dt)
 {
 	RemoveCollisionObject();
 	_RefreshObject();
-
-	if (player == NULL) return;
-
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		if (dynamic_cast<Static*>(objects[i])) continue;
 		objects[i]->Update(dt, &objects);
 	}
-
-	// skip the rest if scene was already unloaded (Mario::Update might trigger PlayScene::Unload)
-	if (player == NULL) return;
-
-	_CheckCameraAndWorldMap();
+	Camera::GetInstance()->UpdateCamera();
 
 }
 
