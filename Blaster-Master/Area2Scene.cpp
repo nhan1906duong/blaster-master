@@ -108,8 +108,11 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 			}
 			break;
 		case OBJECT_TYPE_FLOATER:
-			obj = new Floater();
+		{
+			int timeDelay = atoi(tokens[3].c_str());
+			obj = new Floater(timeDelay);
 			break;
+		}
 		case OBJECT_TYPE_JUMPER:
 			obj = new Jumper();
 			break;
@@ -316,12 +319,6 @@ void CArea2Scene::Unload()
 	objects.clear();
 
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
-}
-
-void CArea2Scene::AddObject(LPGAMEOBJECT object)
-{
-	//objects.push_back(object);
-	GridManager::GetInstance()->AddObject(object);
 }
 
 void CArea2Scene::RemoveCollisionObject()

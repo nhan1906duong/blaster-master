@@ -38,6 +38,8 @@
 #include "Collision.h"
 #include "FireZone.h"
 
+#include "GridManager.h"
+
 CPlayer* CPlayer::__instance = NULL;
 
 CPlayer* CPlayer::GetInstance()
@@ -318,13 +320,13 @@ void CPlayer::fire()
 		}
 		SophiaBullet* bullet = new SophiaBullet(direction);
 		bullet->SetPosition(bulletX, bulletY);
-		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddObject(bullet);
+		GridManager::GetInstance()->AddObject(bullet);
 	}
 	else
 	{
 		JasonBullet* bullet = new JasonBullet(nx);
 		bullet->SetPosition(x, y);
-		((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddObject(bullet);
+		GridManager::GetInstance()->AddObject(bullet);
 	}
 }
 

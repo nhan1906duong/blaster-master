@@ -165,8 +165,8 @@ void CGameObject::GetMidPosition(float& x, float& y)
 {
 	float left, top, right, bottom;
 	GetBoundingBox(left, top, right, bottom);
-	x = (right - left) / 2;
-	y = (top - bottom) / 2;
+	x = (right + left) / 2;
+	y = (top + bottom) / 2;
 }
 
 float CGameObject::GetMidX()

@@ -42,7 +42,6 @@ public:
 
 	CPlayer* GetPlayer() { return player; }
 
-	void AddObject(LPGAMEOBJECT object);
 	void AddCollision(float, float);
 
 	bool CanAddPosition(float y);

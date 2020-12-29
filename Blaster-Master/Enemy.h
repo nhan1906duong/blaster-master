@@ -41,6 +41,7 @@ public:
 
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
+		CGameObject::Update(dt);
 		CheckShotTime();
 	}
 };

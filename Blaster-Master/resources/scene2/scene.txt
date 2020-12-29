@@ -2,9 +2,9 @@
 resources\scene2\map.txt
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-12	96.1	160
-12	146	114
-12	146	191.9
+12	96.1	160	0
+12	146	114	1500
+12	146	191.9	2000
 11	302	114.1	3	1
 13	32.1	314.1
 14	392	672

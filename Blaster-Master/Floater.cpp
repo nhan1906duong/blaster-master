@@ -1,21 +1,61 @@
 #include "Floater.h"
 
-Floater::Floater()
+#include "FloaterBullet.h"
+#include "Player.h"
+#include "GridManager.h"
+
+Floater::Floater(int timeDelay)
 {
-	blood = 2;
+	blood = 4;
 	SetVx(-0.03f);
 	SetVy(0.03f);
 	animation_set = CAnimationSets::GetInstance()->Get(12);
+	this->timeDelay = timeDelay;
+	firstAppear = false;
 }
 
 void Floater::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	int ani = 0;
+	if (beenShot)
+	{
+		ani = 1;
+	}
+	animation_set->at(ani)->Render(x, y);
 }
 
 void Floater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt);
+
+	if (!firstAppear)
+	{
+		firstAppear = true;
+		lastShoot = GetTickCount();
+	}
+	else
+	{
+		if (GetTickCount() - lastShoot > PERIOD_BEETWEEN_SHOOT + timeDelay)
+		{
+			lastShoot = GetTickCount();
+			float pX, pY;
+			CPlayer::GetInstance()->GetMidPosition(pX, pY);
+			float midX, midY;
+			GetMidPosition(midX, midY);
+
+			float ratioX = midX - pX;
+			float ratioY = midY - pY;
+
+			if (!(ratioX == 0 && ratioY == 0))
+			{
+				FloaterBullet* bullet = new FloaterBullet(ratioX, ratioY);
+				bullet->SetPosition(midX, midY);
+				GridManager::GetInstance()->AddObject(bullet);
+			}
+		}
+	}
+
+
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

@@ -103,18 +103,8 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			PrepareToRemove();
 			float left, top, right, bottom;
 			minEvent->obj->GetBoundingBox(left, top, right, bottom);
-			if (direct == 1)
-			{
-				x = left;
-			}
-			else if (direct == 2)
-			{
-				x = right;
-			}
-			else if (direct == 3)
-			{
-				y = bottom;
-			}
+			x += minEvent->t * dx + minEvent->nx * 0.1f;
+			y += minEvent->t * dy + minEvent->ny * 0.1f;
 			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
 

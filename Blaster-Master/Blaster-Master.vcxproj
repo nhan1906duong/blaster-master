@@ -29,6 +29,7 @@
     <ClCompile Include="DoomieOrb.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
+    <ClCompile Include="FloaterBullet.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="HPItem.cpp" />
@@ -85,6 +86,7 @@
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
+    <ClInclude Include="FloaterBullet.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="HPItem.h" />

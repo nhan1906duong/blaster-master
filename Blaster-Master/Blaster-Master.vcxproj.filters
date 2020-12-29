@@ -219,6 +219,9 @@
     <ClCompile Include="AttackOrb.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="FloaterBullet.cpp">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -405,6 +408,9 @@
       <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="FloaterBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
   </ItemGroup>
