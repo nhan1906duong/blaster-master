@@ -13,6 +13,7 @@ Worm::Worm()
 	SetState(STATE_FALLING);
 	vx = -MOVE_SPEED;
 	nx = -1;
+	blood = 4;
 }
 
 void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -25,6 +26,7 @@ void Worm::GetBoundingBox(float& left, float& top, float& right, float& bottom)
 
 void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+
 	if (state == STATE_JUMPING)
 	{
 		AddVy(0.02);
@@ -37,7 +39,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vy += GameDefine::ACCELERATOR_GRAVITY;
 
-	CGameObject::Update(dt);
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -126,13 +128,13 @@ void Worm::Render()
 	int ani;
 	if (state == STATE_MOVE)
 	{
-		ani = 1;
+		ani = 2;
 	}
 	else
 	{
 		ani = 0;
 	}
-	animation_set->at(ani)->Render(x, y, 255, nx > 0);
+	animation_set->at(beenShot ? ani + 1 : ani)->Render(x, y, 255, nx > 0);
 	//RenderBoundingBox();
 }
 

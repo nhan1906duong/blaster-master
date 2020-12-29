@@ -69,13 +69,12 @@ Dome::Dome(int currentAnimation, int huong)
 
 void Dome::Render()
 {
-	animation_set->at(currentAnimation)->Render(x, y);
-	RenderBoundingBox();
+	animation_set->at(beenShot ? currentAnimation + 4 : currentAnimation)->Render(x, y);
 }
 
 void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	CGameObject::Update(dt);
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

@@ -228,11 +228,9 @@ void CPlayer::Render()
 	int alpha = 255;
 	if (dynamic_cast<JasonState*>(playerData->playerState) && untouchable)
 	{
-		alpha = 288;
+		alpha = 128;
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, alpha, nx > 0);
-
-	RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
