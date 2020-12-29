@@ -65,20 +65,11 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 
 void CArea2Scene::_Init_Player(float player_x, float player_y)
 {
-	if (player != NULL)
-	{
-		DebugOut(L"[ERROR] PLAYER object was created before!\n");
-		return;
-	}
-
 	player = CPlayer::GetInstance();
 	player->SetPosition(player_x, player_y);
 	objects.push_back(player);
 
 	_CheckCameraAndWorldMap();
-
-
-	DebugOut(L"[INFO] Player object created!\n");
 }
 
 void CArea2Scene::_ParseSection_OBJECTS(string line)
