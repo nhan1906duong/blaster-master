@@ -9,6 +9,8 @@
 
 class Enemy : public CGameObject
 {
+private:
+	bool isAppear = false;
 protected:
 	int blood;
 	int beenShot = 0;
@@ -27,6 +29,16 @@ protected:
 		}
 	}
 public:
+	bool IsAppear()
+	{
+		return isAppear;
+	}
+
+	void SetAppear()
+	{
+		isAppear = true;
+	}
+
 	void BeenShot(Bullet* bullet)
 	{
 		beenShot = 1;
