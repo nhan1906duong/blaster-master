@@ -56,10 +56,17 @@ void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
-		if (state == STATE_FALL && start_y - y > S_FALL)
+		if (state == STATE_FALL && (vy < 0 && (start_y - y > S_FALL) || vy > 0 && y - start_y > S_FALL))
 		{
 			SetState(STATE_FLY);
-			vy = VY_SPEED;
+			if (vy < 0)
+			{
+				vy = VY_SPEED;
+			}
+			else
+			{
+				vy = -VY_SPEED;
+			}
 		}
 		else
 		{
@@ -96,6 +103,10 @@ void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			if (ny == -1)
 			{
+				if (state == STATE_FALL)
+				{
+					SetState(STATE_FLY);
+				}
 				vy = -VY_SPEED;
 			}
 			_Random();
@@ -137,6 +148,14 @@ void Insect::_Random()
 		if (state == STATE_FALL) return;
 		SetState(STATE_FALL);
 		vy = -7 * VY_SPEED;
+		start_x = x;
+		start_y = y;
+	}
+	else if (randomState > 94)
+	{
+		if (state == STATE_FALL) return;
+		SetState(STATE_FALL);
+		vy = 7 * VY_SPEED;
 		start_x = x;
 		start_y = y;
 	}
