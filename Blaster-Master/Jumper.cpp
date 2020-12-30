@@ -116,16 +116,15 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (CPlayer::GetInstance()->IsALiveAndTouchable())
 		{
 
-			float jLeft, jTop, jRight, jBottom;
-			GetBoundingBox(jLeft, jTop, jRight, jBottom);
-
-			float pLeft, pTop, pRight, pBottom;
-			CPlayer::GetInstance()->GetBoundingBox(pLeft, pTop, pRight, pBottom);
-
-			if (jLeft > pLeft - 32 && jRight < pRight + 32 && jBottom > pBottom - 20 && jTop < pTop + 20 )
+			int randomState = rand() % 100;
+			if (randomState > 96)
 			{
 				SetState(STATE_JUMPING);
 			}
+		}
+		else
+		{
+			state = STATE_WALKING;
 		}
 
 	}
