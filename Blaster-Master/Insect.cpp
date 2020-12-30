@@ -2,116 +2,122 @@
 
 #include "Brick.h"
 
-#define VY_RUOI	0.02f
-#define S_LEN 25
-#define S_XUONG	20
-
-#define STATUS_BINH_THUONG	1
-#define STATUS_ROT 2
-
-
-Insect::Insect()
+Insect::Insect(float l, float t, float r, float b, int nx, int ny)
 {
-	this->vx = 0.02f;
-	this->vy = VY_RUOI;
-	this->status = STATUS_BINH_THUONG;
-	this->isDirRight = true;
+	bouncingLeft = l;
+	bouncingTop = t;
+	bouncingRight = r;
+	bouncingBottom = b;
+	
+	if (nx < 0)
+	{
+		vx = -VX_SPEED;
+		nx = -1;
+	}
+	else
+	{
+		vx = VX_SPEED;
+		nx = 1;
+	}
+
+	if (ny < 0)
+	{
+		vy = -VY_SPEED;
+	}
+	else
+	{
+		vy = VY_SPEED;
+	}
+
+	SetState(STATE_FLY);
+
 	animation_set = CAnimationSets::GetInstance()->Get(14);
 }
 
 void Insect::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, y, 255, nx > 0);
 }
 
-void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
+void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	vector<LPGAMEOBJECT> objectFilter;
 
-	// Lấy từng object để xử lý
-	for (UINT i = 0; i < objects->size(); i++)
-	{
-		if (dynamic_cast<CBrick*>(objects->at(i))) // Nếu va chạm với đất
-		{
-			objectFilter.push_back(objects->at(i));
-		}
-	}
-	//filterCoObject(&objectFilter, objects);
-
-	this->vx = this->isDirRight ? 0.02f : -0.02f;
-	CGameObject::Update(dt);
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
 	coEvents.clear();
-	CalcPotentialCollisions(&objectFilter, coEvents);
 
-	if (coEvents.size() == 0) {
-		switch (this->status)
-		{
-		case STATUS_BINH_THUONG: {
-			if (y - start_y > S_XUONG) {
-				vy = -VY_RUOI * 7;
-				start_y = y;
-			}
-			else if (start_y - y > S_LEN) {
-				vy = VY_RUOI;
-				start_y = y;
-			}
+	CalcPotentialCollisions(coObjects, coEvents);
 
-			break;
-		}
-		case STATUS_ROT: {
-			vy = 10 * VY_RUOI;
-			break;
-		}
-
-		default:
-			break;
-		}
-
-		// cập nhật vị trí
+	// No collision occured, proceed normally
+	if (coEvents.size() == 0)
+	{
 		x += dx;
 		y += dy;
+		if (state == STATE_FALL && start_y - y > S_FALL)
+		{
+			SetState(STATE_FLY);
+			vy = VY_SPEED;
+		}
+		else
+		{
+			_Random();
+		}
 	}
-	else {
+	else
+	{
 		float min_tx, min_ty, brickNx = 0, ny;
 		float rdx = 0;
 		float rdy = 0;
 
-		vector<LPCOLLISIONEVENT> coEventsResult;
-
 		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, brickNx, ny, rdx, rdy);
 
-		x += min_tx * dx + nx * 0.5f;
-		y += min_ty * dy + ny * 0.5f;
-		if (nx != 0) vx = 0;	// không cho đi khi xảy ra va chạm
-		if (ny != 0) vy = 0;
+		x += min_tx * dx + brickNx * 0.1f;
+		y += min_ty * dy + ny * 0.1f;
 
-		// Lấy từng object để xử lý
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		if (nx != 0)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj)) // Nếu va chạm với đất
+			vx = -vx;
+			nx = -nx;
+		}
+
+		if (ny == 1)
+		{
+
+			vy = VY_SPEED;
+			if (state == STATE_FALL)
 			{
-				CBrick* brick = dynamic_cast<CBrick*>(e->obj);
-				if (e->nx != 0) {
-					this->isDirRight = !isDirRight;
-					//this->vx *= -1;
-				}
-				if (e->ny < 0 && this->status == STATUS_ROT) {
-					this->status = STATUS_BINH_THUONG;
-					start_y = y;
-					vy = -7 * VY_RUOI;
-				}
-				if (e->ny > 0 && this->status == STATUS_BINH_THUONG) {
-					this->status = STATUS_ROT;
-				}
-				if (e->ny < 0 && this->status == STATUS_BINH_THUONG) {
-					start_y = y;
-					vy = -7 * VY_RUOI;
-				}
+				SetState(STATE_FLY);
 			}
 		}
+		else
+		{
+			if (ny == -1)
+			{
+				vy = -VY_SPEED;
+			}
+			_Random();
+		}
+	}
+	if (x < bouncingLeft)
+	{
+		nx = 1;
+		vx = VX_SPEED;
+	}
+	if (x > bouncingRight)
+	{
+		nx = -1;
+		vx = -VX_SPEED;
+	}
+	if (y > bouncingTop)
+	{
+		vy = -VY_SPEED;
+	}
+	if (y < bouncingBottom)
+	{
+		vy = VY_SPEED;
 	}
 }
 
@@ -121,4 +127,36 @@ void Insect::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = y;
 	right = x + INSECT_WIDTH;
 	bottom = y - INSECT_HEIGHT;
+}
+
+void Insect::_Random()
+{
+	int randomState = rand() % 100;
+	if (randomState > 97)
+	{
+		if (state == STATE_FALL) return;
+		SetState(STATE_FALL);
+		vy = -7 * VY_SPEED;
+		start_x = x;
+		start_y = y;
+	}
+	else if (randomState > 87)
+	{
+		if (state == STATE_FLY)
+		{
+			vy = VY_SPEED;
+		}
+	}
+	else if (randomState > 85)
+	{
+		if (state == STATE_FLY)
+		{
+			vy = -VY_SPEED;
+		}
+	}
+	else if (randomState < 1)
+	{
+		vx = -vx;
+		nx = -nx;
+	}
 }

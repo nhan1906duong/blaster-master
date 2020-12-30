@@ -109,8 +109,18 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 			obj = new Jumper();
 			break;
 		case OBJECT_TYPE_INSECT:
-			obj = new Insect();
+		{
+			float l = atof(tokens[3].c_str());
+			float t = atof(tokens[4].c_str());
+			float r = atof(tokens[5].c_str());
+			float b = atof(tokens[6].c_str());
+
+			int nx = atoi(tokens[7].c_str());
+			int ny = atoi(tokens[8].c_str());
+
+			obj = new Insect(l, t, r, b, nx, ny);
 			break;
+		}
 		case OBJECT_TYPE_ORB:
 			obj = new DoomieOrb();
 			break;
