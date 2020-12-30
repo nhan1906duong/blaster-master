@@ -4,6 +4,8 @@
 
 Insect::Insect(float l, float t, float r, float b, int nx, int ny)
 {
+	blood = 4;
+
 	bouncingLeft = l;
 	bouncingTop = t;
 	bouncingRight = r;
@@ -36,7 +38,7 @@ Insect::Insect(float l, float t, float r, float b, int nx, int ny)
 
 void Insect::Render()
 {
-	animation_set->at(0)->Render(x, y, 255, nx > 0);
+	animation_set->at(beenShot ? 1 : 0)->Render(x, y, 255, nx > 0);
 }
 
 void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)

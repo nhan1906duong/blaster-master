@@ -11,9 +11,7 @@ DoomieOrb::DoomieOrb()
 
 void DoomieOrb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	
-
-	CGameObject::Update(dt);
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;

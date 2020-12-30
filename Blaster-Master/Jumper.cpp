@@ -6,6 +6,7 @@
 
 Jumper::Jumper()
 {
+	blood = 4;
 	SetState(STATE_FALLING);
 	nx = 1;
 	vx = VX;
@@ -14,7 +15,16 @@ Jumper::Jumper()
 
 void Jumper::Render()
 {
-	animation_set->at(0)->Render(x, y, 255, nx > 0);
+	int ani;
+	if (state == STATE_JUMPING)
+	{
+		ani = 2;
+	}
+	else
+	{
+		ani = 0;
+	}
+	animation_set->at(beenShot ? ani + 1 : ani)->Render(x, y, 255, nx > 0);
 }
 
 void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -31,7 +41,7 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	vy += GameDefine::ACCELERATOR_GRAVITY;
 
-	CGameObject::Update(dt);
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
