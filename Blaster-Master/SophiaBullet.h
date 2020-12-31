@@ -1,12 +1,12 @@
 #pragma once
-#include "Bullet.h"
+#include "PlayerBullet.h"
 
 #define SOPHIA_BULLET_WIDTH		24
 #define SOPHIA_BULLET_HEIGHT	8
 
 #define V_SPEED	0.12f
 
-class SophiaBullet: public Bullet
+class SophiaBullet: public PlayerBullet
 {
 private:
 	int direct;

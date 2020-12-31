@@ -413,5 +413,8 @@
     <ClInclude Include="FloaterBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

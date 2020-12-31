@@ -2,6 +2,8 @@
 #include "GameObject.h"
 
 #include "Bullet.h"
+#include "HPItem.h"
+#include "GridManager.h"
 
 #define BEEN_SHOT_TIME	1000
 
@@ -47,6 +49,13 @@ public:
 		blood -= power;
 		if (blood <= 0)
 		{
+			int randomState = rand() % 100;
+			if (randomState > 50)
+			{
+				HPItem* item = new HPItem();
+				item->SetPosition(x, y);
+				GridManager::GetInstance()->AddObject(item);
+			}
 			PrepareToRemove();
 		}
 	}

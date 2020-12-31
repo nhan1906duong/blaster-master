@@ -6,6 +6,8 @@
 #include "SecretWall.h"
 #include "Area2Scene.h"
 
+#include "EnemyBullet.h"
+
 /** direct	1	LeftToRight
 *			2	RightToLeft
 *			3	BottomToTop
@@ -85,6 +87,7 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		for (UINT i = 0; i < coEvents.size(); i++)
 		{
 			LPCOLLISIONEVENT e = coEvents[i];
+			if (dynamic_cast<CPlayer*>(e->obj)) continue;
 			float min = e->dx < e->dy ? e->dx : e->dy;
 			if (min < deltaMin)
 			{
@@ -92,14 +95,47 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				deltaMin = min;
 			}
 		}
+		bool createCollision = false;
 		if (deltaMin >= 9999) return;
 		if (minEvent)
 		{
-			if (dynamic_cast<Enemy*>(minEvent->obj))
+			if (dynamic_cast<EnemyBullet*>(minEvent->obj))
 			{
-				Enemy* enemy = dynamic_cast<Enemy*>(minEvent->obj);
-				enemy->BeenShot(this);
+				EnemyBullet* enemyBullet = dynamic_cast<EnemyBullet*>(minEvent->obj);
+				if (enemyBullet->GetPower() > GetPower())
+				{
+					enemyBullet->ChangePower(GetPower());
+					PrepareToRemove();
+				}
+				else if (enemyBullet->GetPower() < GetPower())
+				{
+					//enemyBullet->ChangePower(GetPower());
+					enemyBullet->PrepareToRemove();
+				}
+				else
+				{
+					PrepareToRemove();
+					enemyBullet->PrepareToRemove();
+					createCollision = true;
+				}
 			}
+			else
+			{
+				if (dynamic_cast<Enemy*>(minEvent->obj))
+				{
+					Enemy* enemy = dynamic_cast<Enemy*>(minEvent->obj);
+					enemy->BeenShot(this);
+					createCollision = true;
+				}
+				if (dynamic_cast<CPortal*>(minEvent->obj) || dynamic_cast<CBrick*>(minEvent->obj))
+				{
+					createCollision = true;
+				}
+			}
+		}
+
+		if (createCollision)
+		{
 			PrepareToRemove();
 			float left, top, right, bottom;
 			minEvent->obj->GetBoundingBox(left, top, right, bottom);
@@ -107,7 +143,11 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			y += minEvent->t * dy + minEvent->ny * 0.1f;
 			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
-
+		else
+		{
+			x += dx;
+			y += dy;
+		}
 	}
 
 	// clean up collision events

@@ -1,10 +1,10 @@
 #pragma once
-#include "Bullet.h"
+#include "PlayerBullet.h"
 
 #define SIZE	4
 #define V_SPEED		0.1f
 
-class JasonBullet: public Bullet
+class JasonBullet: public PlayerBullet
 {
 private:
 	int nx;

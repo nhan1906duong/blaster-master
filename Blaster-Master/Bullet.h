@@ -10,5 +10,10 @@ public:
 	{
 		return power;
 	}
+
+	void ChangePower(int power)
+	{
+		this->power += power;
+	}
 };
 

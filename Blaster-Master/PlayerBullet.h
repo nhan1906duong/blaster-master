@@ -1,7 +1,7 @@
 #pragma once
 #include "Bullet.h"
 
-class EnemyBullet: public Bullet
+class PlayerBullet : public Bullet
 {
 
 };

@@ -200,6 +200,20 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				StartUntouchable();
 			}
+			else if (dynamic_cast<HPItem*>(e->obj))
+			{
+				if (IsSophiaState())
+				{
+					++bloodSophia;
+					if (bloodSophia > 8) bloodSophia = 8;
+				}
+				else
+				{
+					++bloodJason;
+					if (bloodJason > 8) bloodJason = 8;
+				}
+				e->obj->PrepareToRemove();
+			}
 		}
 
 		for (int i = 0; i < coObjects->size(); ++i)
