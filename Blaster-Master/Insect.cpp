@@ -13,12 +13,12 @@ Insect::Insect(float l, float t, float r, float b, int nx, int ny)
 	
 	if (nx < 0)
 	{
-		vx = -VX_SPEED;
+		vx = -VX_START_SPEED;
 		nx = -1;
 	}
 	else
 	{
-		vx = VX_SPEED;
+		vx = VX_START_SPEED;
 		nx = 1;
 	}
 
@@ -117,12 +117,12 @@ void Insect::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (x < bouncingLeft)
 	{
 		nx = 1;
-		vx = VX_SPEED;
+		vx = VX_START_SPEED;
 	}
 	if (x > bouncingRight)
 	{
 		nx = -1;
-		vx = -VX_SPEED;
+		vx = -VX_START_SPEED;
 	}
 	if (y > bouncingTop)
 	{

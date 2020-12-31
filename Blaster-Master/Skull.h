@@ -8,13 +8,19 @@
 #define VX		0.08f
 #define VY		0.07f
 
+#define TIME_NHA_DAN	500
+
+#define STATE_NORMAL	0
+#define STATE_NHA_DAN	1
+
 class Skull: public Enemy
 {
 private:
+	DWORD startNhaDan;
+public:
+	Skull(int nx);
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();
-public:
-	Skull();
 };
 

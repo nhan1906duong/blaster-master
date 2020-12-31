@@ -1,24 +1,34 @@
 #include "Skull.h"
 
 #include "Player.h"
+#include "Bomb.h"
 
-
-Skull::Skull()
+Skull::Skull(int nx)
 {
-	vx = -VX;
-	nx = -1;
+	SetState(STATE_NORMAL);
+	blood = 4;
+	vx = nx * VX;
+	this->nx = nx;
 	animation_set = CAnimationSets::GetInstance()->Get(16);
 }
 
 void Skull::Render()
 {
-	animation_set->at(0)->Render(x, y, 255, nx > 0);
+	int ani = 0;
+	if (state == STATE_NHA_DAN)
+	{
+		ani = 2;
+	}
+	animation_set->at(beenShot ? ani + 1 : ani)->Render(x, y, 255, nx > 0);
 }
 
 void Skull::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-
-	CGameObject::Update(dt);
+	if (GetTickCount() - startNhaDan > TIME_NHA_DAN && state == STATE_NHA_DAN)
+	{
+		SetState(STATE_NORMAL);
+	}
+	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;
 	vector<LPCOLLISIONEVENT> coEventsResult;
@@ -42,13 +52,22 @@ void Skull::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		x += min_tx * dx + 0.01f * brickNx;
 		y += min_ty * dy + 0.01f * ny;
+
+		if (ny == -1)
+		{
+			vy = 0;
+		}
 	}
 
-	float left, top, right, bottom;
-	CPlayer::GetInstance()->GetBoundingBox(left, right, top, bottom);
-
-	if (vx != 0 && x <= left + 5)
+	float midX = CPlayer::GetInstance()->GetMidX();
+	if (vx != 0 && ((nx < 0 && x >= midX - 24 && x <= midX) || (nx > 0 && x >= midX  && x <= midX + 24)))
 	{
+		SetState(STATE_NHA_DAN);
+		startNhaDan = GetTickCount();
+		Bomb* bomb = new Bomb(-nx);
+		bomb->SetPosition(x - 4 * nx, y + 8 * nx);
+		GridManager::GetInstance()->AddObject(bomb);
+
 		nx = -nx;
 		vy = VY;
 		vx = 0;

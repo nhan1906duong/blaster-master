@@ -43,7 +43,7 @@ void SophiaBullet::Render()
 		ani = 0;
 	}
 	animation_set->at(ani)->Render(x, y, 255, direct == 1);
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void SophiaBullet::GetBoundingBox(float& left, float& top, float& right, float& bottom)

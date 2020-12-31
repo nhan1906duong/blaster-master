@@ -5,7 +5,7 @@
 #define INSECT_HEIGHT	18
 
 #define VY_SPEED	0.02f
-#define VX_SPEED	0.01f
+#define VX_START_SPEED	0.01f
 
 #define	STATE_FLY	0
 #define	STATE_FALL	1

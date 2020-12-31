@@ -5,9 +5,9 @@ resources\scene4\map.txt	15	64
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
 # SKULL
-16	142	143.9
-16	302	143.9
-16	410	143.9
+16	142	143.9	-1
+16	302	143.9	-1
+16	410	143.9	-1
 [BRICK]
 # left	top	right	bottom
 1	0	96	512	64
@@ -29,5 +29,5 @@ resources\scene4\map.txt	15	64
 6	384	224	416	208
 6	448	224	480	208
 [PORTAL]
-1	32	128	64	96	2 	100	1000
+1	32	128	64	96	2 	420	1148
 1	448	128	480	96	5 	80	128

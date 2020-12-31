@@ -125,8 +125,11 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 			obj = new DoomieOrb();
 			break;
 		case OBJECT_TYPE_SKULL:
-			obj = new Skull();
+		{
+			int nx = atoi(tokens[3].c_str());
+			obj = new Skull(nx);
 			break;
+		}
 		case OBJECT_TYPE_MINE:
 			obj = new Mine();
 			break;

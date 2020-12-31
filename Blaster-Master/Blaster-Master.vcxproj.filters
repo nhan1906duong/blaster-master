@@ -222,6 +222,9 @@
     <ClCompile Include="FloaterBullet.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClCompile>
+    <ClCompile Include="Bomb.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -415,6 +418,9 @@
     </ClInclude>
     <ClInclude Include="PlayerBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="Bomb.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
