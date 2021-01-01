@@ -225,6 +225,9 @@
     <ClCompile Include="Bomb.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="JasonClimbingState.cpp">
+      <Filter>Framework\Objects\Player\jason</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -421,6 +424,9 @@
     </ClInclude>
     <ClInclude Include="Bomb.h">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonClimbingState.h">
+      <Filter>Framework\Objects\Player\jason</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -37,6 +37,7 @@
     <ClCompile Include="Insect.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="JasonBullet.cpp" />
+    <ClCompile Include="JasonClimbingState.cpp" />
     <ClCompile Include="JasonCrawlingState.cpp" />
     <ClCompile Include="JasonDieState.cpp" />
     <ClCompile Include="JasonFallingState.cpp" />
@@ -95,6 +96,7 @@
     <ClInclude Include="Insect.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JasonBullet.h" />
+    <ClInclude Include="JasonClimbingState.h" />
     <ClInclude Include="JasonCrawlingState.h" />
     <ClInclude Include="JasonDieState.h" />
     <ClInclude Include="JasonFallingState.h" />
