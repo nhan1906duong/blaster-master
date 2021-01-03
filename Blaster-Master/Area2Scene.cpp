@@ -31,6 +31,7 @@
 #include "Brick.h"
 #include "SecretWall.h"
 #include "FireZone.h"
+#include "Stair.h"
 
 using namespace std;
 
@@ -52,6 +53,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 #define SCENE_SECTION_PORTAL		4
 #define SCENE_SECTION_SECRET_WALL	5
 #define SCENE_SECTION_FIRE_ZONE		6
+#define SCENE_SECTION_STAIR			7
 
 #define OBJECT_TYPE_CON_SAU		10
 #define OBJECT_TYPE_DOME		11
@@ -106,8 +108,15 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 			break;
 		}
 		case OBJECT_TYPE_JUMPER:
-			obj = new Jumper();
+		{
+			int nx = 1;
+			if (tokens.size() > 3)
+			{
+				nx = atoi(tokens[3].c_str());
+			}
+			obj = new Jumper(nx);
 			break;
+		}
 		case OBJECT_TYPE_INSECT:
 		{
 			float l = atof(tokens[3].c_str());
@@ -160,6 +169,11 @@ void CArea2Scene::_ParseSecion_BRICK(string line, int type)
 	else if (type == 2)
 	{
 		obj = new FireZone(left, top, right, bottom);
+	}
+	else if (type == 3)
+	{
+		int jumpPoint = atof(tokens[5].c_str());
+		obj = new Stair(left, top, right, bottom, jumpPoint);
 	}
 	else
 	{
@@ -254,6 +268,10 @@ void CArea2Scene::Load(float player_x, float player_y)
 		{
 			section = SCENE_SECTION_FIRE_ZONE; continue;
 		}
+		if (line == "[STAIR]")
+		{
+			section = SCENE_SECTION_STAIR; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
@@ -263,6 +281,7 @@ void CArea2Scene::Load(float player_x, float player_y)
 		case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
 		case SCENE_SECTION_SECRET_WALL: _ParseSecion_BRICK(line, 1); break;
 		case SCENE_SECTION_FIRE_ZONE: _ParseSecion_BRICK(line, 2); break;
+		case SCENE_SECTION_STAIR: _ParseSecion_BRICK(line, 3); break;
 		case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
 		case SCENE_SECTION_PORTAL: _ParseSection_PORTAL(line); break;
 		}
@@ -321,6 +340,31 @@ void CArea2Scene::AddCollision(float x1, float y1)
 	CollisionExplosion* collision = new CollisionExplosion();
 	collision->SetPosition(x1, y1);
 	collisions.push_back(collision);
+}
+
+bool CArea2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& jumpPoint)
+{
+	for (int i = 0; i < objects.size(); ++i)
+	{
+		LPGAMEOBJECT obj = objects[i];
+		if (dynamic_cast<Stair*>(obj))
+		{
+			Stair* stair = dynamic_cast<Stair*>(obj);
+			stair->GetBoundingBox(l, t, r, b);
+			stair->GetJumpPoint();
+			float midX, midY;
+			float l, t, r, b;
+			stair->GetBoundingBox(l, t, r, b);
+			CPlayer::GetInstance()->GetMidPosition(midX, midY);
+			if (midX > stair->GetMidX() - 8 &&
+				midX < stair->GetMidX() + 8 &&
+				midY >= b && midY <= t)
+			{
+				return true;
+			}
+		}
+	}
+	return false;
 }
 
 void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)

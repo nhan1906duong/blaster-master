@@ -44,6 +44,7 @@ public:
 	void AddCollision(float, float);
 
 	bool CanAddPosition(float y);
+	bool HasStairNearBy(float&, float&, float&, float&, float&);
 };
 
 class CPlayScenceKeyHandler : public CScenceKeyHandler

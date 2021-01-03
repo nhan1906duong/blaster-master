@@ -4,12 +4,20 @@
 
 #include "GameDefine.h"
 
-Jumper::Jumper()
+Jumper::Jumper(int nx)
 {
 	blood = 4;
 	SetState(STATE_FALLING);
-	nx = 1;
-	vx = VX;
+	if (nx > 0)
+	{
+		nx = 1;
+		vx = VX;
+	}
+	else
+	{
+		nx = -1;
+		vx = -VX;
+	}
 	animation_set = CAnimationSets::GetInstance()->Get(13);
 }
 

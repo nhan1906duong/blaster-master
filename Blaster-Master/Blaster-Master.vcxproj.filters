@@ -228,6 +228,9 @@
     <ClCompile Include="JasonClimbingState.cpp">
       <Filter>Framework\Objects\Player\jason</Filter>
     </ClCompile>
+    <ClCompile Include="Stair.cpp">
+      <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -427,6 +430,9 @@
     </ClInclude>
     <ClInclude Include="JasonClimbingState.h">
       <Filter>Framework\Objects\Player\jason</Filter>
+    </ClInclude>
+    <ClInclude Include="Stair.h">
+      <Filter>Framework\Objects\Static</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

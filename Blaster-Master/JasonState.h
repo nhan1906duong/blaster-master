@@ -1,6 +1,7 @@
 #pragma once
 #include "PlayerState.h"
 
+#define JASON_STAIR_WIDTH		10
 #define JASON_STANDING_WIDTH	8
 #define JASON_STANDING_HEIGHT	16
 

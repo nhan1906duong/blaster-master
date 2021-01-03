@@ -61,6 +61,7 @@
     <ClCompile Include="SophiaStraightJumpingState.cpp" />
     <ClCompile Include="SophiaStraightRunningState.cpp" />
     <ClCompile Include="SophiaStraightStandingState.cpp" />
+    <ClCompile Include="Stair.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -126,6 +127,7 @@
     <ClInclude Include="SophiaStraightRunningState.h" />
     <ClInclude Include="SophiaStraightStandingState.h" />
     <ClInclude Include="SophiaStraightState.h" />
+    <ClInclude Include="Stair.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />

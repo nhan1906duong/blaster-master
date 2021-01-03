@@ -18,7 +18,7 @@ class Jumper: public Enemy
 private:
 	CBrick* currentBrick;
 public:
-	Jumper();
+	Jumper(int nx = 1);
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();

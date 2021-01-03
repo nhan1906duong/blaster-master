@@ -32,6 +32,7 @@
 #include "JasonRunningState.h"
 #include "JasonDieState.h"
 #include "JasonCrawlingState.h"
+#include "JasonClimbingState.h"
 
 #include "Area2Scene.h"
 
@@ -74,7 +75,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	playerData->playerState->Update(dt, coObjects);
 
-	vy += GameDefine::ACCELERATOR_GRAVITY;
+	if (!dynamic_cast<JasonClimbingState*>(playerData->playerState))
+	{
+		vy += GameDefine::ACCELERATOR_GRAVITY;
+	}
 
 	CGameObject::Update(dt);
 
@@ -105,7 +109,8 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			!dynamic_cast<SophiaFallingState*>(playerData->playerState) &&
 			!dynamic_cast<SophiaJumpingState*>(playerData->playerState) &&
 			!dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaStraightFallingState*>(playerData->playerState))
+			!dynamic_cast<SophiaStraightFallingState*>(playerData->playerState) &&
+			!dynamic_cast<JasonClimbingState*>(playerData->playerState))
 		{
 			if (IsSophiaState())
 			{
@@ -125,6 +130,15 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			else
 			{
 				SetState(new JasonFallingState(playerData));
+			}
+		}
+
+		if (dynamic_cast<JasonClimbingState*>(playerData->playerState))
+		{
+			JasonClimbingState* state = dynamic_cast<JasonClimbingState*>(playerData->playerState);
+			if (y > state->GetTop())
+			{
+				y = state->GetTop();
 			}
 		}
 	}
@@ -185,6 +199,11 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						SetState(new JasonStandingState(playerData));
 					}
 				}
+			}
+
+			if (dynamic_cast<JasonClimbingState*>(playerData->playerState) && ny == 1)
+			{
+				SetState(new JasonFallingState(playerData));
 			}
 		}
 
@@ -247,6 +266,8 @@ void CPlayer::Render()
 		alpha = 128;
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, alpha, nx > 0);
+
+	RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)

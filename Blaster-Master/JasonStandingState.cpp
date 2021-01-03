@@ -3,9 +3,13 @@
 #include "JasonRunningState.h"
 #include "JasonJumpingState.h"
 #include "JasonLieingState.h"
+#include "JasonClimbingState.h"
 
 #include "Player.h"
 #include "Utils.h"
+
+#include "Stair.h"
+#include "Area2Scene.h"
 
 JasonStandingState::JasonStandingState(PlayerData* data) : JasonState(data)
 {
@@ -44,6 +48,16 @@ void JasonStandingState::OnKeyDown(int keyCode)
 {
 	switch (keyCode)
 	{
+		case DIK_UP:
+		{
+			float l, t, r, b, jumpPoint;
+			if (((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->HasStairNearBy(l, t, r, b, jumpPoint))
+			{
+				data->player->SetState(new JasonClimbingState(data, l, t, r, b, jumpPoint));
+			}
+			break;
+		}
+			
 		case DIK_X:
 			data->player->SetState(new JasonJumpingState(data));
 			break;
