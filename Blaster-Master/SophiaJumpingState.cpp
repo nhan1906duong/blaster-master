@@ -124,7 +124,7 @@ void SophiaJumpingState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((CArea2Scene*) CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.1))
+			if (!((Area2Scene*) CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.1))
 			{
 				break;
 			}

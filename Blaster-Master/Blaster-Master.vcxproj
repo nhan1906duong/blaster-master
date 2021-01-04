@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animations.cpp" />
+    <ClCompile Include="Area2OverworldScene.cpp" />
     <ClCompile Include="Area2Scene.cpp" />
     <ClCompile Include="AttackOrb.cpp" />
     <ClCompile Include="Bomb.cpp" />
@@ -48,6 +49,8 @@
     <ClCompile Include="Jumper.cpp" />
     <ClCompile Include="Mine.cpp" />
     <ClCompile Include="Orb.cpp" />
+    <ClCompile Include="PlayScenceKeyHandler.cpp" />
+    <ClCompile Include="ScenceKeyHandler.cpp" />
     <ClCompile Include="SecretWall.cpp" />
     <ClCompile Include="Skull.cpp" />
     <ClCompile Include="SophiaBullet.cpp" />
@@ -77,6 +80,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animations.h" />
+    <ClInclude Include="Area2OverworldScene.h" />
     <ClInclude Include="Area2Scene.h" />
     <ClInclude Include="AttackOrb.h" />
     <ClInclude Include="Bomb.h" />
@@ -112,6 +116,8 @@
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerData.h" />
     <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="PlayScenceKeyHandler.h" />
+    <ClInclude Include="ScenceKeyHandler.h" />
     <ClInclude Include="SecretWall.h" />
     <ClInclude Include="Skull.h" />
     <ClInclude Include="SophiaBullet.h" />

@@ -5,7 +5,7 @@
 	Abstract class to define keyboard event handlers
 	Cac ham nay duoc goi moi frame qua ham ProccessKeyboard()
 */
-class CKeyEventHandler
+class KeyEventHandler
 {
 public:
 	// dang nhan hay khong ?? STATE
@@ -18,4 +18,4 @@ public:
 	// goi tuong ung voi so key duoc nhan trong 1 frame
 	virtual void OnKeyUp(int KeyCode) = 0;
 };
-typedef CKeyEventHandler* LPKEYEVENTHANDLER;
+typedef KeyEventHandler* LPKEYEVENTHANDLER;

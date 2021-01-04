@@ -77,7 +77,7 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.2))
 			{
 				break;
 			}
@@ -87,7 +87,7 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 		}
 		case DIK_X:
 		{
-			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2))
 			{
 				break;
 			}

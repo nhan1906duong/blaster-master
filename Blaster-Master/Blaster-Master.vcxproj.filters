@@ -64,6 +64,9 @@
     <Filter Include="Framework\Core\Collision">
       <UniqueIdentifier>{6d75c9cf-00b4-43e4-82b8-103e8294d5ef}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\SceneManager\overworld">
+      <UniqueIdentifier>{2c8815a0-88f5-4662-afbc-b1ae124ab593}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -230,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="Stair.cpp">
       <Filter>Framework\Objects\Static</Filter>
+    </ClCompile>
+    <ClCompile Include="Area2OverworldScene.cpp">
+      <Filter>Framework\SceneManager\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayScenceKeyHandler.cpp">
+      <Filter>Framework\Core\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="ScenceKeyHandler.cpp">
+      <Filter>Framework\Core\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -433,6 +445,15 @@
     </ClInclude>
     <ClInclude Include="Stair.h">
       <Filter>Framework\Objects\Static</Filter>
+    </ClInclude>
+    <ClInclude Include="Area2OverworldScene.h">
+      <Filter>Framework\SceneManager\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayScenceKeyHandler.h">
+      <Filter>Framework\Core\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="ScenceKeyHandler.h">
+      <Filter>Framework\Core\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

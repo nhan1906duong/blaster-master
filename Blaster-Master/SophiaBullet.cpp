@@ -141,7 +141,7 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			minEvent->obj->GetBoundingBox(left, top, right, bottom);
 			x += minEvent->t * dx + minEvent->nx * 0.1f;
 			y += minEvent->t * dy + minEvent->ny * 0.1f;
-			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
 		else
 		{

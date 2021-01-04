@@ -101,7 +101,7 @@ void Bomb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount() - start_x > 1500)
 		{
 			PrepareToRemove();
-			((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y + 12);
+			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y + 12);
 		}
 	}
 }

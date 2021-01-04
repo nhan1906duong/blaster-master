@@ -77,7 +77,7 @@ void SophiaDiagonalStandingState::KeyState(BYTE* states)
 	{
 		if (IsKeyDown(states, DIK_UP))
 		{
-			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(8.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(8.2))
 			{
 				data->player->AddPosition(0, -8.0f);
 				data->player->SetState(new SophiaStandingState(data));

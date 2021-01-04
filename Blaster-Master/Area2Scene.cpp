@@ -7,6 +7,7 @@
 #include "Camera.h"
 #include "Map.h"
 #include "GridManager.h"
+#include "PlayScenceKeyHandler.h"
 
 #include "Utils.h"
 #include "Textures.h"
@@ -35,9 +36,9 @@
 
 using namespace std;
 
-CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
+Area2Scene::Area2Scene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
-	key_handler = new CPlayScenceKeyHandler(this);
+	key_handler = new PlayScenceKeyHandler(this);
 }
 
 /*
@@ -66,7 +67,7 @@ CArea2Scene::CArea2Scene(int id, LPCWSTR filePath) : CScene(id, filePath)
 
 #define MAX_SCENE_LINE 1024
 
-void CArea2Scene::_Init_Player(float player_x, float player_y)
+void Area2Scene::_Init_Player(float player_x, float player_y)
 {
 	player = CPlayer::GetInstance();
 	player->SetPosition(player_x, player_y);
@@ -75,7 +76,7 @@ void CArea2Scene::_Init_Player(float player_x, float player_y)
 	Camera::GetInstance()->UpdateCamera();
 }
 
-void CArea2Scene::_ParseSection_OBJECTS(string line)
+void Area2Scene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
 
@@ -152,7 +153,7 @@ void CArea2Scene::_ParseSection_OBJECTS(string line)
 	GridManager::GetInstance()->AddObject(obj);
 }
 
-void CArea2Scene::_ParseSecion_BRICK(string line, int type)
+void Area2Scene::_ParseSecion_BRICK(string line, int type)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
@@ -182,7 +183,7 @@ void CArea2Scene::_ParseSecion_BRICK(string line, int type)
 	staticObjects.push_back(obj);
 }
 
-void CArea2Scene::_ParseSection_CHONG_NHON(string line)
+void Area2Scene::_ParseSection_CHONG_NHON(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
@@ -195,7 +196,7 @@ void CArea2Scene::_ParseSection_CHONG_NHON(string line)
 	staticObjects.push_back(brick);
 }
 
-void CArea2Scene::_ParseSection_PORTAL(string line)
+void Area2Scene::_ParseSection_PORTAL(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 8) return;
@@ -211,7 +212,7 @@ void CArea2Scene::_ParseSection_PORTAL(string line)
 	staticObjects.push_back(portal);
 }
 
-void CArea2Scene::_ParseSection_MAP(string line)
+void Area2Scene::_ParseSection_MAP(string line)
 {
 	vector<string> tokens = split(line);
 	if (tokens.size() < 1) return;
@@ -221,7 +222,7 @@ void CArea2Scene::_ParseSection_MAP(string line)
 	GridManager::GetInstance()->Reset();
 }
 
-void CArea2Scene::Load(float player_x, float player_y)
+void Area2Scene::Load(float player_x, float player_y)
 {
 	_Init_Player(player_x, player_y);
 
@@ -294,7 +295,7 @@ void CArea2Scene::Load(float player_x, float player_y)
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
-void CArea2Scene::Update(DWORD dt)
+void Area2Scene::Update(DWORD dt)
 {
 	RemoveCollisionObject();
 	_RefreshObject();
@@ -307,7 +308,7 @@ void CArea2Scene::Update(DWORD dt)
 
 }
 
-void CArea2Scene::Render()
+void Area2Scene::Render()
 {
 	Map::GetInstance()->Render();
 	for (int i = 0; i < objects.size(); i++)
@@ -320,7 +321,7 @@ void CArea2Scene::Render()
 /*
 	Unload current scene
 */
-void CArea2Scene::Unload()
+void Area2Scene::Unload()
 {
 	GridManager::GetInstance()->Clear();
 	objects.clear();
@@ -328,21 +329,21 @@ void CArea2Scene::Unload()
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
-void CArea2Scene::RemoveCollisionObject()
+void Area2Scene::RemoveCollisionObject()
 {
 	collisions.erase(remove_if(collisions.begin(), collisions.end(), [](const CollisionExplosion* obj) {
 		return obj->shouldRemove == true;
 	}), collisions.end());
 }
 
-void CArea2Scene::AddCollision(float x1, float y1)
+void Area2Scene::AddCollision(float x1, float y1)
 {
 	CollisionExplosion* collision = new CollisionExplosion();
 	collision->SetPosition(x1, y1);
 	collisions.push_back(collision);
 }
 
-bool CArea2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& jumpPoint)
+bool Area2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& jumpPoint)
 {
 	for (int i = 0; i < objects.size(); ++i)
 	{
@@ -367,22 +368,7 @@ bool CArea2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& 
 	return false;
 }
 
-void CPlayScenceKeyHandler::OnKeyDown(int KeyCode)
-{
-	((CArea2Scene*)scence)->GetPlayer()->OnKeyDown(KeyCode);
-}
-
-void CPlayScenceKeyHandler::OnKeyUp(int keyCode)
-{
-	((CArea2Scene*)scence)->GetPlayer()->OnKeyUp(keyCode);
-}
-
-void CPlayScenceKeyHandler::KeyState(BYTE* states)
-{
-	((CArea2Scene*)scence)->GetPlayer()->KeyState(states);
-}
-
-void CArea2Scene::_DrawBlood()
+void Area2Scene::_DrawBlood()
 {
 	int blood = player->GetBlood();
 	int sprite;
@@ -421,7 +407,7 @@ void CArea2Scene::_DrawBlood()
 	CSprites::GetInstance()->Get(sprite)->Draw(cam_x + 20, cam_y + 100 - CGame::GetInstance()->GetScreenHeight());
 }
 
-void CArea2Scene::_RefreshObject()
+void Area2Scene::_RefreshObject()
 {
 	objects.clear();
 	objects = GridManager::GetInstance()->GetObjectsToUpdate();
@@ -432,7 +418,7 @@ void CArea2Scene::_RefreshObject()
 	}
 }
 
-bool CArea2Scene::CanAddPosition(float y)
+bool Area2Scene::CanAddPosition(float y)
 {
 	float minHeight = 99999.0f;
 	for (int i = 0; i < objects.size(); ++i)

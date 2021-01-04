@@ -9,7 +9,7 @@
 using namespace std;
 
 
-class CArea2Scene : public CScene
+class Area2Scene : public Scene
 {
 private:
 	void RemoveCollisionObject();
@@ -32,7 +32,7 @@ protected:
 
 	void _RefreshObject();
 public:
-	CArea2Scene(int id, LPCWSTR filePath);
+	Area2Scene(int id, LPCWSTR filePath);
 
 	virtual void Load(float player_x, float player_y);
 	virtual void Update(DWORD dt);
@@ -46,13 +46,3 @@ public:
 	bool CanAddPosition(float y);
 	bool HasStairNearBy(float&, float&, float&, float&, float&);
 };
-
-class CPlayScenceKeyHandler : public CScenceKeyHandler
-{
-public:
-	virtual void KeyState(BYTE* states);
-	virtual void OnKeyDown(int KeyCode);
-	virtual void OnKeyUp(int KeyCode);
-	CPlayScenceKeyHandler(CScene* s) :CScenceKeyHandler(s) {};
-};
-

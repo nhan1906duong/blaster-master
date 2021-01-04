@@ -91,7 +91,7 @@ void SophiaFallingState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
 			{
 				break;
 			}
