@@ -16,12 +16,12 @@ namespace create_map
 
         public static void CreateFileMap()
         {
-            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\overworld\scene1\map.txt"))
+            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\overworld\scene2\map.txt"))
             {
                 var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overhead-map.png");
-                for (int row = 44; row < 78; row++)
+                for (int row = 30; row < 128; row++)
                 {
-                    for (int column = 80; column < 98; column++)
+                    for (int column = 0; column < 64; column++)
                     {
                         bool isFind = false;
                         Rectangle rect = new Rectangle(new Point(column * 16, row * 16), new Size(16, 16));
