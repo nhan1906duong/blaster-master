@@ -1,2 +1,12 @@
 [MAP]
 resources\overworld\scene1\map.txt
+[BRICK]
+# left	top	right	bottom
+1	0	32	288	0
+1	0	544	32	32
+1	32	544	224	448
+1	224	544	288	32
+1	96	192	224	144
+1	32	320	160	272
+1	48	448	80	384
+1	112	448	144	384

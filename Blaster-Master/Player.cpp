@@ -76,183 +76,226 @@ CPlayer::CPlayer() : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
-
-	playerData->playerState->Update(dt, coObjects);
-
-	if (!dynamic_cast<JasonClimbingState*>(playerData->playerState))
+	if (dynamic_cast<JasonOverworldState*>(playerData->playerState))
 	{
-		vy += GameDefine::ACCELERATOR_GRAVITY;
-	}
 
-	CGameObject::Update(dt);
+		CGameObject::Update(dt);
 
-	vector<LPCOLLISIONEVENT> coEvents;
-	vector<LPCOLLISIONEVENT> coEventsResult;
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
 
-	coEvents.clear();
+		coEvents.clear();
 
-	// turn off collision when die 
-	CalcPotentialCollisions(coObjects, coEvents);
+		// turn off collision when die 
+		CalcPotentialCollisions(coObjects, coEvents);
 
-	// reset untouchable timer if untouchable time has passed
-	
-	DWORD current = GetTickCount();
-	if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
-	{
-		untouchable_start = 0;
-		untouchable = 0;
-	}
+		// reset untouchable timer if untouchable time has passed
 
-	// No collision occured, proceed normally
-	if (coEvents.size() == 0)
-	{
-		x += dx;
-		y += dy;
-		if (!dynamic_cast<JasonJumpingState*>(playerData->playerState) &&
-			!dynamic_cast<JasonFallingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaFallingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaJumpingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) &&
-			!dynamic_cast<SophiaStraightFallingState*>(playerData->playerState) &&
-			!dynamic_cast<JasonClimbingState*>(playerData->playerState))
+		/*DWORD current = GetTickCount();
+		if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 		{
-			if (IsSophiaState())
-			{
-				if (isUpPressed)
-				{
-					if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
-					{
-						SetState(new SophiaFallingState(playerData));
-					}
-					else SetState(new SophiaStraightFallingState(playerData));
-				}
-				else
-				{
-					SetState(new SophiaFallingState(playerData));
-				}
-			}
-			else
-			{
-				SetState(new JasonFallingState(playerData));
-			}
+			untouchable_start = 0;
+			untouchable = 0;
+		}*/
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
 		}
-
-		if (dynamic_cast<JasonClimbingState*>(playerData->playerState))
+		else
 		{
-			JasonClimbingState* state = dynamic_cast<JasonClimbingState*>(playerData->playerState);
-			if (y > state->GetTop())
-			{
-				y = state->GetTop();
-			}
+			float min_tx, min_ty, nx = 0, ny;
+			float rdx = 0;
+			float rdy = 0;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy, false);
+
+			x += min_tx * dx + 0.01f * nx;
+			y += min_ty * dy + 0.01f * ny;
 		}
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
+		if (dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy, false);
+		playerData->playerState->Update(dt, coObjects);
 
-		x += min_tx * dx + 0.01f * nx;
-		y += min_ty * dy + 0.01f * ny;
-
-		if (nx != 0) vx = 0;
-		if (ny != 0)
+		if (!dynamic_cast<JasonClimbingState*>(playerData->playerState))
 		{
-			vy = 0;
-			if (dynamic_cast<JasonJumpingState*>(playerData->playerState) ||
-				dynamic_cast<JasonFallingState*>(playerData->playerState) ||
-				dynamic_cast<SophiaFallingState*>(playerData->playerState) ||
-				dynamic_cast<SophiaJumpingState*>(playerData->playerState) ||
-				dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) ||
-				dynamic_cast<SophiaStraightFallingState*>(playerData->playerState))
+			vy += GameDefine::ACCELERATOR_GRAVITY;
+		}
+
+		CGameObject::Update(dt);
+
+		vector<LPCOLLISIONEVENT> coEvents;
+		vector<LPCOLLISIONEVENT> coEventsResult;
+
+		coEvents.clear();
+
+		// turn off collision when die 
+		CalcPotentialCollisions(coObjects, coEvents);
+
+		// reset untouchable timer if untouchable time has passed
+
+		DWORD current = GetTickCount();
+		if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
+		{
+			untouchable_start = 0;
+			untouchable = 0;
+		}
+
+		// No collision occured, proceed normally
+		if (coEvents.size() == 0)
+		{
+			x += dx;
+			y += dy;
+			if (!dynamic_cast<JasonJumpingState*>(playerData->playerState) &&
+				!dynamic_cast<JasonFallingState*>(playerData->playerState) &&
+				!dynamic_cast<SophiaFallingState*>(playerData->playerState) &&
+				!dynamic_cast<SophiaJumpingState*>(playerData->playerState) &&
+				!dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) &&
+				!dynamic_cast<SophiaStraightFallingState*>(playerData->playerState) &&
+				!dynamic_cast<JasonClimbingState*>(playerData->playerState))
 			{
 				if (IsSophiaState())
 				{
 					if (isUpPressed)
 					{
-						if (!dynamic_cast<SophiaStraightState*>(playerData->playerState))
+						if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
 						{
-							if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
-							{
-								AddPosition(0, 2.1);
-								SetState(new SophiaStandingState(playerData));
-							}
-							else
-							{
-								SetState(new SophiaStraightStandingState(playerData));
-							}
+							SetState(new SophiaFallingState(playerData));
 						}
-						else SetState(new SophiaStraightStandingState(playerData));
+						else SetState(new SophiaStraightFallingState(playerData));
 					}
 					else
 					{
-						AddPosition(0, 2.1);
-						SetState(new SophiaStandingState(playerData));
+						SetState(new SophiaFallingState(playerData));
 					}
 				}
 				else
 				{
-					if (isLeftOrRightPressed)
+					SetState(new JasonFallingState(playerData));
+				}
+			}
+
+			if (dynamic_cast<JasonClimbingState*>(playerData->playerState))
+			{
+				JasonClimbingState* state = dynamic_cast<JasonClimbingState*>(playerData->playerState);
+				if (y > state->GetTop())
+				{
+					y = state->GetTop();
+				}
+			}
+		}
+		else
+		{
+			float min_tx, min_ty, nx = 0, ny;
+			float rdx = 0;
+			float rdy = 0;
+
+			FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy, false);
+
+			x += min_tx * dx + 0.01f * nx;
+			y += min_ty * dy + 0.01f * ny;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0)
+			{
+				vy = 0;
+				if (dynamic_cast<JasonJumpingState*>(playerData->playerState) ||
+					dynamic_cast<JasonFallingState*>(playerData->playerState) ||
+					dynamic_cast<SophiaFallingState*>(playerData->playerState) ||
+					dynamic_cast<SophiaJumpingState*>(playerData->playerState) ||
+					dynamic_cast<SophiaStraightJumpingState*>(playerData->playerState) ||
+					dynamic_cast<SophiaStraightFallingState*>(playerData->playerState))
+				{
+					if (IsSophiaState())
 					{
-						SetState(new JasonRunningState(playerData));
+						if (isUpPressed)
+						{
+							if (!dynamic_cast<SophiaStraightState*>(playerData->playerState))
+							{
+								if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+								{
+									AddPosition(0, 2.1);
+									SetState(new SophiaStandingState(playerData));
+								}
+								else
+								{
+									SetState(new SophiaStraightStandingState(playerData));
+								}
+							}
+							else SetState(new SophiaStraightStandingState(playerData));
+						}
+						else
+						{
+							AddPosition(0, 2.1);
+							SetState(new SophiaStandingState(playerData));
+						}
 					}
 					else
 					{
-						SetState(new JasonStandingState(playerData));
+						if (isLeftOrRightPressed)
+						{
+							SetState(new JasonRunningState(playerData));
+						}
+						else
+						{
+							SetState(new JasonStandingState(playerData));
+						}
 					}
 				}
-			}
 
-			if (dynamic_cast<JasonClimbingState*>(playerData->playerState) && ny == 1)
-			{
-				SetState(new JasonFallingState(playerData));
-			}
-		}
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
-		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
-			{
-				CPortal* portal = dynamic_cast<CPortal*>(e->obj);
-				CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
-			}
-			else if (dynamic_cast<Enemy*>(e->obj))
-			{
-				StartUntouchable();
-			}
-			else if (dynamic_cast<HPItem*>(e->obj))
-			{
-				if (IsSophiaState())
+				if (dynamic_cast<JasonClimbingState*>(playerData->playerState) && ny == 1)
 				{
-					++bloodSophia;
-					if (bloodSophia > 8) bloodSophia = 8;
+					SetState(new JasonFallingState(playerData));
 				}
-				else
+			}
+
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+				if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
 				{
-					++bloodJason;
-					if (bloodJason > 8) bloodJason = 8;
+					CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+					CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
 				}
-				e->obj->PrepareToRemove();
+				else if (dynamic_cast<Enemy*>(e->obj))
+				{
+					StartUntouchable();
+				}
+				else if (dynamic_cast<HPItem*>(e->obj))
+				{
+					if (IsSophiaState())
+					{
+						++bloodSophia;
+						if (bloodSophia > 8) bloodSophia = 8;
+					}
+					else
+					{
+						++bloodJason;
+						if (bloodJason > 8) bloodJason = 8;
+					}
+					e->obj->PrepareToRemove();
+				}
+			}
+
+			for (int i = 0; i < coObjects->size(); ++i)
+			{
+				LPGAMEOBJECT obj = coObjects->at(i);
+				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				{
+					StartUntouchable();
+					break;
+				}
 			}
 		}
 
-		for (int i = 0; i < coObjects->size(); ++i)
-		{
-			LPGAMEOBJECT obj = coObjects->at(i);
-			if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
-			{
-				StartUntouchable();
-				break;
-			}
-		}
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
-
-	// clean up collision events
-	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void CPlayer::Render()

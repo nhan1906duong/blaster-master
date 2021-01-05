@@ -12,6 +12,8 @@
 #include "Utils.h"
 #include "GridManager.h"
 
+#include "Brick.h"
+
 #include "Player.h"
 
 
@@ -26,7 +28,8 @@
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
 	key_handler = new PlayScenceKeyHandler(this);
-
+	staticObjects.clear();
+	objects.clear();
 }
 
 void Area2OverworldScene::_ParseSection_OBJECTS(string line)
@@ -36,7 +39,15 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 
 void Area2OverworldScene::_ParseSecion_BRICK(string line, int type)
 {
-
+	vector<string> tokens = split(line);
+	if (tokens.size() < 5) return;
+	int identity = atoi(tokens[0].c_str());
+	float left = atof(tokens[1].c_str());
+	float top = atof(tokens[2].c_str());
+	float right = atof(tokens[3].c_str());
+	float bottom = atof(tokens[4].c_str());
+	CBrick*	brick = new CBrick(identity, left, top, right, bottom);
+	staticObjects.push_back(brick);
 }
 
 void Area2OverworldScene::_ParseSection_PORTAL(string line)
@@ -104,18 +115,29 @@ void Area2OverworldScene::Load(float player_x, float player_y)
 
 	f.close();
 
+	CTextures::GetInstance()->Add(ID_TEX_BBOX, L"resources\\bbox.png", D3DCOLOR_XRGB(255, 255, 255));
+
 	DebugOut(L"[INFO] Done loading scene resources %s\n", sceneFilePath);
 }
 
 void Area2OverworldScene::Update(DWORD dt)
 {
-
+	_RefreshObject();
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		if (dynamic_cast<Static*>(objects[i])) continue;
+		objects[i]->Update(dt, &objects);
+	}
+	Camera::GetInstance()->UpdateCamera();
 }
 
 void Area2OverworldScene::Render()
 {
 	Map::GetInstance()->Render();
-	CPlayer::GetInstance()->Render();
+	for (size_t i = 0; i < objects.size(); i++)
+	{
+		objects[i]->Render();
+	}
 }
 
 /*
@@ -124,4 +146,16 @@ void Area2OverworldScene::Render()
 void Area2OverworldScene::Unload()
 {
 
+}
+
+
+void Area2OverworldScene::_RefreshObject()
+{
+	objects.clear();
+	objects = GridManager::GetInstance()->GetObjectsToUpdate();
+	objects.push_back(CPlayer::GetInstance());
+	for (int i = 0; i < staticObjects.size(); ++i)
+	{
+		objects.push_back(staticObjects[i]);
+	}
 }
