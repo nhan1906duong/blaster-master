@@ -2,6 +2,8 @@
 
 #include "PlayScenceKeyHandler.h"
 
+#include "Map.h"
+
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
 	key_handler = new PlayScenceKeyHandler(this);
@@ -20,7 +22,7 @@ void Area2OverworldScene::Update(DWORD dt)
 
 void Area2OverworldScene::Render()
 {
-
+	Map::GetInstance()->Render();
 }
 
 /*

@@ -15,6 +15,8 @@ using namespace std;
 
 class CGame
 {
+	bool isOverworld = false;
+
 	static CGame* __instance;
 	HWND hWnd;									// Window handle
 

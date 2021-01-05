@@ -11,19 +11,24 @@ namespace create_map
     {
         static void Main(string[] args)
         {
-            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\scene10\map.txt"))
+            CreateFileMap();
+        }
+
+        public static void CreateFileMap()
+        {
+            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\overworld\scene1\map.txt"))
             {
-                var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overwold-map.png");
-                for (int row = 80; row < 96; row++)
+                var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overhead-map.png");
+                for (int row = 44; row < 78; row++)
                 {
-                    for (int column = 14; column < 32; column++)
+                    for (int column = 80; column < 98; column++)
                     {
                         bool isFind = false;
                         Rectangle rect = new Rectangle(new Point(column * 16, row * 16), new Size(16, 16));
                         Bitmap bmp1 = CropImage(source, rect);
                         for (int tile = 0; tile < 143; tile++)
                         {
-                            var bmp2 = new Bitmap(@$"E:\final\SE102\Blaster-Master\resources\map\tile2\{tile}.png");
+                            var bmp2 = new Bitmap(@$"E:\final\SE102\Blaster-Master\resources\map\overworld\{tile}.png");
                             if (SoSanh2AnhBitMap(bmp1, bmp2))
                             {
                                 isFind = true;
@@ -41,17 +46,16 @@ namespace create_map
                 }
             }
         }
-
         public static void moveFile()
         {
             String line;
             System.IO.StreamReader file =
-            new System.IO.StreamReader(@"D:\nhan\blaster-master\blaster-master\blaster-master\resources\map.txt");
+            new System.IO.StreamReader(@"E:\final\SE102\Blaster-Master\resources\map\map-overworld.txt");
             int index = 0;
             while ((line = file.ReadLine()) != null)
             {
                 System.Console.WriteLine(line);
-                File.Move(@$"D:\nhan\blaster-master\blaster-master\blaster-master\resources\tile\{line}.png", @$"D:\nhan\blaster-master\blaster-master\blaster-master\resources\tile2\{index++}.png");
+                File.Move(@$"E:\final\SE102\Blaster-Master\resources\map\tile\{line}.png", @$"E:\final\SE102\Blaster-Master\resources\map\overworld\{index++}.png");
             }
 
             file.Close();
@@ -69,11 +73,11 @@ namespace create_map
                 {
                     continue;
                 }
-                var bmp1 = new Bitmap(@"D:\nhan\blaster-master\blaster-master\blaster-master\resources\tile\" + index + ".png");
+                var bmp1 = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\tile\" + index + ".png");
                 bool isExist = false;
                 for (int next = 0; next < list.Count; next++)
                 {
-                    var bmp2 = new Bitmap(@"D:\nhan\blaster-master\blaster-master\blaster-master\resources\tile\" + list[next] + ".png");
+                    var bmp2 = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\tile\" + list[next] + ".png");
                     if (SoSanh2AnhBitMap(bmp1, bmp2))
                     {
                         isExist = true;
@@ -86,7 +90,7 @@ namespace create_map
                     Console.WriteLine($"Item {++numTile}: {index}");
                 }
             }
-            using (StreamWriter sw = new StreamWriter(@$"D:\nhan\blaster-master\blaster-master\blaster-master\resources\map.txt"))
+            using (StreamWriter sw = new StreamWriter(@$"E:\final\SE102\Blaster-Master\resources\map\map-overworld.txt"))
             {
                 for (int num = 0; num < list.Count; num++)
                 {
@@ -94,11 +98,11 @@ namespace create_map
                     sw.WriteLine(list[num]);
                 }
             }
+            
         }
-
         public static void CatTileMapAreaWorld2()
         {
-            var source = new Bitmap(@"D:\nhan\blaster-master\blaster-master\blaster-master\resources\area2-overwold-map.png");
+            var source = new Bitmap(@"E:\final\SE102\Blaster-Master\resources\map\area2-overhead-map.png");
             int index = 0;
             for (int row = 0; row < 128; row++)
             {
@@ -113,7 +117,7 @@ namespace create_map
                     }
                     else
                     {
-                        bmp.Save("D:/nhan/blaster-master/blaster-master/blaster-master/resources/tile/" + index + ".png", ImageFormat.Png);
+                        bmp.Save("E:/final/SE102/Blaster-Master/resources/map/tile/" + index + ".png", ImageFormat.Png);
                     }
                     ++index;
                 }

@@ -8,6 +8,7 @@
 #include "Utils.h"
 
 #include "Area2Scene.h"
+#include "Area2OverworldScene.h"
 
 #include "Textures.h"
 #include "Sprites.h"
@@ -291,12 +292,24 @@ void CGame::_ParseSection_SCENES(string line)
 {
 	vector<string> tokens = split(line);
 
-	if (tokens.size() < 2) return;
+	if (tokens.size() < 3) return;
 	int id = atoi(tokens[0].c_str());
 	LPCWSTR path = ToLPCWSTR(tokens[1]);
 
-	LPSCENE scene = new Area2Scene(id, path);
-	scenes[id] = scene;
+	int type = atoi(tokens[2].c_str());
+	LPSCENE scene = NULL;
+	if (type == 1)
+	{
+		scene = new Area2Scene(id, path);
+	}
+	else if (type == 2)
+	{
+		scene = new Area2OverworldScene(id, path);
+	}
+	if (scene != NULL)
+	{
+		scenes[id] = scene;
+	}
 }
 
 void CGame::_ParseSection_TILES(string line)
@@ -307,8 +320,14 @@ void CGame::_ParseSection_TILES(string line)
 	for (int num = 0; num < total; num++)
 	{
 		string fullPath = path + std::to_string(num) + ".png";
-		CTextures::GetInstance()->Add(num, ToLPCWSTR(fullPath.c_str()), D3DCOLOR_XRGB(255, 255, 255));
+		int id = num;
+		if (isOverworld)
+		{
+			id += 200;
+		}
+		CTextures::GetInstance()->Add(id, ToLPCWSTR(fullPath.c_str()), D3DCOLOR_XRGB(255, 255, 255));
 	}
+	isOverworld = true;
 }
 
 void CGame::_ParseSection_TEXTURES(string line)

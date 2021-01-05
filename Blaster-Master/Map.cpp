@@ -4,6 +4,7 @@
 #include "Game.h"
 #include "Textures.h"
 #include "Utils.h"
+#include "Area2OverworldScene.h"
 
 #include <iostream>
 #include <fstream>
@@ -77,6 +78,7 @@ void Map::Render()
 			}
 
 			int texId = map[bouncingTop/16 - row][column];
+			//if ((Area2OverworldScene*))
 			LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
 			CGame::GetInstance()->Draw(tileLeft, tileTop, tex, 0, 0, 16, 16);
 		}
