@@ -1,0 +1,2 @@
+[MAP]
+resources\overworld\scene1\map.txt

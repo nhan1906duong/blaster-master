@@ -42,6 +42,10 @@
     <ClCompile Include="JasonCrawlingState.cpp" />
     <ClCompile Include="JasonDieState.cpp" />
     <ClCompile Include="JasonFallingState.cpp" />
+    <ClCompile Include="JasonGoDownState.cpp" />
+    <ClCompile Include="JasonGoLeftState.cpp" />
+    <ClCompile Include="JasonGoRightState.cpp" />
+    <ClCompile Include="JasonGoUpState.cpp" />
     <ClCompile Include="JasonJumpingState.cpp" />
     <ClCompile Include="JasonLieingState.cpp" />
     <ClCompile Include="JasonRunningState.cpp" />
@@ -105,8 +109,13 @@
     <ClInclude Include="JasonCrawlingState.h" />
     <ClInclude Include="JasonDieState.h" />
     <ClInclude Include="JasonFallingState.h" />
+    <ClInclude Include="JasonGoDownState.h" />
+    <ClInclude Include="JasonGoLeftState.h" />
+    <ClInclude Include="JasonGoRightState.h" />
+    <ClInclude Include="JasonGoUpState.h" />
     <ClInclude Include="JasonJumpingState.h" />
     <ClInclude Include="JasonLieingState.h" />
+    <ClInclude Include="JasonOverworldState.h" />
     <ClInclude Include="JasonRunningState.h" />
     <ClInclude Include="JasonStandingState.h" />
     <ClInclude Include="JasonState.h" />

@@ -34,6 +34,8 @@
 #include "JasonCrawlingState.h"
 #include "JasonClimbingState.h"
 
+#include "JasonGoUpState.h"
+
 #include "Area2Scene.h"
 
 #include "Collision.h"
@@ -456,4 +458,9 @@ void CPlayer::StartUntouchable()
 bool CPlayer::IsUntouchable()
 {
 	return untouchable;
+}
+
+void CPlayer::SwitchToOverworldState()
+{
+	SetState(new JasonGoUpState(playerData));
 }

@@ -78,7 +78,10 @@ void Map::Render()
 			}
 
 			int texId = map[bouncingTop/16 - row][column];
-			//if ((Area2OverworldScene*))
+			if (dynamic_cast<Area2OverworldScene*>(CGame::GetInstance()->GetCurrentScene()))
+			{
+				texId += 200;
+			}
 			LPDIRECT3DTEXTURE9 tex = CTextures::GetInstance()->Get(texId);
 			CGame::GetInstance()->Draw(tileLeft, tileTop, tex, 0, 0, 16, 16);
 		}

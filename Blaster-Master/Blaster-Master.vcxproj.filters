@@ -243,6 +243,18 @@
     <ClCompile Include="ScenceKeyHandler.cpp">
       <Filter>Framework\Core\Keyboard</Filter>
     </ClCompile>
+    <ClCompile Include="JasonGoDownState.cpp">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonGoUpState.cpp">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonGoRightState.cpp">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="JasonGoLeftState.cpp">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -454,6 +466,21 @@
     </ClInclude>
     <ClInclude Include="ScenceKeyHandler.h">
       <Filter>Framework\Core\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonGoUpState.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonGoRightState.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonGoLeftState.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonGoDownState.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonOverworldState.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
