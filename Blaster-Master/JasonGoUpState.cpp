@@ -9,7 +9,7 @@ JasonGoUpState::JasonGoUpState(PlayerData* data) : JasonOverworldState(data)
 
 int JasonGoUpState::CurrentAnimationId()
 {
-	return 5;
+	return 7;
 }
 
 void JasonGoUpState::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)

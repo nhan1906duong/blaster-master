@@ -35,6 +35,9 @@
 #include "JasonClimbingState.h"
 
 #include "JasonGoUpState.h"
+#include "JasonGoDownState.h"
+#include "JasonGoLeftState.h"
+#include "JasonGoRightState.h"
 
 #include "Area2Scene.h"
 
@@ -375,8 +378,40 @@ void CPlayer::OnKeyUp(int keyCode)
 void CPlayer::OnKeyDown(int keyCode)
 {
 	playerData->playerState->OnKeyDown(keyCode);
-	switch (keyCode)
+	if (dynamic_cast<JasonOverworldState*>(playerData->playerState))
 	{
+		switch (keyCode)
+		{
+			case DIK_UP:
+				if (!dynamic_cast<JasonGoUpState*>(playerData->playerState))
+				{
+					SetState(new JasonGoUpState(playerData));
+				}
+				break;
+			case DIK_DOWN:
+				if (!dynamic_cast<JasonGoDownState*>(playerData->playerState))
+				{
+					SetState(new JasonGoDownState(playerData));
+				}
+				break;
+			case DIK_LEFT:
+				if (!dynamic_cast<JasonGoLeftState*>(playerData->playerState))
+				{
+					SetState(new JasonGoLeftState(playerData));
+				}
+				break;
+			case DIK_RIGHT:
+				if (!dynamic_cast<JasonGoRightState*>(playerData->playerState))
+				{
+					SetState(new JasonGoRightState(playerData));
+				}
+				break;
+		}
+	}
+	else
+	{
+		switch (keyCode)
+		{
 		case DIK_Z:
 			fire();
 			break;
@@ -384,6 +419,7 @@ void CPlayer::OnKeyDown(int keyCode)
 		case DIK_RSHIFT:
 			Switch();
 			break;
+		}
 	}
 }
 
