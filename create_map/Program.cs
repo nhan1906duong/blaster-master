@@ -28,7 +28,7 @@ namespace create_map
                         Bitmap bmp1 = CropImage(source, rect);
                         for (int tile = 0; tile < 143; tile++)
                         {
-                            var bmp2 = new Bitmap(@$"E:\final\SE102\Blaster-Master\resources\map\overworld\{tile}.png");
+                            var bmp2 = new Bitmap(@$"F:\Anderson\blaster-master\Blaster-Master\resources\map\overworld\{tile}.png");
                             if (SoSanh2AnhBitMap(bmp1, bmp2))
                             {
                                 isFind = true;
