@@ -15,6 +15,7 @@
 #include "Brick.h"
 
 #include "Player.h"
+#include "EyeBall.h"
 
 
 #define SCENE_SECTION_UNKNOWN		-1
@@ -25,6 +26,8 @@
 
 #define MAX_SCENE_LINE 1024
 
+#define OBJECT_TYPE_EYEBALL		23
+
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
 	key_handler = new PlayScenceKeyHandler(this);
@@ -34,7 +37,32 @@ Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, f
 
 void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 {
+	vector<string> tokens = split(line);
 
+	if (tokens.size() < 2) return; // skip invalid lines - an object set must have at least id, x, y
+
+	int object_type = atoi(tokens[0].c_str());
+	float x = atof(tokens[1].c_str());
+	float y = atof(tokens[2].c_str());
+
+	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
+
+	CGameObject* obj = NULL;
+
+	switch (object_type)
+	{
+	case OBJECT_TYPE_EYEBALL:
+		obj = new EyeBall();
+		break;
+	
+	default:
+		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
+		return;
+	}
+
+	// General object setup
+	obj->SetPosition(x, y);
+	GridManager::GetInstance()->AddObject(obj);
 }
 
 void Area2OverworldScene::_ParseSecion_BRICK(string line, int type)

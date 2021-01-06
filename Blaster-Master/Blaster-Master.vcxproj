@@ -29,6 +29,7 @@
     <ClCompile Include="ChongNhon.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="DoomieOrb.cpp" />
+    <ClCompile Include="EyeBall.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="FloaterBullet.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="CollisionExplosion.h" />
     <ClInclude Include="DoomieOrb.h" />
     <ClInclude Include="EnemyBullet.h" />
+    <ClInclude Include="EyeBall.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="FloaterBullet.h" />

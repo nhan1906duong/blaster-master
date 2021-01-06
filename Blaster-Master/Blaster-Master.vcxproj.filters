@@ -255,6 +255,9 @@
     <ClCompile Include="JasonGoLeftState.cpp">
       <Filter>Framework\Objects\Player\overworld</Filter>
     </ClCompile>
+    <ClCompile Include="EyeBall.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -481,6 +484,9 @@
     </ClInclude>
     <ClInclude Include="JasonOverworldState.h">
       <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="EyeBall.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
