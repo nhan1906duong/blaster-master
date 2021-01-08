@@ -16,6 +16,7 @@
 
 #include "Player.h"
 #include "EyeBall.h"
+#include "Teleporter.h"
 
 
 #define SCENE_SECTION_UNKNOWN		-1
@@ -27,6 +28,7 @@
 #define MAX_SCENE_LINE 1024
 
 #define OBJECT_TYPE_EYEBALL		23
+#define OBJECT_TYPE_TELEPORTER		25
 
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
@@ -45,6 +47,7 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	float x = atof(tokens[1].c_str());
 	float y = atof(tokens[2].c_str());
 
+
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
 	CGameObject* obj = NULL;
@@ -53,6 +56,10 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	{
 	case OBJECT_TYPE_EYEBALL:
 		obj = new EyeBall();
+		break;
+	
+	case OBJECT_TYPE_TELEPORTER:
+		obj = new Teleporter();
 		break;
 	
 	default:

@@ -30,6 +30,7 @@
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="DoomieOrb.cpp" />
     <ClCompile Include="EyeBall.cpp" />
+    <ClCompile Include="EyeBallBullet.cpp" />
     <ClCompile Include="FireZone.cpp" />
     <ClCompile Include="Floater.cpp" />
     <ClCompile Include="FloaterBullet.cpp" />
@@ -70,6 +71,7 @@
     <ClCompile Include="SophiaStraightRunningState.cpp" />
     <ClCompile Include="SophiaStraightStandingState.cpp" />
     <ClCompile Include="Stair.cpp" />
+    <ClCompile Include="Teleporter.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -98,6 +100,7 @@
     <ClInclude Include="DoomieOrb.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EyeBall.h" />
+    <ClInclude Include="EyeBallBullet.h" />
     <ClInclude Include="FireZone.h" />
     <ClInclude Include="Floater.h" />
     <ClInclude Include="FloaterBullet.h" />
@@ -146,6 +149,7 @@
     <ClInclude Include="SophiaStraightState.h" />
     <ClInclude Include="Stair.h" />
     <ClInclude Include="Static.h" />
+    <ClInclude Include="Teleporter.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="Enemy.h" />
