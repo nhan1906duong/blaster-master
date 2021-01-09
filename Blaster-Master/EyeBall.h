@@ -1,8 +1,8 @@
 #pragma once
 #include "Enemy.h"
 
-#define EYEBALL_WIDTH 18
-#define EYEBALL_HEIGHT 9
+#define EYEBALL_WIDTH 16
+#define EYEBALL_HEIGHT 16
 
 #define VMOVE		0.09f
 

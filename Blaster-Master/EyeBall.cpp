@@ -81,7 +81,14 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		
+		float min_tx, min_ty, brickNx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, brickNx, ny, rdx, rdy);
+
+		x += min_tx * dx + 0.01f * brickNx;
+		y += min_ty * dy + 0.01f * ny;
 	}
 
 	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
@@ -90,4 +97,5 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 void EyeBall::Render()
 {
 	animation_set->at(0)->Render(x, y, 255, nx > 0);
+	RenderBoundingBox();
 }

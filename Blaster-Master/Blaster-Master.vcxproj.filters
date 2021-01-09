@@ -67,6 +67,9 @@
     <Filter Include="Framework\SceneManager\overworld">
       <UniqueIdentifier>{2c8815a0-88f5-4662-afbc-b1ae124ab593}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Objects\Enemies\overworld">
+      <UniqueIdentifier>{5108edb1-b4e0-4511-af1f-940e1ae2bf4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -255,14 +258,14 @@
     <ClCompile Include="JasonGoLeftState.cpp">
       <Filter>Framework\Objects\Player\overworld</Filter>
     </ClCompile>
-    <ClCompile Include="EyeBall.cpp">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="EyeBallBullet.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClCompile>
     <ClCompile Include="Teleporter.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EyeBall.cpp">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -491,14 +494,14 @@
     <ClInclude Include="JasonOverworldState.h">
       <Filter>Framework\Objects\Player\overworld</Filter>
     </ClInclude>
-    <ClInclude Include="EyeBall.h">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="EyeBallBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
     <ClInclude Include="Teleporter.h">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EyeBall.h">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
