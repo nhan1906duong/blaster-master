@@ -20,3 +20,5 @@ resources\overworld\scene1\map.txt
 1	32	320	160	272
 1	48	448	80	384
 1	112	448	144	384
+[PORTAL]
+1	96	128	144	80	3 	64	1664

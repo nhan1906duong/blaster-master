@@ -457,6 +457,11 @@ void CGame::SwitchScene(int scene_id, float player_x, float player_y)
 
 	scenes[current_scene]->Unload();
 
+	if (dynamic_cast<Area2OverworldScene*>(scenes[current_scene]) && dynamic_cast<Area2Scene*>(scenes[scene_id]))
+	{
+		CPlayer::GetInstance()->BackFromOverworld();
+	}
+
 	current_scene = scene_id;
 	LPSCENE s = scenes[scene_id];
 	CGame::GetInstance()->SetKeyHandler(s->GetKeyEventHandler());

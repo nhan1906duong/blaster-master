@@ -325,7 +325,8 @@ void Area2Scene::Unload()
 {
 	GridManager::GetInstance()->Clear();
 	objects.clear();
-
+	staticObjects.clear();
+	collisions.clear();
 	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 

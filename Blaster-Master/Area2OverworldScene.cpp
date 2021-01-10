@@ -6,13 +6,16 @@
 
 #include "JasonGoUpState.h"
 
+#include "Game.h"
 #include "Camera.h"
 #include "Map.h"
 #include "Textures.h"
 #include "Utils.h"
 #include "GridManager.h"
+#include "Collision.h"
 
 #include "Brick.h"
+#include "Portal.h"
 
 #include "Player.h"
 #include "EyeBall.h"
@@ -125,7 +128,18 @@ void Area2OverworldScene::_ParseSecion_BRICK(string line, int type)
 
 void Area2OverworldScene::_ParseSection_PORTAL(string line)
 {
-
+	vector<string> tokens = split(line);
+	if (tokens.size() < 8) return;
+	int identity = atoi(tokens[0].c_str());
+	float left = atof(tokens[1].c_str());
+	float top = atof(tokens[2].c_str());
+	float right = atof(tokens[3].c_str());
+	float bottom = atof(tokens[4].c_str());
+	int scene_id = atoi(tokens[5].c_str());
+	float cam_x = atoi(tokens[6].c_str());
+	float cam_y = atoi(tokens[7].c_str());
+	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id, cam_x, cam_y);
+	staticObjects.push_back(portal);
 }
 
 void Area2OverworldScene::_ParseSection_MAP(string line)
@@ -220,7 +234,11 @@ void Area2OverworldScene::Render()
 */
 void Area2OverworldScene::Unload()
 {
-
+	GridManager::GetInstance()->Clear();
+	objects.clear();
+	staticObjects.clear();
+	collisions.clear();
+	DebugOut(L"[INFO] Scene %s unloaded! \n", sceneFilePath);
 }
 
 
@@ -247,4 +265,17 @@ void Area2OverworldScene::AddCollision(float x1, float y1)
 	CollisionExplosion* collision = new CollisionExplosion();
 	collision->SetPosition(x1, y1);
 	collisions.push_back(collision);
+}
+
+void Area2OverworldScene::OnSpacePress()
+{
+	for (int i = 0; i < staticObjects.size(); ++i)
+	{
+		if (dynamic_cast<CPortal*>(staticObjects[i]) && Collision::CheckContain(staticObjects[i], CPlayer::GetInstance()))
+		{
+			CPortal* portal = dynamic_cast<CPortal*>(staticObjects[i]);
+			CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
+			break;
+		}
+	}
 }

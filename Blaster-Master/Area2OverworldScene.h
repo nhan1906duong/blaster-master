@@ -31,5 +31,7 @@ public:
 	virtual void Unload();
 
 	void AddCollision(float, float);
+
+	void OnSpacePress();
 };
 

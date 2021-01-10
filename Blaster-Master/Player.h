@@ -84,4 +84,6 @@ public:
 	void fire();
 
 	void SwitchToOverworldState();
+
+	void BackFromOverworld();
 };

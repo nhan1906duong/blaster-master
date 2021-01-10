@@ -40,6 +40,7 @@
 #include "JasonGoRightState.h"
 
 #include "Area2Scene.h"
+#include "Area2OverworldScene.h"
 
 #include "Collision.h"
 #include "FireZone.h"
@@ -449,6 +450,11 @@ void CPlayer::OnKeyDown(int keyCode)
 					SetState(new JasonGoRightState(playerData));
 				}
 				break;
+			case DIK_SPACE:
+			{
+				((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->OnSpacePress();
+				break;
+			}
 		}
 	}
 	else
@@ -542,4 +548,9 @@ bool CPlayer::IsUntouchable()
 void CPlayer::SwitchToOverworldState()
 {
 	SetState(new JasonGoUpState(playerData));
+}
+
+void CPlayer::BackFromOverworld()
+{
+	SetState(new JasonStandingState(playerData));
 }
