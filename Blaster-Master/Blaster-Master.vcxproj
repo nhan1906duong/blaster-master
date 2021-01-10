@@ -38,6 +38,9 @@
     <ClCompile Include="FloaterBullet.cpp" />
     <ClCompile Include="Grid.cpp" />
     <ClCompile Include="GridManager.cpp" />
+    <ClCompile Include="GunItem.cpp" />
+    <ClCompile Include="HomingMissileItem.cpp" />
+    <ClCompile Include="HoverItem.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
     <ClCompile Include="Item.cpp" />
@@ -56,6 +59,7 @@
     <ClCompile Include="JasonStandingState.cpp" />
     <ClCompile Include="Jumper.cpp" />
     <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="MultiwarheadMissileItem.cpp" />
     <ClCompile Include="Orb.cpp" />
     <ClCompile Include="PlayScenceKeyHandler.cpp" />
     <ClCompile Include="ScenceKeyHandler.cpp" />
@@ -74,6 +78,7 @@
     <ClCompile Include="SophiaStraightStandingState.cpp" />
     <ClCompile Include="Stair.cpp" />
     <ClCompile Include="Teleporter.cpp" />
+    <ClCompile Include="ThunderBreakItem.cpp" />
     <ClCompile Include="Worm.cpp" />
     <ClCompile Include="Dome.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -110,6 +115,9 @@
     <ClInclude Include="FloaterBullet.h" />
     <ClInclude Include="Grid.h" />
     <ClInclude Include="GridManager.h" />
+    <ClInclude Include="GunItem.h" />
+    <ClInclude Include="HomingMissileItem.h" />
+    <ClInclude Include="HoverItem.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
     <ClInclude Include="Item.h" />
@@ -130,6 +138,7 @@
     <ClInclude Include="JasonState.h" />
     <ClInclude Include="Jumper.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="MultiwarheadMissileItem.h" />
     <ClInclude Include="Orb.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="PlayerData.h" />
@@ -154,6 +163,7 @@
     <ClInclude Include="Stair.h" />
     <ClInclude Include="Static.h" />
     <ClInclude Include="Teleporter.h" />
+    <ClInclude Include="ThunderBreakItem.h" />
     <ClInclude Include="Worm.h" />
     <ClInclude Include="Dome.h" />
     <ClInclude Include="Enemy.h" />

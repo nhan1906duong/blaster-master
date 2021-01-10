@@ -19,6 +19,13 @@
 #include "Teleporter.h"
 #include "Cannon.h"
 
+#include "HPItem.h"
+#include "HoverItem.h"
+#include "GunItem.h"
+#include "ThunderBreakItem.h"
+#include "MultiwarheadMissileItem.h"
+
+
 
 #define SCENE_SECTION_UNKNOWN		-1
 #define SCENE_SECTION_MAP			0
@@ -28,8 +35,12 @@
 
 #define MAX_SCENE_LINE 1024
 
+#define	OBJECT_TYPE_HP_ITEM							20
+#define	OBJECT_TYPE_THUNDER_BREAK_ITEM				28
+#define	OBJECT_TYPE_MULTIWARHEAD_MISSILE_ITEM		29
+#define	OBJECT_TYPE_HOVER_ITEM						27
 #define OBJECT_TYPE_EYEBALL		23
-#define OBJECT_TYPE_TELEPORTER		25
+#define OBJECT_TYPE_TELEPORTER	25
 #define OBJECT_TYPE_CANNON		26
 
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
@@ -65,9 +76,30 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 		break;
 	
 	case OBJECT_TYPE_CANNON:
+	{
 		obj = new Cannon();
 		break;
-	
+	}
+	case OBJECT_TYPE_HP_ITEM:
+	{
+		obj = new HPItem();
+		break;
+	}
+	case OBJECT_TYPE_HOVER_ITEM:
+	{
+		obj = new HoverItem();
+		break;
+	}
+	case OBJECT_TYPE_THUNDER_BREAK_ITEM:
+	{
+		obj = new ThunderBreakItem();
+		break;
+	}
+	case OBJECT_TYPE_MULTIWARHEAD_MISSILE_ITEM:
+	{
+		obj = new MultiwarheadMissileItem();
+		break;
+	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;

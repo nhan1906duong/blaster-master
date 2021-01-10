@@ -273,6 +273,21 @@
     <ClCompile Include="CannonBullet.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClCompile>
+    <ClCompile Include="GunItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HomingMissileItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="HoverItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="MultiwarheadMissileItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="ThunderBreakItem.cpp">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -514,6 +529,21 @@
     </ClInclude>
     <ClInclude Include="CannonBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="GunItem.h">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HomingMissileItem.h">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="HoverItem.h">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="MultiwarheadMissileItem.h">
+      <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="ThunderBreakItem.h">
+      <Filter>Framework\Objects\Items</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

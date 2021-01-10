@@ -258,6 +258,18 @@ start	3
 23	258	3	282	35	300
 ##	jason bullet
 50	75	40	79	44	300
+#	Item Hover
+51	105	109	121	125	303
+#	Item Thunder
+52	155	109	171	125	303
+#	Item Multiwarhead missile
+53	205	109	221	125	303
+#	Item Power
+54	255	109	271	125	303
+#	Item Gun
+55	5	59	21	75	303
+#	Item Homing missile
+56	105	59	121	75	303
 
 # <----------------- ENEMIES ----------------->
 #	<MINE> Current doesn't sprite
@@ -274,8 +286,6 @@ start	3
 83	149	97	165	113	300
 84	140	101	148	109	300
 
-#	<Items>
-85	255	109	271	125	303
 #	<Blood-state>
 86	10	10	29	82	304
 87	32	10	51	82	304
@@ -420,9 +430,21 @@ start	3
 70	82	100
 71	81	100
 #	<Item HP>
-72	85	100
+72	54	100
 #	jason bullet
 73	50	100
+#	Item Hover
+74	51	100
+#	Item Thunder
+75	52	100
+#	Item Multiwarhead missile
+76	53	100
+#	Item Power
+54	255	100
+#	Item Gun
+77	55	100
+#	Item Homing missile
+78	56	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	501	601	502	602	503	603	504	604	505	605	506	606	507	607	508	608	509	609	510	610	511	512	11	10	12	13	14
@@ -449,7 +471,6 @@ start	3
 18	66	67	
 #	<COLLISION>
 19	68	69	70	71
-20	72
 #	jason bullet
 21	73
 #	<Bomb>
@@ -462,3 +483,15 @@ start	3
 25	183
 #	<Canon>
 26	184	185	186
+#	<Item HP>
+20	72
+#	Item Hover
+27	74
+#	Item Thunder
+28	75
+#	Item Multiwarhead missile
+29	76
+#	Item Gun
+30	77
+#	Item Homing missile
+31	78

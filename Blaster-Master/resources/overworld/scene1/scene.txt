@@ -3,6 +3,10 @@ resources\overworld\scene1\map.txt
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
 26	160.0	278.0	0	0
+20	80	448
+27	96	448
+29	80	432
+28	96	432
 [BRICK]
 # left	top	right	bottom
 1	0	32	288	0
