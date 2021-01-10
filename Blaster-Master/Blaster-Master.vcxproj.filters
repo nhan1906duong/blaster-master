@@ -288,6 +288,9 @@
     <ClCompile Include="Teleporter.cpp">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClCompile>
+    <ClCompile Include="HomingMissileWeapon.cpp">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -544,6 +547,9 @@
     </ClInclude>
     <ClInclude Include="Teleporter.h">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="HomingMissileWeapon.h">
+      <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -40,6 +40,7 @@
     <ClCompile Include="GridManager.cpp" />
     <ClCompile Include="GunItem.cpp" />
     <ClCompile Include="HomingMissileItem.cpp" />
+    <ClCompile Include="HomingMissileWeapon.cpp" />
     <ClCompile Include="HoverItem.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
@@ -117,6 +118,7 @@
     <ClInclude Include="GridManager.h" />
     <ClInclude Include="GunItem.h" />
     <ClInclude Include="HomingMissileItem.h" />
+    <ClInclude Include="HomingMissileWeapon.h" />
     <ClInclude Include="HoverItem.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
