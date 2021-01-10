@@ -305,7 +305,7 @@ void CPlayer::Render()
 	{
 		animation_set->at(29)->Render(sophia_x, sophia_y + 8, 255, sophia_nx < 0);
 	}
-	else if (!IsSophiaState())
+	else if (dynamic_cast<JasonState*>(playerData->playerState))
 	{
 		animation_set->at(9)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
 	}

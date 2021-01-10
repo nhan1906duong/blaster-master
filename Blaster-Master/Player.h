@@ -18,6 +18,7 @@ private:
 	float sophia_x;
 	float sophia_y;
 	int sophia_nx;
+	int sophia_scene;
 
 	bool isSwitchState;
 
