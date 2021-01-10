@@ -9,9 +9,8 @@
 class Floater : public Enemy
 {
 private:
-	DWORD lastShoot;
+	ULONGLONG lastShoot = 0, timeDelay = 0;
 	bool firstAppear;
-	int timeDelay;
 public:
 	Floater(int timeDelay);
 	virtual void GetBoundingBox(float&, float&, float&, float&);

@@ -14,8 +14,6 @@ class Area2Scene : public Scene
 private:
 	void RemoveCollisionObject();
 protected:
-	CPlayer* player;
-
 	vector<LPGAMEOBJECT> objects;
 	vector<LPGAMEOBJECT> staticObjects;
 
@@ -38,8 +36,6 @@ public:
 	virtual void Update(DWORD dt);
 	virtual void Render();
 	virtual void Unload();
-
-	CPlayer* GetPlayer() { return player; }
 
 	void AddCollision(float, float);
 

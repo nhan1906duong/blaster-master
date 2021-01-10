@@ -5,7 +5,7 @@
 DoomieOrb::DoomieOrb()
 {
 	SetState(STATE_WALKING);
-	vx = -VX;
+	vx = -DoomieOrb_VX;
 	nx = -1;
 }
 
@@ -43,7 +43,7 @@ void DoomieOrb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		}
 	}
 
-	if (STATE_AROUND == state && GetTickCount() - startTime < AROUND_TIME)
+	if (STATE_AROUND == state && GetTickCount64() - startTime < AROUND_TIME)
 	{
 		return;
 	}
@@ -51,15 +51,15 @@ void DoomieOrb::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	int randomState = rand() % 100;
 	if (randomState > 97)
 	{
-		startTime = GetTickCount();
+		startTime = GetTickCount64();
 		state = STATE_AROUND;
-		vy = -VY;
+		vy = -DoomieOrb_VY;
 	}
 	else if (randomState > 95)
 	{
-		startTime = GetTickCount();
+		startTime = GetTickCount64();
 		state = STATE_AROUND;
-		vy = VY;
+		vy = DoomieOrb_VY;
 	}
 	else
 	{

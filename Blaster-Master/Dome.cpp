@@ -6,6 +6,7 @@
 
 Dome::Dome(int currentAnimation, int huong)
 {
+	currentBrick = NULL;
 	SetState(DOME_NORMAL_STATE);
 	animation_set = CAnimationSets::GetInstance()->Get(11);
 	blood = 4;
@@ -21,47 +22,47 @@ Dome::Dome(int currentAnimation, int huong)
 	switch (huong)
 	{
 		case 0:
-			SetVx(V_SPEED);
+			SetVx(DOME_V_SPEED);
 			if (currentAnimation == 3)
 			{
-				SetVy(-V_GRAVITY);
+				SetVy(-DOME_V_GRAVITY);
 			}
 			else if (currentAnimation == 1)
 			{
-				SetVy(V_GRAVITY);
+				SetVy(DOME_V_GRAVITY);
 			}
 			break;
 		case 1:
-			SetVx(-V_SPEED);
+			SetVx(-DOME_V_SPEED);
 			if (currentAnimation == 3)
 			{
-				SetVy(-V_GRAVITY);
+				SetVy(-DOME_V_GRAVITY);
 			}
 			else if (currentAnimation == 1)
 			{
-				SetVy(V_GRAVITY);
+				SetVy(DOME_V_GRAVITY);
 			}
 			break;
 		case 2:
-			SetVy(-V_SPEED);
+			SetVy(-DOME_V_SPEED);
 			if (currentAnimation == 0)
 			{
-				SetVx(-V_GRAVITY);
+				SetVx(-DOME_V_GRAVITY);
 			}
 			else if (currentAnimation == 2)
 			{
-				SetVx(V_GRAVITY);
+				SetVx(DOME_V_GRAVITY);
 			}
 			break;
 		case 3:
-			SetVy(V_SPEED);
+			SetVy(DOME_V_SPEED);
 			if (currentAnimation == 0)
 			{
-				SetVx(-V_GRAVITY);
+				SetVx(-DOME_V_GRAVITY);
 			}
 			else if (currentAnimation == 2)
 			{
-				SetVx(V_GRAVITY);
+				SetVx(DOME_V_GRAVITY);
 			}
 			break;
 	}
@@ -97,40 +98,40 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (currentAnimation == 3)
 				{
 					x = right + 1;
-					y = top + DOME_HEIGHT - 0.1;
+					y = top + DOME_HEIGHT - 0.1f;
 					huong = 2;
 					currentAnimation = 0;
-					SetVy(-V_SPEED);
-					SetVx(-V_GRAVITY);
+					SetVy(-DOME_V_SPEED);
+					SetVx(-DOME_V_GRAVITY);
 				}
 				else if (currentAnimation == 1)
 				{
-					x = right + 0.1;
-					y = bottom + 0.1;
+					x = right + 0.1f;
+					y = bottom + 0.1f;
 					huong = 3;
 					currentAnimation = 0;
-					SetVy(V_SPEED);
-					SetVx(-V_GRAVITY);
+					SetVy(DOME_V_SPEED);
+					SetVx(-DOME_V_GRAVITY);
 				}
 				break;
 			case 1:
 				if (currentAnimation == 3)
 				{
-					x = left - DOME_WIDTH - 0.1;
+					x = left - DOME_WIDTH - 0.1f;
 					y = top + DOME_HEIGHT - 0.1f;
 					huong = 2;
 					currentAnimation = 2;
-					SetVy(-V_SPEED);
-					SetVx(V_GRAVITY);
+					SetVy(-DOME_V_SPEED);
+					SetVx(DOME_V_GRAVITY);
 				}
 				else if (currentAnimation == 1)
 				{
-					x = left - DOME_WIDTH - 0.1;
+					x = left - DOME_WIDTH - 0.1f;
 					y = bottom + 0.1f;
 					huong = 3;
 					currentAnimation = 2;
-					SetVy(V_SPEED);
-					SetVx(V_GRAVITY);
+					SetVy(DOME_V_SPEED);
+					SetVx(DOME_V_GRAVITY);
 				}
 				break;
 			case 2:
@@ -140,17 +141,17 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y = bottom - 0.1f;
 					currentAnimation = 1;
 					huong = 1;
-					SetVy(V_GRAVITY);
-					SetVx(-V_SPEED);
+					SetVy(DOME_V_GRAVITY);
+					SetVx(-DOME_V_SPEED);
 				}
 				else if (currentAnimation == 2)
 				{
-					x = left - DOME_WIDTH + 0.1;
-					y = bottom - 0.1;
+					x = left - DOME_WIDTH + 0.1f;
+					y = bottom - 0.1f;
 					currentAnimation = 1;
 					huong = 0;
-					SetVy(V_GRAVITY);
-					SetVx(V_SPEED);
+					SetVy(DOME_V_GRAVITY);
+					SetVx(DOME_V_SPEED);
 				}
 				break;
 			case 3:
@@ -160,8 +161,8 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y = top + DOME_HEIGHT + 0.1f;
 					currentAnimation = 3;
 					huong = 0;
-					SetVx(-V_SPEED);
-					SetVy(-V_GRAVITY);
+					SetVx(-DOME_V_SPEED);
+					SetVy(-DOME_V_GRAVITY);
 				}
 				else if (currentAnimation == 2)
 				{
@@ -169,8 +170,8 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					y = top + DOME_HEIGHT + 0.1f;
 					currentAnimation = 3;
 					huong = 1;
-					SetVx(V_SPEED);
-					SetVy(-V_GRAVITY);
+					SetVx(DOME_V_SPEED);
+					SetVy(-DOME_V_GRAVITY);
 				}
 			}
 		}
@@ -185,7 +186,7 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			x += min_tx * dx + nx * 0.1f;
 			y += min_ty * dy + ny * 0.1f;
 
-			for (int i = 0; i < coEvents.size(); ++i)
+			for (size_t i = 0; i < coEvents.size(); ++i)
 			{
 				LPCOLLISIONEVENT e = coEvents[i];
 				if (dynamic_cast<CBrick*>(e->obj))
@@ -218,15 +219,15 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						huong = 3;
 						currentAnimation = 2;
-						SetVx(V_GRAVITY);
-						SetVy(V_SPEED);
+						SetVx(DOME_V_GRAVITY);
+						SetVy(DOME_V_SPEED);
 					}
 					else if (currentAnimation == 1)
 					{
 						huong = 2;
 						currentAnimation = 2;
-						SetVx(V_GRAVITY);
-						SetVy(-V_SPEED);
+						SetVx(DOME_V_GRAVITY);
+						SetVy(-DOME_V_SPEED);
 					}
 				}
 				break;
@@ -237,15 +238,15 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						huong = 3;
 						currentAnimation = 0;
-						SetVx(-V_GRAVITY);
-						SetVy(V_SPEED);
+						SetVx(-DOME_V_GRAVITY);
+						SetVy(DOME_V_SPEED);
 					}
 					else if (currentAnimation == 1)
 					{
 						huong = 2;
 						currentAnimation = 0;
-						SetVx(-V_GRAVITY);
-						SetVy(-V_SPEED);
+						SetVx(-DOME_V_GRAVITY);
+						SetVy(-DOME_V_SPEED);
 					}
 				}
 				break;
@@ -256,15 +257,15 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						huong = 1;
 						currentAnimation = 3;
-						SetVy(-V_GRAVITY);
-						SetVx(-V_SPEED);
+						SetVy(-DOME_V_GRAVITY);
+						SetVx(-DOME_V_SPEED);
 					}
 					else if (currentAnimation == 0)
 					{
 						huong = 0;
 						currentAnimation = 3;
-						SetVy(-V_GRAVITY);
-						SetVx(V_SPEED);
+						SetVy(-DOME_V_GRAVITY);
+						SetVx(DOME_V_SPEED);
 					}
 				}
 				break;
@@ -275,15 +276,15 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					{
 						huong = 1;
 						currentAnimation = 1;
-						SetVy(V_GRAVITY);
-						SetVx(-V_SPEED);
+						SetVy(DOME_V_GRAVITY);
+						SetVx(-DOME_V_SPEED);
 					}
 					else if (currentAnimation == 0)
 					{
 						huong = 0;
 						currentAnimation = 1;
-						SetVy(V_GRAVITY);
-						SetVx(V_SPEED);
+						SetVy(DOME_V_GRAVITY);
+						SetVx(DOME_V_SPEED);
 					}
 				}
 				break;
@@ -349,29 +350,29 @@ void Dome::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				currentAnimation = 2;
 				huong = 3;
-				SetVx(V_GRAVITY);
-				SetVy(V_SPEED);
+				SetVx(DOME_V_GRAVITY);
+				SetVy(DOME_V_SPEED);
 			}
 			else if (vx < 0 && nx == 1)
 			{
 				currentAnimation = 0;
 				huong = 2;
-				SetVx(-V_GRAVITY);
-				SetVy(-V_SPEED);
+				SetVx(-DOME_V_GRAVITY);
+				SetVy(-DOME_V_SPEED);
 			}
 			else if (vy > 0 && ny == -1)
 			{
 				currentAnimation = 1;
 				huong = 0;
-				SetVx(V_SPEED);
-				SetVy(V_GRAVITY);
+				SetVx(DOME_V_SPEED);
+				SetVy(DOME_V_GRAVITY);
 			}
 			else if (vy < 0 && ny == 1)
 			{
 				currentAnimation = 3;
 				huong = 1;
-				SetVx(-V_SPEED);
-				SetVy(-V_GRAVITY);
+				SetVx(-DOME_V_SPEED);
+				SetVy(-DOME_V_GRAVITY);
 			}
 		}
 	}

@@ -6,8 +6,8 @@
 #define DOME_WIDTH		18
 #define DOME_HEIGHT		18
 
-#define V_SPEED			0.03f
-#define V_GRAVITY		0.01f
+#define DOME_V_SPEED			0.03f
+#define DOME_V_GRAVITY		0.01f
 
 // 2 vien dan moi die
 

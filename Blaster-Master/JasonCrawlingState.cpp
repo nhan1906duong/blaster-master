@@ -8,7 +8,7 @@
 
 JasonCrawlingState::JasonCrawlingState(PlayerData* data) : JasonState(data)
 {
-	acceleratorX = 0.01;
+	acceleratorX = 0.01f;
 
 	isLeftOrRightPressed = false;
 }

@@ -15,6 +15,6 @@ public:
 
 	void KeyState(BYTE* states);
 	void OnKeyDown(int keyCode);
-	int GetTop();
+	float GetTop();
 };
 

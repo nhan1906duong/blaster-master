@@ -72,7 +72,7 @@ public:
 	void SetVy(float vy) { this->vy = vy; }
 	void AddVx(float accelerator) { this->vx += accelerator; }
 	void AddVy(float accelerator) { this->vy += accelerator; }
-	void SetNx(float nx) { this->nx = nx; }
+	void SetNx(int nx) { this->nx = nx; }
 
 	float GetVx() { return this->vx; }
 	float GetVy() { return this->vy; }

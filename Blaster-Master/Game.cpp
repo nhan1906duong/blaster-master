@@ -73,12 +73,12 @@ void CGame::Init(HWND hWnd)
 */
 void CGame::Draw(float x, float y, LPDIRECT3DTEXTURE9 texture, int left, int top, int right, int bottom, int alpha, bool flip)
 {
-	float width = right - left;
-	float height = bottom - top;
+	float width = (float) (right - left);
+	float height = (float) (bottom - top);
 	int scale = 1;
 	D3DXVECTOR2 center = D3DXVECTOR2(flip ? (width / 2) * scale - width * scale : (width / 2) * scale, (height / 2) * scale);
 	D3DXVECTOR2 translate = D3DXVECTOR2(flip ? x + width * scale : x, y);
-	D3DXVECTOR2 scaling = D3DXVECTOR2((flip) ? -1 : 1, 1);
+	D3DXVECTOR2 scaling = D3DXVECTOR2((flip) ? -1.0f : 1.0f, 1.0f);
 	float angle = 0;
 	SetRenderData(center, translate, scaling);
 	RECT r;
@@ -373,7 +373,7 @@ void CGame::_ParseSection_ANIMATIONS(string line)
 	int aniId = atoi(tokens[0].c_str());
 	LPANIMATION ani = new CAnimation();
 
-	for (int i = 1; i < tokens.size(); i += 2)
+	for (size_t i = 1; i < tokens.size(); i += 2)
 	{
 		int spriteId = atoi(tokens[i].c_str());
 		int time = atoi(tokens[i + 1].c_str());
@@ -390,7 +390,7 @@ void CGame::_ParseSection_ANIMATION_SETS(string line)
 	int ani_setId = atoi(tokens[0].c_str());
 	LPANIMATION_SET aniSet = new CAnimationSet();
 
-	for (int i = 1; i < tokens.size(); i++)
+	for (size_t i = 1; i < tokens.size(); i++)
 	{
 		int aniId = atoi(tokens[i].c_str());
 

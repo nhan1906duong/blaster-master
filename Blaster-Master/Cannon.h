@@ -13,7 +13,7 @@
 class Cannon : public Enemy
 {
 private:
-	DWORD timeChangeState;
+	ULONGLONG timeChangeState;
 	bool isVerState;
 	void FirerBullet(bool isVerState);
 public:

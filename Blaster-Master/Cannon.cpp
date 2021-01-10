@@ -7,7 +7,7 @@ Cannon::Cannon()
 	SetState(STATE_VER);
 	isVerState = true;
 	animation_set = CAnimationSets::GetInstance()->Get(26);
-	timeChangeState = GetTickCount();
+	timeChangeState = GetTickCount64();
 }
 
 void Cannon::FirerBullet(bool isVerState) {
@@ -51,8 +51,8 @@ void Cannon::GetBoundingBox(float& left, float& top, float& right, float& bottom
 
 void Cannon::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount() - timeChangeState >= TIME_CHANGE_STATE) {
-		timeChangeState = GetTickCount();
+	if (GetTickCount64() - timeChangeState >= TIME_CHANGE_STATE) {
+		timeChangeState = GetTickCount64();
 		switch (state) {
 		case STATE_VER:
 			isVerState = true;

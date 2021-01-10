@@ -11,7 +11,6 @@
 using namespace std;
 
 #define KEYBOARD_BUFFER_SIZE 1024
-#define DIRECTINPUT_VERSION 0x0800
 
 class CGame
 {

@@ -55,9 +55,9 @@ void JasonClimbingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVy(-acceleratorY);
-			if (data->player->GetVy() < -MAX_VX)
+			if (data->player->GetVy() < -MAX_JASON_VX)
 			{
-				data->player->SetVy(-MAX_VX);
+				data->player->SetVy(-MAX_JASON_VX);
 			}
 		}
 	}
@@ -70,9 +70,9 @@ void JasonClimbingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVy(acceleratorY);
-			if (data->player->GetVy() > MAX_VX)
+			if (data->player->GetVy() > MAX_JASON_VX)
 			{
-				data->player->SetVy(MAX_VX);
+				data->player->SetVy(MAX_JASON_VX);
 			}
 		}
 	}
@@ -82,7 +82,7 @@ void JasonClimbingState::KeyState(BYTE* states)
 	}
 }
 
-int JasonClimbingState::GetTop()
+float JasonClimbingState::GetTop()
 {
 	return t;
 }

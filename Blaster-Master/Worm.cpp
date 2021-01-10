@@ -29,10 +29,10 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (state == STATE_JUMPING)
 	{
-		AddVy(0.02);
-		if (GetVy() > 0.2)
+		AddVy(0.02f);
+		if (GetVy() > 0.2f)
 		{
-			SetVy(0.2);
+			SetVy(0.2f);
 			SetState(STATE_FALLING);
 		}
 	}
@@ -96,7 +96,7 @@ void Worm::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				if (state == STATE_MOVE)
 				{
-					SetVy(0.01);
+					SetVy(0.01f);
 					SetState(STATE_JUMPING);
 				}
 			}

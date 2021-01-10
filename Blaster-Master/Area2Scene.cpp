@@ -69,9 +69,8 @@ Area2Scene::Area2Scene(int id, LPCWSTR filePath) : Scene(id, filePath)
 
 void Area2Scene::_Init_Player(float player_x, float player_y)
 {
-	player = CPlayer::GetInstance();
-	player->SetPosition(player_x, player_y);
-	objects.push_back(player);
+	CPlayer::GetInstance()->SetPosition(player_x, player_y);
+	objects.push_back(CPlayer::GetInstance());
 	Camera::GetInstance()->SetSwitchScene();
 	Camera::GetInstance()->UpdateCamera();
 }
@@ -83,8 +82,8 @@ void Area2Scene::_ParseSection_OBJECTS(string line)
 	if (tokens.size() < 2) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int object_type = atoi(tokens[0].c_str());
-	float x = atof(tokens[1].c_str());
-	float y = atof(tokens[2].c_str());
+	float x = (float) atof(tokens[1].c_str());
+	float y = (float) atof(tokens[2].c_str());
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
 
@@ -120,10 +119,10 @@ void Area2Scene::_ParseSection_OBJECTS(string line)
 		}
 		case OBJECT_TYPE_INSECT:
 		{
-			float l = atof(tokens[3].c_str());
-			float t = atof(tokens[4].c_str());
-			float r = atof(tokens[5].c_str());
-			float b = atof(tokens[6].c_str());
+			float l = (float) atof(tokens[3].c_str());
+			float t = (float) atof(tokens[4].c_str());
+			float r = (float) atof(tokens[5].c_str());
+			float b = (float) atof(tokens[6].c_str());
 
 			int nx = atoi(tokens[7].c_str());
 			int ny = atoi(tokens[8].c_str());
@@ -158,10 +157,10 @@ void Area2Scene::_ParseSecion_BRICK(string line, int type)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
 	int identity = atoi(tokens[0].c_str());
-	float left = atof(tokens[1].c_str());
-	float top = atof(tokens[2].c_str());
-	float right = atof(tokens[3].c_str());
-	float bottom = atof(tokens[4].c_str());
+	float left = (float) atof(tokens[1].c_str());
+	float top = (float) atof(tokens[2].c_str());
+	float right = (float) atof(tokens[3].c_str());
+	float bottom = (float) atof(tokens[4].c_str());
 	Static* obj;
 	if (type == 1)
 	{
@@ -173,7 +172,7 @@ void Area2Scene::_ParseSecion_BRICK(string line, int type)
 	}
 	else if (type == 3)
 	{
-		int jumpPoint = atof(tokens[5].c_str());
+		float jumpPoint = (float) atof(tokens[5].c_str());
 		obj = new Stair(left, top, right, bottom, jumpPoint);
 	}
 	else
@@ -188,10 +187,10 @@ void Area2Scene::_ParseSection_CHONG_NHON(string line)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
 	int identity = atoi(tokens[0].c_str());
-	float left = atof(tokens[1].c_str());
-	float top = atof(tokens[2].c_str());
-	float right = atof(tokens[3].c_str());
-	float bottom = atof(tokens[4].c_str());
+	float left = (float) atof(tokens[1].c_str());
+	float top = (float) atof(tokens[2].c_str());
+	float right = (float) atof(tokens[3].c_str());
+	float bottom = (float) atof(tokens[4].c_str());
 	ChongNhon* brick = new ChongNhon(identity, left, top, right, bottom);
 	staticObjects.push_back(brick);
 }
@@ -201,13 +200,13 @@ void Area2Scene::_ParseSection_PORTAL(string line)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 8) return;
 	int identity = atoi(tokens[0].c_str());
-	float left = atof(tokens[1].c_str());
-	float top = atof(tokens[2].c_str());
-	float right = atof(tokens[3].c_str());
-	float bottom = atof(tokens[4].c_str());
+	float left = (float) atof(tokens[1].c_str());
+	float top = (float) atof(tokens[2].c_str());
+	float right = (float) atof(tokens[3].c_str());
+	float bottom = (float) atof(tokens[4].c_str());
 	int scene_id = atoi(tokens[5].c_str());
-	float cam_x = atoi(tokens[6].c_str());
-	float cam_y = atoi(tokens[7].c_str());
+	float cam_x = (float) atof(tokens[6].c_str());
+	float cam_y = (float) atof(tokens[7].c_str());
 	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id, cam_x, cam_y);
 	staticObjects.push_back(portal);
 }
@@ -311,9 +310,9 @@ void Area2Scene::Update(DWORD dt)
 void Area2Scene::Render()
 {
 	Map::GetInstance()->Render();
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 		objects[i]->Render();
-	for (int i = 0; i < collisions.size(); i++)
+	for (size_t i = 0; i < collisions.size(); i++)
 		collisions[i]->Render();
 	_DrawBlood();
 }
@@ -346,7 +345,7 @@ void Area2Scene::AddCollision(float x1, float y1)
 
 bool Area2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& jumpPoint)
 {
-	for (int i = 0; i < staticObjects.size(); ++i)
+	for (size_t i = 0; i < staticObjects.size(); ++i)
 	{
 		LPGAMEOBJECT obj = staticObjects[i];
 		if (dynamic_cast<Stair*>(obj))
@@ -371,7 +370,7 @@ bool Area2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& j
 
 void Area2Scene::_DrawBlood()
 {
-	int blood = player->GetBlood();
+	int blood = CPlayer::GetInstance()->GetBlood();
 	int sprite;
 	switch (blood)
 	{
@@ -412,8 +411,8 @@ void Area2Scene::_RefreshObject()
 {
 	objects.clear();
 	objects = GridManager::GetInstance()->GetObjectsToUpdate();
-	objects.push_back(player);
-	for (int i = 0; i < staticObjects.size(); ++i)
+	objects.push_back(CPlayer::GetInstance());
+	for (size_t i = 0; i < staticObjects.size(); ++i)
 	{
 		objects.push_back(staticObjects[i]);
 	}
@@ -422,7 +421,7 @@ void Area2Scene::_RefreshObject()
 bool Area2Scene::CanAddPosition(float y)
 {
 	float minHeight = 99999.0f;
-	for (int i = 0; i < objects.size(); ++i)
+	for (size_t i = 0; i < objects.size(); ++i)
 	{
 		LPGAMEOBJECT obj = objects[i];
 		if (dynamic_cast<CBrick*>(obj) || dynamic_cast<CPortal*>(obj))

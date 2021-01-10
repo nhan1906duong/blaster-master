@@ -43,9 +43,9 @@ void SophiaStraightRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -59,9 +59,9 @@ void SophiaStraightRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_SOPHIA_VX);
 			}
 		}
 	}

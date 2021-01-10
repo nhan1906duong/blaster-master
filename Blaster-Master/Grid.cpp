@@ -14,7 +14,7 @@ void Grid::RemoveObject(LPGAMEOBJECT object)
 
 void Grid::AddObject(LPGAMEOBJECT object)
 {
-	for (int i = 0; i < objects.size(); i++)
+	for (size_t i = 0; i < objects.size(); i++)
 	{
 		if (object == objects[i]) return;
 	}

@@ -22,7 +22,7 @@ private:
 	bool isSwitchState;
 
 	int untouchable;
-	DWORD untouchable_start;
+	ULONGLONG untouchable_start;
 
 	float start_x;			// initial position of Mario at scene
 	float start_y;

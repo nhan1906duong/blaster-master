@@ -36,9 +36,9 @@ void JasonJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_JASON_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_JASON_VX);
 			}
 		}
 	}
@@ -52,9 +52,9 @@ void JasonJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_JASON_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_JASON_VX);
 			}
 		}
 	}
@@ -66,10 +66,10 @@ void JasonJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		return;
 	}
-	data->player->AddVy(0.018);
-	if (data->player->GetVy() > 0.2)
+	data->player->AddVy(0.018f);
+	if (data->player->GetVy() > 0.2f)
 	{
-		data->player->SetVy(0.2);
+		data->player->SetVy(0.2f);
 		data->player->SetState(new JasonFallingState(data));
 	}
 }

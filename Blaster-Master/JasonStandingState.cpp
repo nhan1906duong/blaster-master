@@ -71,7 +71,7 @@ void JasonStandingState::OnKeyDown(int keyCode)
 				}
 				else
 				{
-					data->player->AddPosition(0, -7.9);
+					data->player->AddPosition(0, -7.9f);
 					data->player->SetState(new JasonLieingState(data));
 				}
 				break;

@@ -14,15 +14,15 @@ class Enemy : public CGameObject
 private:
 	bool isAppear = false;
 protected:
-	int blood;
+	int blood = 4;
 	int beenShot = 0;
-	DWORD beenShotTime;
+	ULONGLONG beenShotTime = 0;
 
 	void CheckShotTime()
 	{
 		if (beenShot)
 		{
-			DWORD current = GetTickCount();
+			ULONGLONG current = GetTickCount64();
 			if (current - beenShotTime > BEEN_SHOT_TIME)
 			{
 				beenShotTime = 0;
@@ -44,7 +44,7 @@ public:
 	void BeenShot(Bullet* bullet)
 	{
 		beenShot = 1;
-		beenShotTime = GetTickCount();
+		beenShotTime = GetTickCount64();
 		int power = bullet->GetPower();
 		blood -= power;
 		if (blood <= 0)

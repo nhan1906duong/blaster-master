@@ -62,9 +62,9 @@ void SophiaJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -79,9 +79,9 @@ void SophiaJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -108,7 +108,7 @@ void SophiaJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		max_vy = MAX_VY;
+		max_vy = MAX_SOPHIA_VY;
 	}
 	data->player->AddVy(acceleratorY);
 	if (data->player->GetVy() > max_vy)
@@ -124,7 +124,7 @@ void SophiaJumpingState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((Area2Scene*) CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.1))
+			if (!((Area2Scene*) CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.1f))
 			{
 				break;
 			}

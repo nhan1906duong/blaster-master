@@ -61,9 +61,9 @@ void SophiaStraightJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -78,9 +78,9 @@ void SophiaStraightJumpingState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -107,7 +107,7 @@ void SophiaStraightJumpingState::Update(DWORD dt, vector<LPGAMEOBJECT>* coObject
 	}
 	else
 	{
-		max_vy = MAX_VY;
+		max_vy = MAX_SOPHIA_VY;
 	}
 	data->player->AddVy(acceleratorY);
 	if (data->player->GetVy() > max_vy)

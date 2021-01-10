@@ -30,13 +30,13 @@ void Floater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (!firstAppear)
 	{
 		firstAppear = true;
-		lastShoot = GetTickCount();
+		lastShoot = GetTickCount64();
 	}
 	else
 	{
-		if (GetTickCount() - lastShoot > PERIOD_BEETWEEN_SHOOT + timeDelay)
+		if (GetTickCount64() - lastShoot - timeDelay > PERIOD_BEETWEEN_SHOOT)
 		{
-			lastShoot = GetTickCount();
+			lastShoot = GetTickCount64();
 			float pX, pY;
 			CPlayer::GetInstance()->GetMidPosition(pX, pY);
 			float midX, midY;

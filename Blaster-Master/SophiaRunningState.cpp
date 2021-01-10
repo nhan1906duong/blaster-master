@@ -43,9 +43,9 @@ void SophiaRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -59,9 +59,9 @@ void SophiaRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_SOPHIA_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_SOPHIA_VX);
 			}
 		}
 	}
@@ -77,21 +77,21 @@ void SophiaRunningState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(16.2f))
 			{
 				break;
 			}
-			data->player->AddPosition(0, 16.1);
+			data->player->AddPosition(0, 16.1f);
 			data->player->SetState(new SophiaStraightRunningState(data));
 			break;
 		}
 		case DIK_X:
 		{
-			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2f))
 			{
 				break;
 			}
-			data->player->AddPosition(0, 3.1);
+			data->player->AddPosition(0, 3.1f);
 			data->player->SetState(new SophiaJumpingState(data));
 			break;
 		}

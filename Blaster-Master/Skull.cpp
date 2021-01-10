@@ -7,9 +7,10 @@ Skull::Skull(int nx)
 {
 	SetState(STATE_NORMAL);
 	blood = 4;
-	vx = nx * VX;
+	vx = nx * SKULL_VX;
 	this->nx = nx;
 	animation_set = CAnimationSets::GetInstance()->Get(16);
+	startNhaDan = 0;
 }
 
 void Skull::Render()
@@ -24,7 +25,7 @@ void Skull::Render()
 
 void Skull::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (GetTickCount() - startNhaDan > TIME_NHA_DAN && state == STATE_NHA_DAN)
+	if (GetTickCount64() - startNhaDan > TIME_NHA_DAN && state == STATE_NHA_DAN)
 	{
 		SetState(STATE_NORMAL);
 	}
@@ -63,13 +64,13 @@ void Skull::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (vx != 0 && ((nx < 0 && x >= midX - 24 && x <= midX) || (nx > 0 && x >= midX  && x <= midX + 24)))
 	{
 		SetState(STATE_NHA_DAN);
-		startNhaDan = GetTickCount();
+		startNhaDan = GetTickCount64();
 		Bomb* bomb = new Bomb(-nx);
 		bomb->SetPosition(x - 4 * nx, y + 8 * nx);
 		GridManager::GetInstance()->AddObject(bomb);
 
 		nx = -nx;
-		vy = VY;
+		vy = SKULL_VY;
 		vx = 0;
 	}
 }

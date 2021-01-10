@@ -140,7 +140,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		// reset untouchable timer if untouchable time has passed
 
-		DWORD current = GetTickCount();
+		ULONGLONG current = GetTickCount64();
 		if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 		{
 			untouchable_start = 0;
@@ -164,7 +164,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					if (isUpPressed)
 					{
-						if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+						if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1f))
 						{
 							SetState(new SophiaFallingState(playerData));
 						}
@@ -218,9 +218,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						{
 							if (!dynamic_cast<SophiaStraightState*>(playerData->playerState))
 							{
-								if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1))
+								if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(-18.1f))
 								{
-									AddPosition(0, 2.1);
+									AddPosition(0, 2.1f);
 									SetState(new SophiaStandingState(playerData));
 								}
 								else
@@ -232,7 +232,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 						}
 						else
 						{
-							AddPosition(0, 2.1);
+							AddPosition(0, 2.1f);
 							SetState(new SophiaStandingState(playerData));
 						}
 					}
@@ -283,7 +283,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 			}
 
-			for (int i = 0; i < coObjects->size(); ++i)
+			for (size_t i = 0; i < coObjects->size(); ++i)
 			{
 				LPGAMEOBJECT obj = coObjects->at(i);
 				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
@@ -385,19 +385,19 @@ void CPlayer::fire()
 		{
 			direction = 3;
 			bulletX = (l + r) / 2 - 4;
-			bulletY = y - 0.1;
+			bulletY = y - 0.1f;
 		}
 		else
 		{
 			if (nx > 0)
 			{
 				direction = 1;
-				bulletX = r - 24.1;
+				bulletX = r - 24.1f;
 				bulletY = y;
 			}
 			else
 			{
-				bulletX = x +0.1;
+				bulletX = x + 0.1f;
 				bulletY = y;
 				direction = 2;
 			}
@@ -536,7 +536,7 @@ void CPlayer::StartUntouchable()
 	if (!untouchable)
 	{
 		TruMang();
-		untouchable = 1; untouchable_start = GetTickCount();
+		untouchable = 1; untouchable_start = GetTickCount64();
 	}
 }
 

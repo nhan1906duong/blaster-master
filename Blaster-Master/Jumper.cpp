@@ -6,8 +6,9 @@
 
 Jumper::Jumper(int nx)
 {
+	currentBrick = NULL;
 	blood = 4;
-	SetState(STATE_FALLING);
+	SetState(STATE_JUMPER_FALLING);
 	if (nx > 0)
 	{
 		nx = 1;
@@ -24,7 +25,7 @@ Jumper::Jumper(int nx)
 void Jumper::Render()
 {
 	int ani;
-	if (state == STATE_JUMPING)
+	if (state == STATE_JUMPER_JUMPING)
 	{
 		ani = 2;
 	}
@@ -37,13 +38,13 @@ void Jumper::Render()
 
 void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (state == STATE_JUMPING)
+	if (state == STATE_JUMPER_JUMPING)
 	{
-		AddVy(0.09);
-		if (GetVy() > 0.15)
+		AddVy(0.09f);
+		if (GetVy() > 0.15f)
 		{
-			SetVy(0.15);
-			SetState(STATE_FALLING);
+			SetVy(0.15f);
+			SetState(STATE_JUMPER_FALLING);
 		}
 	}
 
@@ -62,10 +63,10 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	{
 		x += dx;
 		y += dy;
-		if (state != STATE_FALLING &&
-			state != STATE_JUMPING)
+		if (state != STATE_JUMPER_FALLING &&
+			state != STATE_JUMPER_JUMPING)
 		{
-			state = STATE_FALLING;
+			state = STATE_JUMPER_FALLING;
 		}
 	}
 	else
@@ -79,7 +80,7 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		x += min_tx * dx + 0.01f * brickNx;
 		y += min_ty * dy + 0.01f * ny;
 
-		for (int i = 0; i < coEvents.size(); ++i)
+		for (size_t i = 0; i < coEvents.size(); ++i)
 		{
 			LPCOLLISIONEVENT e = coEvents[i];
 			if (dynamic_cast<CBrick*>(e->obj))
@@ -99,11 +100,11 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			vy = 0;
 			if (ny == 1)
 			{
-				state = STATE_WALKING;
+				state = STATE_JUMPER_WALKING;
 			}
 			else if (ny == -1)
 			{
-				state = STATE_FALLING;
+				state = STATE_JUMPER_FALLING;
 			}
 		}
 
@@ -122,7 +123,7 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				float jLeft, jTop, jRight, jBottom;
 				GetBoundingBox(jLeft, jTop, jRight, jBottom);
 
-				if (state == STATE_WALKING && x > bRight - (jRight - jLeft))
+				if (state == STATE_JUMPER_WALKING && x > bRight - (jRight - jLeft))
 				{
 					x = bRight - (jRight - jLeft);
 					vx = -vx;
@@ -137,12 +138,12 @@ void Jumper::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			int randomState = rand() % 100;
 			if (randomState > 96)
 			{
-				SetState(STATE_JUMPING);
+				SetState(STATE_JUMPER_JUMPING);
 			}
 		}
 		else
 		{
-			state = STATE_WALKING;
+			state = STATE_JUMPER_WALKING;
 		}
 
 	}

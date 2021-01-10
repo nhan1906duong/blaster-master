@@ -45,21 +45,21 @@ void SophiaStandingState::OnKeyDown(int keyCode)
 	{
 		case DIK_UP:
 		{
-			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(8.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(8.2f))
 			{
 				break;
 			}
-			data->player->AddPosition(0, 8.1);
+			data->player->AddPosition(0, 8.1f);
 			data->player->SetState(new SophiaDiagonalStandingState(data));
 			break;
 		}
 		case DIK_X:
 		{
-			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2))
+			if (!((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->CanAddPosition(3.2f))
 			{
 				break;
 			}
-			data->player->AddPosition(0, 3.1);
+			data->player->AddPosition(0, 3.1f);
 			data->player->SetState(new SophiaJumpingState(data));
 			break;
 		}

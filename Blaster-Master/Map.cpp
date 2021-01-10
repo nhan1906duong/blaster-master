@@ -47,7 +47,7 @@ void Map::GenerateANewMap(LPCWSTR filePath)
 		string line(str);
 		vector<string> tokens = split(line, " ");
 		bouncingRight = tokens.size() * 16 - 16;
-		for (int i = 0; i < tokens.size(); i++)
+		for (size_t i = 0; i < tokens.size(); i++)
 		{
 			map[row][i] = atoi(tokens[i].c_str());
 		}

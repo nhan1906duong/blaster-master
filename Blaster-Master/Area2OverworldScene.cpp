@@ -60,8 +60,8 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	if (tokens.size() < 2) return; // skip invalid lines - an object set must have at least id, x, y
 
 	int object_type = atoi(tokens[0].c_str());
-	float x = atof(tokens[1].c_str());
-	float y = atof(tokens[2].c_str());
+	float x = (float) atof(tokens[1].c_str());
+	float y = (float) atof(tokens[2].c_str());
 
 
 	CAnimationSets* animation_sets = CAnimationSets::GetInstance();
@@ -118,10 +118,10 @@ void Area2OverworldScene::_ParseSecion_BRICK(string line, int type)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 5) return;
 	int identity = atoi(tokens[0].c_str());
-	float left = atof(tokens[1].c_str());
-	float top = atof(tokens[2].c_str());
-	float right = atof(tokens[3].c_str());
-	float bottom = atof(tokens[4].c_str());
+	float left = (float) atof(tokens[1].c_str());
+	float top = (float) atof(tokens[2].c_str());
+	float right = (float) atof(tokens[3].c_str());
+	float bottom = (float) atof(tokens[4].c_str());
 	CBrick*	brick = new CBrick(identity, left, top, right, bottom);
 	staticObjects.push_back(brick);
 }
@@ -131,13 +131,13 @@ void Area2OverworldScene::_ParseSection_PORTAL(string line)
 	vector<string> tokens = split(line);
 	if (tokens.size() < 8) return;
 	int identity = atoi(tokens[0].c_str());
-	float left = atof(tokens[1].c_str());
-	float top = atof(tokens[2].c_str());
-	float right = atof(tokens[3].c_str());
-	float bottom = atof(tokens[4].c_str());
+	float left = (float) atof(tokens[1].c_str());
+	float top = (float) atof(tokens[2].c_str());
+	float right = (float) atof(tokens[3].c_str());
+	float bottom = (float) atof(tokens[4].c_str());
 	int scene_id = atoi(tokens[5].c_str());
-	float cam_x = atoi(tokens[6].c_str());
-	float cam_y = atoi(tokens[7].c_str());
+	float cam_x = (float) atof(tokens[6].c_str());
+	float cam_y = (float) atof(tokens[7].c_str());
 	CPortal* portal = new CPortal(identity, left, top, right, bottom, scene_id, cam_x, cam_y);
 	staticObjects.push_back(portal);
 }
@@ -225,7 +225,7 @@ void Area2OverworldScene::Render()
 	{
 		objects[i]->Render();
 	}
-	for (int i = 0; i < collisions.size(); i++)
+	for (size_t i = 0; i < collisions.size(); i++)
 		collisions[i]->Render();
 }
 
@@ -247,7 +247,7 @@ void Area2OverworldScene::_RefreshObject()
 	objects.clear();
 	objects = GridManager::GetInstance()->GetObjectsToUpdate();
 	objects.push_back(CPlayer::GetInstance());
-	for (int i = 0; i < staticObjects.size(); ++i)
+	for (size_t i = 0; i < staticObjects.size(); ++i)
 	{
 		objects.push_back(staticObjects[i]);
 	}
@@ -269,7 +269,7 @@ void Area2OverworldScene::AddCollision(float x1, float y1)
 
 void Area2OverworldScene::OnSpacePress()
 {
-	for (int i = 0; i < staticObjects.size(); ++i)
+	for (size_t i = 0; i < staticObjects.size(); ++i)
 	{
 		if (dynamic_cast<CPortal*>(staticObjects[i]) && Collision::CheckContain(staticObjects[i], CPlayer::GetInstance()))
 		{

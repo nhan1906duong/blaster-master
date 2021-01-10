@@ -6,13 +6,13 @@
 
 #define AROUND_TIME		200
 
-#define VX	0.07f
-#define VY 0.04f
+#define DoomieOrb_VX	0.07f
+#define DoomieOrb_VY 0.04f
 
 class DoomieOrb: public Orb
 {
 private:
-	DWORD startTime;
+	ULONGLONG startTime = 0;
 public:
 	DoomieOrb();
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);

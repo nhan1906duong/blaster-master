@@ -34,9 +34,9 @@ void JasonRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(-acceleratorX);
-			if (data->player->GetVx() < -MAX_VX)
+			if (data->player->GetVx() < -MAX_JASON_VX)
 			{
-				data->player->SetVx(-MAX_VX);
+				data->player->SetVx(-MAX_JASON_VX);
 			}
 		}
 	}
@@ -50,9 +50,9 @@ void JasonRunningState::KeyState(BYTE* states)
 		else
 		{
 			data->player->AddVx(acceleratorX);
-			if (data->player->GetVx() > MAX_VX)
+			if (data->player->GetVx() > MAX_JASON_VX)
 			{
-				data->player->SetVx(MAX_VX);
+				data->player->SetVx(MAX_JASON_VX);
 			}
 		}
 	}
