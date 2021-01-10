@@ -41,4 +41,5 @@ public:
 
 	bool CanAddPosition(float y);
 	bool HasStairNearBy(float&, float&, float&, float&, float&);
+	void FireHomingMissile();
 };

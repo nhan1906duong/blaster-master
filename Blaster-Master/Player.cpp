@@ -461,6 +461,14 @@ void CPlayer::OnKeyDown(int keyCode)
 	{
 		switch (keyCode)
 		{
+		case DIK_A:
+		{
+			if (IsSophiaState())
+			{
+				((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->FireHomingMissile();
+			}
+			break;
+		}
 		case DIK_Z:
 			fire();
 			break;

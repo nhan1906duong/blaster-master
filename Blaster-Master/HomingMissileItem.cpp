@@ -7,7 +7,7 @@ HomingMissileItem::HomingMissileItem()
 
 void HomingMissileItem::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, y, 255, nx > 0);
 }
 
 void HomingMissileItem::GetBoundingBox(float& left, float& top, float& right, float& bottom)

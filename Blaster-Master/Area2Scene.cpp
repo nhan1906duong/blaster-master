@@ -34,6 +34,8 @@
 #include "FireZone.h"
 #include "Stair.h"
 
+#include "HomingMissileWeapon.h"
+
 using namespace std;
 
 Area2Scene::Area2Scene(int id, LPCWSTR filePath) : Scene(id, filePath)
@@ -454,5 +456,34 @@ bool Area2Scene::CanAddPosition(float y)
 	else
 	{
 		return y < minHeight;
+	}
+}
+
+void Area2Scene::FireHomingMissile()
+{
+	float distance = 999999.0f;
+	int min = -1;
+	float px, py;
+	CPlayer::GetInstance()->GetMidPosition(px, py);
+	for (size_t i = 0; i < objects.size(); ++i)
+	{
+		if (dynamic_cast<Enemy*>(objects[i]))
+		{
+			float ex, ey;
+			objects[i]->GetMidPosition(ex, ey);
+			float dis = (px - ex) * (px - ex) + (py - ey) * (py - ey);
+			if (dis < distance)
+			{
+				distance = dis;
+				min = i;
+			}
+		}
+	}
+	if (min != -1)
+	{
+		Enemy* enemy = dynamic_cast<Enemy*>(objects[min]);
+		HomingMissileWeapon* weapon = new HomingMissileWeapon(enemy);
+		weapon->SetPosition(px, py);
+		GridManager::GetInstance()->AddObject(weapon);
 	}
 }

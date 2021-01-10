@@ -270,6 +270,8 @@ start	1
 55	5	59	21	75	303
 #	Item Homing missile
 56	105	59	121	75	303
+#	Homing Missile weapon
+57	358	14	367	20	303
 
 # <----------------- ENEMIES ----------------->
 #	<MINE> Current doesn't sprite
@@ -445,6 +447,7 @@ start	1
 77	55	100
 #	Item Homing missile
 78	56	100
+79	57	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	501	601	502	602	503	603	504	604	505	605	506	606	507	607	508	608	509	609	510	610	511	512	11	10	12	13	14
@@ -495,3 +498,4 @@ start	1
 30	77
 #	Item Homing missile
 31	78
+32	79
