@@ -26,6 +26,8 @@
     <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Brick.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Cannon.cpp" />
+    <ClCompile Include="CannonBullet.cpp" />
     <ClCompile Include="ChongNhon.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="DoomieOrb.cpp" />
@@ -94,6 +96,8 @@
     <ClInclude Include="Brick.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Cannon.h" />
+    <ClInclude Include="CannonBullet.h" />
     <ClInclude Include="ChongNhon.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionExplosion.h" />

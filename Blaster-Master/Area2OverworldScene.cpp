@@ -17,6 +17,7 @@
 #include "Player.h"
 #include "EyeBall.h"
 #include "Teleporter.h"
+#include "Cannon.h"
 
 
 #define SCENE_SECTION_UNKNOWN		-1
@@ -29,6 +30,7 @@
 
 #define OBJECT_TYPE_EYEBALL		23
 #define OBJECT_TYPE_TELEPORTER		25
+#define OBJECT_TYPE_CANNON		26
 
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
@@ -60,6 +62,10 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	
 	case OBJECT_TYPE_TELEPORTER:
 		obj = new Teleporter();
+		break;
+	
+	case OBJECT_TYPE_CANNON:
+		obj = new Cannon();
 		break;
 	
 	default:

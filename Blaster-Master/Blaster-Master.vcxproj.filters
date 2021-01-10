@@ -267,6 +267,12 @@
     <ClCompile Include="EyeBall.cpp">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClCompile>
+    <ClCompile Include="Cannon.cpp">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="CannonBullet.cpp">
+      <Filter>Framework\Objects\Bullets</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -502,6 +508,12 @@
     </ClInclude>
     <ClInclude Include="EyeBall.h">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="Cannon.h">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="CannonBullet.h">
+      <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
