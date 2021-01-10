@@ -345,20 +345,20 @@ void Area2Scene::AddCollision(float x1, float y1)
 
 bool Area2Scene::HasStairNearBy(float& l, float& t, float& r, float& b, float& jumpPoint)
 {
-	for (int i = 0; i < objects.size(); ++i)
+	for (int i = 0; i < staticObjects.size(); ++i)
 	{
-		LPGAMEOBJECT obj = objects[i];
+		LPGAMEOBJECT obj = staticObjects[i];
 		if (dynamic_cast<Stair*>(obj))
 		{
 			Stair* stair = dynamic_cast<Stair*>(obj);
 			stair->GetBoundingBox(l, t, r, b);
-			stair->GetJumpPoint();
+			jumpPoint = stair->GetJumpPoint();
 			float midX, midY;
 			float l, t, r, b;
 			stair->GetBoundingBox(l, t, r, b);
 			CPlayer::GetInstance()->GetMidPosition(midX, midY);
-			if (midX > stair->GetMidX() - 8 &&
-				midX < stair->GetMidX() + 8 &&
+			if (midX > stair->GetMidX() - 16 &&
+				midX < stair->GetMidX() + 16 &&
 				midY >= b && midY <= t)
 			{
 				return true;

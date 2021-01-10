@@ -5,15 +5,23 @@
 
 #include "JasonFallingState.h"
 
-JasonClimbingState::JasonClimbingState(PlayerData* data, float l, float t, float r, float b, float jumpPoint) : JasonState(data)
+JasonClimbingState::JasonClimbingState(PlayerData* data, float l, float t, float r, float b, float jumpPoint, bool isDown) : JasonState(data)
 {
 	this->l = l;
 	this->t = t;
 	this->r = r;
 	this->b = b;
 	this->jumpPoint = jumpPoint;
-
-	data->player->SetPosition((l + r) / 2 - JASON_STAIR_WIDTH / 2, b + 0.1 + JASON_STANDING_HEIGHT);
+	float px, py;
+	CPlayer::GetInstance()->GetPosition(px, py);
+	if (isDown)
+	{
+		data->player->SetPosition((l + r) / 2 - JASON_STAIR_WIDTH / 2, py);
+	}
+	else
+	{
+		data->player->SetPosition((l + r) / 2 - JASON_STAIR_WIDTH / 2, py + 4);
+	}
 	data->player->SetVx(0);
 	DebugOut(L"JasonClimbingState\n");
 	acceleratorY = 0.02f;
@@ -86,16 +94,16 @@ void JasonClimbingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_LEFT:
-			if (b >= jumpPoint)
+			if (b >= jumpPoint - 4)
 			{
-				data->player->AddPosition(-4, 4);
+				data->player->AddPosition(-4, 8);
 				data->player->SetState(new JasonFallingState(data));
 			}
 			break;
 		case DIK_RIGHT:
-			if (b >= jumpPoint)
+			if (b >= jumpPoint - 4)
 			{
-				data->player->AddPosition(4, 4);
+				data->player->AddPosition(4, 8);
 				data->player->SetState(new JasonFallingState(data));
 			}
 			break;

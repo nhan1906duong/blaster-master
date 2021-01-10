@@ -49,21 +49,32 @@ void JasonStandingState::OnKeyDown(int keyCode)
 	switch (keyCode)
 	{
 		case DIK_UP:
-		{
-			float l, t, r, b, jumpPoint;
-			if (((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->HasStairNearBy(l, t, r, b, jumpPoint))
 			{
-				data->player->SetState(new JasonClimbingState(data, l, t, r, b, jumpPoint));
+				float l, t, r, b, jumpPoint;
+				if (((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->HasStairNearBy(l, t, r, b, jumpPoint))
+				{
+					data->player->SetState(new JasonClimbingState(data, l, t, r, b, jumpPoint));
+				}
+				break;
 			}
-			break;
-		}
-			
 		case DIK_X:
-			data->player->SetState(new JasonJumpingState(data));
-			break;
+			{
+				data->player->SetState(new JasonJumpingState(data));
+				break;
+			}
 		case DIK_DOWN:
-			data->player->AddPosition(0, -7.9);
-			data->player->SetState(new JasonLieingState(data));
-			break;
+			{
+				float l, t, r, b, jumpPoint;
+				if (((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->HasStairNearBy(l, t, r, b, jumpPoint))
+				{
+					data->player->SetState(new JasonClimbingState(data, l, t, r, b, jumpPoint, true));
+				}
+				else
+				{
+					data->player->AddPosition(0, -7.9);
+					data->player->SetState(new JasonLieingState(data));
+				}
+				break;
+			}
 	}
 }

@@ -108,7 +108,7 @@ void Area2OverworldScene::_ParseSection_MAP(string line)
 
 void Area2OverworldScene::Load(float player_x, float player_y)
 {
-	CPlayer::GetInstance()->SetPosition(50, 50);
+	CPlayer::GetInstance()->SetPosition(player_x, player_y);
 	CPlayer::GetInstance()->SwitchToOverworldState();
 	Camera::GetInstance()->UpdateCamera();
 	DebugOut(L"[INFO] Start loading scene resources from : %s \n", sceneFilePath);

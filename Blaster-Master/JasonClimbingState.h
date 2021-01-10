@@ -8,7 +8,7 @@ private:
 	float l, t, r, b;
 	float jumpPoint;
 public:
-	JasonClimbingState(PlayerData* data, float l, float t, float r, float b, float jumpPoint);
+	JasonClimbingState(PlayerData* data, float l, float t, float r, float b, float jumpPoint, bool isDown = false);
 
 	int CurrentAnimationId();
 	void GetBoundingBox(float&, float&, float&, float&);
