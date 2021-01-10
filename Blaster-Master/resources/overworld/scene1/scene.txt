@@ -7,6 +7,9 @@ resources\overworld\scene1\map.txt
 27	96	448
 29	80	432
 28	96	432
+26	70	144
+25	192	80
+25	40	256
 [BRICK]
 # left	top	right	bottom
 1	0	32	288	0

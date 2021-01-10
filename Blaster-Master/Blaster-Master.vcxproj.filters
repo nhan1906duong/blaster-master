@@ -261,9 +261,6 @@
     <ClCompile Include="EyeBallBullet.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClCompile>
-    <ClCompile Include="Teleporter.cpp">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClCompile>
     <ClCompile Include="EyeBall.cpp">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClCompile>
@@ -287,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="ThunderBreakItem.cpp">
       <Filter>Framework\Objects\Items</Filter>
+    </ClCompile>
+    <ClCompile Include="Teleporter.cpp">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -518,9 +518,6 @@
     <ClInclude Include="EyeBallBullet.h">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClInclude>
-    <ClInclude Include="Teleporter.h">
-      <Filter>Framework\Objects\Enemies</Filter>
-    </ClInclude>
     <ClInclude Include="EyeBall.h">
       <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClInclude>
@@ -544,6 +541,9 @@
     </ClInclude>
     <ClInclude Include="ThunderBreakItem.h">
       <Filter>Framework\Objects\Items</Filter>
+    </ClInclude>
+    <ClInclude Include="Teleporter.h">
+      <Filter>Framework\Objects\Enemies\overworld</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

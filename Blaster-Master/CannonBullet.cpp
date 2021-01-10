@@ -1,7 +1,10 @@
 #include "CannonBullet.h"
+
 #include "Player.h"
 #include "Brick.h"
 #include "Bomb.h"
+#include "Area2OverworldScene.h"
+#include "Game.h"
 
 CannonBullet::CannonBullet()
 {
@@ -40,25 +43,44 @@ void CannonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		float min_tx, min_ty, brickNx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
+		float deltaMin = 9999;
+		LPCOLLISIONEVENT minEvent = NULL;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, brickNx, ny, rdx, rdy);
-
-		x += min_tx * dx + 0.01f * brickNx;
-		y += min_ty * dy + 0.01f * ny;
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<CBrick*>(e->obj) && e->nx != 0)
+			LPCOLLISIONEVENT e = coEvents[i];
+			if (!dynamic_cast<CPlayer*>(e->obj) &&
+				!dynamic_cast<CBrick*>(e->obj))
+				continue;
+
+			float min = e->dx < e->dy ? e->dx : e->dy;
+			if (min < deltaMin)
 			{
-				/*Bomb* bomb = new Bomb(-nx);
-				bomb->SetPosition(x, y);
-				GridManager::GetInstance()->AddObject(bomb);*/
+				minEvent = e;
+				deltaMin = min;
 			}
-		
+		}
+		if (deltaMin >= 9999)
+		{
+			x += dx;
+			y += dy;
+		}
+		else
+		{
+
+			if (minEvent)
+			{
+				if (dynamic_cast<CPlayer*>(minEvent->obj))
+				{
+					CPlayer::GetInstance()->StartUntouchable();
+				}
+				PrepareToRemove();
+				float left, top, right, bottom;
+				minEvent->obj->GetBoundingBox(left, top, right, bottom);
+				x += minEvent->t * dx + minEvent->nx * 0.1f;
+				y += minEvent->t * dy + minEvent->ny * 0.1f;
+				((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			}
 		}
 	}
 

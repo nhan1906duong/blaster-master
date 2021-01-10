@@ -10,35 +10,35 @@ Cannon::Cannon()
 	timeChangeState = GetTickCount();
 }
 
-void FirerBullet(bool isVerState) {
-	CannonBullet* bomb1 = new CannonBullet();
-	CannonBullet* bomb2 = new CannonBullet();
+void Cannon::FirerBullet(bool isVerState) {
+	CannonBullet* bullet1 = new CannonBullet();
+	CannonBullet* bullet2 = new CannonBullet();
 
 	if (isVerState) {
-		bomb1->SetPosition(LOCATION_CANNON_X + CANNON_SIZE / 2 - BULLET_SIZE / 2, 
-			LOCATION_CANNON_Y + BULLET_SIZE /2);
+		bullet1->SetPosition(x + CANNON_SIZE / 2 - BULLET_SIZE / 2, 
+			y + BULLET_SIZE /2);
 		
-		bomb2->SetPosition(LOCATION_CANNON_X + CANNON_SIZE / 2 - BULLET_SIZE / 2,
-			LOCATION_CANNON_Y - CANNON_SIZE);
+		bullet2->SetPosition(x + CANNON_SIZE / 2 - BULLET_SIZE / 2,
+			y - CANNON_SIZE);
 	}
 
 	else {
-		bomb1->SetPosition(LOCATION_CANNON_X + CANNON_SIZE,
-			LOCATION_CANNON_Y - CANNON_SIZE / 2 + BULLET_SIZE / 2);
+		bullet1->SetPosition(x + CANNON_SIZE,
+			y - CANNON_SIZE / 2 + BULLET_SIZE / 2);
 
-		bomb2->SetPosition(LOCATION_CANNON_X - BULLET_SIZE,
-			LOCATION_CANNON_Y - CANNON_SIZE / 2 + BULLET_SIZE / 2);
+		bullet2->SetPosition(x - BULLET_SIZE,
+			y - CANNON_SIZE / 2 + BULLET_SIZE / 2);
 	}
 
 	
-	bomb1->VectorBullter = VBULLTET;
-	bomb2->VectorBullter = -VBULLTET;
+	bullet1->VectorBullter = VBULLTET;
+	bullet2->VectorBullter = -VBULLTET;
 
-	bomb1->isVerState = isVerState ? true : false;
-	bomb2->isVerState = isVerState ? true : false;
+	bullet1->isVerState = isVerState ? true : false;
+	bullet2->isVerState = isVerState ? true : false;
 
-	GridManager::GetInstance()->AddObject(bomb1);
-	GridManager::GetInstance()->AddObject(bomb2);
+	GridManager::GetInstance()->AddObject(bullet1);
+	GridManager::GetInstance()->AddObject(bullet2);
 }
 
 void Cannon::GetBoundingBox(float& left, float& top, float& right, float& bottom)

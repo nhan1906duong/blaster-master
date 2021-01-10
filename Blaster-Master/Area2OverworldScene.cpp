@@ -211,6 +211,8 @@ void Area2OverworldScene::Render()
 	{
 		objects[i]->Render();
 	}
+	for (int i = 0; i < collisions.size(); i++)
+		collisions[i]->Render();
 }
 
 /*
@@ -231,4 +233,18 @@ void Area2OverworldScene::_RefreshObject()
 	{
 		objects.push_back(staticObjects[i]);
 	}
+}
+
+void Area2OverworldScene::RemoveCollisionObject()
+{
+	collisions.erase(remove_if(collisions.begin(), collisions.end(), [](const CollisionExplosion* obj) {
+		return obj->shouldRemove == true;
+	}), collisions.end());
+}
+
+void Area2OverworldScene::AddCollision(float x1, float y1)
+{
+	CollisionExplosion* collision = new CollisionExplosion();
+	collision->SetPosition(x1, y1);
+	collisions.push_back(collision);
 }
