@@ -5,6 +5,7 @@
 #include "HPItem.h"
 #include "GridManager.h"
 
+
 #define BEEN_SHOT_TIME	1000
 
 #define ENEMY_DIE_STATE -1
@@ -31,6 +32,7 @@ protected:
 		}
 	}
 public:
+	bool isLock = false;
 	bool IsAppear()
 	{
 		return isAppear;
@@ -49,13 +51,6 @@ public:
 		blood -= power;
 		if (blood <= 0)
 		{
-			int randomState = rand() % 100;
-			if (randomState > 50)
-			{
-				HPItem* item = new HPItem();
-				item->SetPosition(x, y);
-				GridManager::GetInstance()->AddObject(item);
-			}
 			PrepareToRemove();
 		}
 	}
@@ -64,5 +59,17 @@ public:
 	{
 		CGameObject::Update(dt);
 		CheckShotTime();
+	}
+
+	void PrepareToRemove()
+	{
+		int randomState = rand() % 100;
+		if (randomState > 50)
+		{
+			HPItem* item = new HPItem();
+			item->SetPosition(x, y);
+			GridManager::GetInstance()->AddObject(item);
+		}
+		CGameObject::PrepareToRemove();
 	}
 };

@@ -467,7 +467,7 @@ void Area2Scene::FireHomingMissile()
 	CPlayer::GetInstance()->GetMidPosition(px, py);
 	for (size_t i = 0; i < objects.size(); ++i)
 	{
-		if (dynamic_cast<Enemy*>(objects[i]))
+		if (dynamic_cast<Enemy*>(objects[i]) && dynamic_cast<Enemy*>(objects[i])->isLock == false)
 		{
 			float ex, ey;
 			objects[i]->GetMidPosition(ex, ey);
@@ -485,5 +485,6 @@ void Area2Scene::FireHomingMissile()
 		HomingMissileWeapon* weapon = new HomingMissileWeapon(enemy);
 		weapon->SetPosition(px, py);
 		GridManager::GetInstance()->AddObject(weapon);
+		enemy->isLock = true;
 	}
 }

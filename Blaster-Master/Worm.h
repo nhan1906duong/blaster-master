@@ -15,12 +15,11 @@
 
 class Worm : public Enemy
 {
-	virtual void GetBoundingBox(float&, float&, float&, float&);
-	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
-	virtual void Render();
-
 	void SetState(int state);
 public:
 	Worm();
+	virtual void GetBoundingBox(float&, float&, float&, float&);
+	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
+	virtual void Render();
 };
 

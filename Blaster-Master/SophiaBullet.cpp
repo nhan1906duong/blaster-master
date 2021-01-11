@@ -6,6 +6,8 @@
 #include "SecretWall.h"
 #include "Area2Scene.h"
 
+#include "Mine.h"
+
 #include "EnemyBullet.h"
 
 /** direct	1	LeftToRight
@@ -18,15 +20,15 @@ SophiaBullet::SophiaBullet(int direct)
 	this->direct = direct;
 	if (direct == 1)
 	{
-		vx = V_SPEED;
+		vx = V_SOPHIA_SPEED;
 	}
 	else if (direct == 2)
 	{
-		vx = -V_SPEED;
+		vx = -V_SOPHIA_SPEED;
 	}
 	else
 	{
-		vy = V_SPEED;
+		vy = V_SOPHIA_SPEED;
 	}
 	animation_set = CAnimationSets::GetInstance()->Get(18);
 }
@@ -124,7 +126,14 @@ void SophiaBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (dynamic_cast<Enemy*>(minEvent->obj))
 				{
 					Enemy* enemy = dynamic_cast<Enemy*>(minEvent->obj);
-					enemy->BeenShot(this);
+					if (dynamic_cast<Mine*>(enemy))
+					{
+						dynamic_cast<Mine*>(enemy)->PrepareToRemove();
+					}
+					else
+					{
+						enemy->BeenShot(this);
+					}
 					createCollision = true;
 				}
 				if (dynamic_cast<CPortal*>(minEvent->obj) || dynamic_cast<CBrick*>(minEvent->obj))

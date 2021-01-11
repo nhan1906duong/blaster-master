@@ -4,7 +4,7 @@
 #define SOPHIA_BULLET_WIDTH		24
 #define SOPHIA_BULLET_HEIGHT	8
 
-#define V_SPEED	0.12f
+#define V_SOPHIA_SPEED	0.2f
 
 class SophiaBullet: public PlayerBullet
 {

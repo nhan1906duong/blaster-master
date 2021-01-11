@@ -4,19 +4,19 @@
 
 #include "GameDefine.h"
 
-Jumper::Jumper(int nx)
+Jumper::Jumper(int huong)
 {
 	currentBrick = NULL;
 	blood = 4;
 	SetState(STATE_JUMPER_FALLING);
-	if (nx > 0)
+	if (huong > 0)
 	{
-		nx = 1;
+		this->nx = 1;
 		vx = VX;
 	}
 	else
 	{
-		nx = -1;
+		this->nx = -1;
 		vx = -VX;
 	}
 	animation_set = CAnimationSets::GetInstance()->Get(13);

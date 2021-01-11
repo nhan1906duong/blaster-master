@@ -4,6 +4,8 @@
 #include "Collision.h"
 #include "Area2Scene.h"
 
+#include "Mine.h"
+
 HomingMissileWeapon::HomingMissileWeapon(Enemy* enemy)
 {
 	this->enemy = enemy;
@@ -50,14 +52,21 @@ void HomingMissileWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
 	if (Collision::CheckContain(this, enemy))
 	{
 		PrepareToRemove();
-		enemy->PrepareToRemove();
+		if (dynamic_cast<Mine*>(enemy))
+		{
+			dynamic_cast<Mine*>(enemy)->PrepareToRemove();
+		}
+		else
+		{
+			enemy->PrepareToRemove();
+		}
 		((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 	}
 }
 
 void HomingMissileWeapon::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, y, 255, nx < 0);
 }
 
 void HomingMissileWeapon::GetBoundingBox(float& left, float& top, float& right, float& bottom)
