@@ -60,6 +60,7 @@
     <ClCompile Include="JasonStandingState.cpp" />
     <ClCompile Include="Jumper.cpp" />
     <ClCompile Include="Mine.cpp" />
+    <ClCompile Include="MineBomb.cpp" />
     <ClCompile Include="MultiwarheadMissileItem.cpp" />
     <ClCompile Include="Orb.cpp" />
     <ClCompile Include="PlayScenceKeyHandler.cpp" />
@@ -140,6 +141,7 @@
     <ClInclude Include="JasonState.h" />
     <ClInclude Include="Jumper.h" />
     <ClInclude Include="Mine.h" />
+    <ClInclude Include="MineBomb.h" />
     <ClInclude Include="MultiwarheadMissileItem.h" />
     <ClInclude Include="Orb.h" />
     <ClInclude Include="PlayerBullet.h" />

@@ -5,6 +5,7 @@
 #include "HPItem.h"
 #include "GridManager.h"
 
+
 #define BEEN_SHOT_TIME	1000
 
 #define ENEMY_DIE_STATE -1

@@ -8,6 +8,8 @@
 #include "Enemy.h"
 #include "ChongNhon.h"
 
+#include "Mine.h"
+
 // Bullet
 #include "SophiaBullet.h"
 #include "JasonBullet.h"
@@ -265,6 +267,10 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else if (dynamic_cast<Enemy*>(e->obj))
 				{
+					if (dynamic_cast<Mine*>(e->obj))
+					{
+						dynamic_cast<Mine*>(e->obj)->PrepareToRemove();
+					}
 					StartUntouchable();
 				}
 				else if (dynamic_cast<HPItem*>(e->obj))

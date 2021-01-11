@@ -1,6 +1,12 @@
 #include "JasonBullet.h"
 
 #include "Enemy.h"
+#include "Mine.h"
+#include "Area2Scene.h"
+#include "Player.h"
+#include "EnemyBullet.h"
+#include "Portal.h"
+#include "Brick.h"
 
 JasonBullet::JasonBullet(int nx)
 {
@@ -42,30 +48,80 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		float min_tx, min_ty, nx = 0, ny;
-		float rdx = 0;
-		float rdy = 0;
+		float deltaMin = 9999;
+		LPCOLLISIONEVENT minEvent = NULL;
 
-		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, nx, ny, rdx, rdy);
-
-		x += min_tx * dx + nx * 0.1f;
-		y += min_ty * dy + ny * 0.1f;
-
-		PrepareToRemove();
-
-		//((CArea2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(collision_x, collision_y);*/
-
-
-		for (UINT i = 0; i < coEventsResult.size(); i++)
+		for (UINT i = 0; i < coEvents.size(); i++)
 		{
-			LPCOLLISIONEVENT e = coEventsResult[i];
-			if (dynamic_cast<Enemy*>(e->obj))
+			LPCOLLISIONEVENT e = coEvents[i];
+			if (dynamic_cast<CPlayer*>(e->obj)) continue;
+			float min = e->dx < e->dy ? e->dx : e->dy;
+			if (min < deltaMin)
 			{
-				Enemy* enemy = dynamic_cast<Enemy*>(e->obj);
-				enemy->BeenShot(this);
+				minEvent = e;
+				deltaMin = min;
+			}
+		}
+		bool createCollision = false;
+		if (deltaMin >= 9999) return;
+		if (minEvent)
+		{
+			if (dynamic_cast<EnemyBullet*>(minEvent->obj))
+			{
+				EnemyBullet* enemyBullet = dynamic_cast<EnemyBullet*>(minEvent->obj);
+				if (enemyBullet->GetPower() > GetPower())
+				{
+					enemyBullet->ChangePower(GetPower());
+					PrepareToRemove();
+				}
+				else if (enemyBullet->GetPower() < GetPower())
+				{
+					//enemyBullet->ChangePower(GetPower());
+					enemyBullet->PrepareToRemove();
+				}
+				else
+				{
+					PrepareToRemove();
+					enemyBullet->PrepareToRemove();
+					createCollision = true;
+				}
+			}
+			else
+			{
+				if (dynamic_cast<Enemy*>(minEvent->obj))
+				{
+					Enemy* enemy = dynamic_cast<Enemy*>(minEvent->obj);
+					if (dynamic_cast<Mine*>(enemy))
+					{
+						dynamic_cast<Mine*>(enemy)->PrepareToRemove();
+					}
+					else
+					{
+						enemy->BeenShot(this);
+					}
+					createCollision = true;
+				}
+				if (dynamic_cast<CPortal*>(minEvent->obj) || dynamic_cast<CBrick*>(minEvent->obj))
+				{
+					createCollision = true;
+				}
 			}
 		}
 
+		if (createCollision)
+		{
+			PrepareToRemove();
+			float left, top, right, bottom;
+			minEvent->obj->GetBoundingBox(left, top, right, bottom);
+			x += minEvent->t * dx + minEvent->nx * 0.1f;
+			y += minEvent->t * dy + minEvent->ny * 0.1f;
+			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+		}
+		else
+		{
+			x += dx;
+			y += dy;
+		}
 	}
 
 	// clean up collision events

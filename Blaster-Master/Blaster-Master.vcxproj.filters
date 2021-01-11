@@ -291,6 +291,9 @@
     <ClCompile Include="HomingMissileWeapon.cpp">
       <Filter>Framework\Objects\Bullets</Filter>
     </ClCompile>
+    <ClCompile Include="MineBomb.cpp">
+      <Filter>Framework\Objects\Enemies</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -550,6 +553,9 @@
     </ClInclude>
     <ClInclude Include="HomingMissileWeapon.h">
       <Filter>Framework\Objects\Bullets</Filter>
+    </ClInclude>
+    <ClInclude Include="MineBomb.h">
+      <Filter>Framework\Objects\Enemies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
