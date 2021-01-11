@@ -27,6 +27,7 @@
 #include "GunItem.h"
 #include "ThunderBreakItem.h"
 #include "MultiwarheadMissileItem.h"
+#include "ChongNhon.h"
 
 
 
@@ -35,6 +36,7 @@
 #define SCENE_SECTION_OBJECTS		1
 #define SCENE_SECTION_BRICK			2
 #define SCENE_SECTION_PORTAL		3
+#define SCENE_SECTION_CHONG_NHON		4
 
 #define MAX_SCENE_LINE 1024
 
@@ -103,6 +105,7 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 		obj = new MultiwarheadMissileItem();
 		break;
 	}
+	
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -111,6 +114,19 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	// General object setup
 	obj->SetPosition(x, y);
 	GridManager::GetInstance()->AddObject(obj);
+}
+
+void Area2OverworldScene::_ParseSection_CHONG_NHON(string line)
+{
+	vector<string> tokens = split(line);
+	if (tokens.size() < 5) return;
+	int identity = atoi(tokens[0].c_str());
+	float left = (float)atof(tokens[1].c_str());
+	float top = (float)atof(tokens[2].c_str());
+	float right = (float)atof(tokens[3].c_str());
+	float bottom = (float)atof(tokens[4].c_str());
+	ChongNhon* brick = new ChongNhon(identity, left, top, right, bottom);
+	staticObjects.push_back(brick);
 }
 
 void Area2OverworldScene::_ParseSecion_BRICK(string line, int type)
@@ -188,6 +204,11 @@ void Area2OverworldScene::Load(float player_x, float player_y)
 		{
 			section = SCENE_SECTION_PORTAL; continue;
 		}
+		
+		if (line == "[CHONG_NHON]")
+		{
+			section = SCENE_SECTION_CHONG_NHON; continue;
+		}
 		if (line[0] == '[') { section = SCENE_SECTION_UNKNOWN; continue; }
 
 		switch (section)
@@ -196,6 +217,7 @@ void Area2OverworldScene::Load(float player_x, float player_y)
 			case SCENE_SECTION_OBJECTS: _ParseSection_OBJECTS(line); break;
 			case SCENE_SECTION_BRICK: _ParseSecion_BRICK(line); break;
 			case SCENE_SECTION_PORTAL: _ParseSection_PORTAL(line); break;
+			case SCENE_SECTION_CHONG_NHON: _ParseSection_CHONG_NHON(line); break;
 			default: break;
 		}
 	}

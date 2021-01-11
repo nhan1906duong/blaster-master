@@ -21,6 +21,7 @@ private:
 	void _ParseSection_OBJECTS(string line);
 	void _ParseSecion_BRICK(string line, int type = 0);
 	void _ParseSection_PORTAL(string);
+	void _ParseSection_CHONG_NHON(string);
 	void _RefreshObject();
 	void RemoveCollisionObject();
 public:
