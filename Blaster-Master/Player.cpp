@@ -415,7 +415,7 @@ void CPlayer::fire()
 	else
 	{
 		JasonBullet* bullet = new JasonBullet(nx);
-		bullet->SetPosition(x, y);
+		bullet->SetPosition(x, GetMidY() + 4);
 		GridManager::GetInstance()->AddObject(bullet);
 	}
 }

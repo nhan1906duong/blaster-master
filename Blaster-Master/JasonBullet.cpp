@@ -13,7 +13,8 @@ JasonBullet::JasonBullet(int nx)
 	power = 1;
 	this->nx = nx;
 	animation_set = CAnimationSets::GetInstance()->Get(21);
-	SetVx(nx*V_SPEED);
+	SetVx(nx*V_JASON_SPEED);
+	SetVy(0);
 }
 
 void JasonBullet::Render()
@@ -31,6 +32,11 @@ void JasonBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (start_X == -1.0f)
+	{
+		start_X = x;
+	}
+
 	CGameObject::Update(dt);
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -44,7 +50,12 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
-		y += dy;
+
+		if (vx < 0 && start_X - x > 112 || vx > 0 && x - start_X > 112)
+		{
+			PrepareToRemove();
+			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+		}
 	}
 	else
 	{
@@ -114,13 +125,11 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			float left, top, right, bottom;
 			minEvent->obj->GetBoundingBox(left, top, right, bottom);
 			x += minEvent->t * dx + minEvent->nx * 0.1f;
-			y += minEvent->t * dy + minEvent->ny * 0.1f;
 			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
 		else
 		{
 			x += dx;
-			y += dy;
 		}
 	}
 
