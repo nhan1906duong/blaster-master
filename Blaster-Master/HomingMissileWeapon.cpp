@@ -57,7 +57,7 @@ void HomingMissileWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
 
 void HomingMissileWeapon::Render()
 {
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, y, 255, nx < 0);
 }
 
 void HomingMissileWeapon::GetBoundingBox(float& left, float& top, float& right, float& bottom)

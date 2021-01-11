@@ -34,7 +34,7 @@ void Floater::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (GetTickCount64() - lastShoot - timeDelay > PERIOD_BEETWEEN_SHOOT)
+		if (GetTickCount64() - lastShoot > PERIOD_BEETWEEN_SHOOT + timeDelay)
 		{
 			lastShoot = GetTickCount64();
 			float pX, pY;

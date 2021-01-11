@@ -9,7 +9,8 @@
 class Floater : public Enemy
 {
 private:
-	ULONGLONG lastShoot = 0, timeDelay = 0;
+	ULONGLONG lastShoot;
+	int timeDelay;
 	bool firstAppear;
 public:
 	Floater(int timeDelay);
