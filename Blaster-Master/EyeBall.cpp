@@ -36,35 +36,54 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		timeMoveAndFire = GetTickCount();
 	}
 
-	if (GetTickCount() - timeMoveAndFire <= TIME_STOP_MOVE) {
-		if (GetTickCount() - timeDelay > TIME_MOVE) {
-			timeDelay = GetTickCount();
-			int randomState = rand() % 100;
+	if (GetTickCount() - timeMoveAndFire <= TIME_NHA_DAN_AND_MOVE) {
+		if (!hasMove) {
 			int randomVector = rand() % 100;
-			if (randomState % 2 == 0) {
-				SetVx(0.0f);
-				SetVy(randomVector % 2 == 0 ? VMOVE : -VMOVE);
+			int randomVectorY = rand() % 100;
+			SetVy(randomVector % 2 == 0 ? VMOVE : -VMOVE);
+			SetVx(randomVectorY % 2 == 0 ? VMOVE : -VMOVE);
+			timeDelay = GetTickCount();
+			timeChangeVector = GetTickCount();
+			hasMove = true;
+
+			float pX, pY;
+			CPlayer::GetInstance()->GetMidPosition(pX, pY);
+			float midX, midY;
+			GetMidPosition(midX, midY);
+
+			float ratioX = midX - pX;
+			float ratioY = midY - pY;
+
+			if (!(ratioX == 0 && ratioY == 0))
+			{
+				EyeBallBullet* bullet = new EyeBallBullet(ratioX, ratioY);
+				bullet->SetPosition(midX, midY);
+				GridManager::GetInstance()->AddObject(bullet);
 			}
-			else {
-				SetVy(0.0f);
-				SetVx(randomVector % 2 == 0 ? VMOVE : -VMOVE);
+		}
+	
+
+		if (GetTickCount() - timeDelay > TIME_STOP_MOVE) {
+			SetVy(0.0f);
+			SetVx(0.0f);
+		}
+		else {
+			//Doi huong di chuyen
+			if (GetTickCount() - timeChangeVector > TIME_MOVE) {
+				timeChangeVector = GetTickCount();
+				int randomVector = rand() % 100;
+				int randomVectorY = rand() % 100;
+				SetVy(randomVector % 2 == 0 ? VMOVE : -VMOVE);
+				SetVx(randomVectorY % 2 == 0 ? VMOVE : -VMOVE);
 			}
 		}
 		
 	}
 	else {
-		SetVx(0.0f);
-		SetVy(0.0f);
+		timeMoveAndFire = GetTickCount();
+		hasMove = false;
 	}
 	
-	if (GetTickCount() - timeMoveAndFire >= TIME_NHA_DAN_AND_MOVE) {
-		timeMoveAndFire = GetTickCount();
-
-		EyeBallBullet* bomb = new EyeBallBullet();
-		bomb->SetPosition(x, y);
-		GridManager::GetInstance()->AddObject(bomb);
-	}
-
 	Enemy::Update(dt, coObjects);
 
 	vector<LPCOLLISIONEVENT> coEvents;

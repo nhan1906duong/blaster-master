@@ -2,8 +2,8 @@
 resources\overworld\scene2\map.txt
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-23	329.0	198	0	0
-23	342.0	83	0	1
+23	383.0	223.0	0	0
+23	392.0	83.0	0	1
 25	620.0	200.0
 [BRICK]
 # left	top	right	bottom
@@ -116,26 +116,3 @@ resources\overworld\scene2\map.txt
 1	928	1136	960	1088
 1	960	1248	992	1088
 1	912	1248	960	1216
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
