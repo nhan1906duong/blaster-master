@@ -17,7 +17,6 @@ private:
 	DWORD timeDelay;
 	DWORD timeChangeVector;
 	bool firstEntry = true;
-	bool startEnemies = false;
 	bool hasMove = false;
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);

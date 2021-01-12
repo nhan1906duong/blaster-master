@@ -10,6 +10,7 @@
 EyeBall::EyeBall()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(23);
+	timeMoveAndFire = GetTickCount();
 }
 
 
@@ -23,19 +24,6 @@ void EyeBall::GetBoundingBox(float& left, float& top, float& right, float& botto
 
 void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (CPlayer::GetInstance()->GetMidX() >= 320.0f && !startEnemies) {
-		startEnemies = true;
-	}
-
-	if (!startEnemies) {
-		return;
-	}
-
-	if (firstEntry) {
-		firstEntry = false;
-		timeMoveAndFire = GetTickCount();
-	}
-
 	if (GetTickCount() - timeMoveAndFire <= TIME_NHA_DAN_AND_MOVE) {
 		if (!hasMove) {
 			int randomVector = rand() % 100;
@@ -50,7 +38,6 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			CPlayer::GetInstance()->GetMidPosition(pX, pY);
 			float midX, midY;
 			GetMidPosition(midX, midY);
-
 			float ratioX = midX - pX;
 			float ratioY = midY - pY;
 
@@ -58,7 +45,7 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				EyeBallBullet* bullet = new EyeBallBullet(ratioX, ratioY);
 				bullet->SetPosition(midX, midY);
-				GridManager::GetInstance()->AddObject(bullet);
+	  		    GridManager::GetInstance()->AddObject(bullet);
 			}
 		}
 	
