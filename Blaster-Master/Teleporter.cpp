@@ -19,8 +19,8 @@ void Teleporter::GetBoundingBox(float& left, float& top, float& right, float& bo
 {
 	left = x;
 	top = y;
-	right = x + EYEBALL_WIDTH;
-	bottom = y - EYEBALL_HEIGHT;
+	right = x + TELPORTER_WIDTH;
+	bottom = y - TELPORTER_HEIGHT;
 }
 
 void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
@@ -33,46 +33,81 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (GetTickCount() - timeMove <= TIME_MOVE_ANI) {
 		SetState(STATE_GREEN);
-		if (GetTickCount() - timeFlicker <= TIME_FLICKER ) {
+		float xNew = 0.0f, yNew = 0.0f;
+		//1s sau moi doi vi tri
+		if (GetTickCount() - timeFlicker > TIME_FLICKER ) {
 			// Move Green
-			//float xNew = 0.0f, yNew = 0.0f;
-			if (GetTickCount() - timeChangeGreen >= TIME_MOVE_GREEN) {
+			if (!hasMove) {
 				int randomVector = rand() % 100;
 				int randomN = rand() % 100;
+				tempY = y;
+				tempX = x;
 				if (randomVector % 2 == 0) {
 					//Move Ver
-					//tempY = y;
-					//yNew = randomN % 2 == 0 ? y + 30 : y - 30;
+					y = randomN % 2 == 0 ? y + 45 : y - 45;
 				}
 				else {
 					//Move Hoz
-					//tempX = x;
-					//xNew = randomN % 2 == 0 ? x + 30 : x - 30;
+					x = randomN % 2 == 0 ? x + 45 : x - 45;
 				}
 
-				//AddPosition(xNew, yNew);
-				
-				//DebugOut(L"[Teleporter] Move Green x = %d , y = %d, tempX = %d, tempY = %d\n", x, y, tempX, tempY);
-			}
-			else {
+				xNew = x;
+				yNew = y;
+				hasMove = true;
 				timeChangeGreen = GetTickCount();
-				//x = tempX;
-				//y = tempY;
-				//DebugOut(L"[Teleporter] BackPosition x = %d , y = %d, tempX = %d, tempY = %d\n", x, y, tempX, tempY);
+				DebugOut(L"[Teleporter] Move position \n");
+			}
+			
+
+			if (GetTickCount() - timeChangeGreen >= TIME_MOVE_GREEN) {
+				x = tempX;
+				y = tempY;
+				timeChangeGreenAgain = GetTickCount();
+				hasChangePosition = true;
+				DebugOut(L"[Teleporter] Back old position\n");
+				
+			}
+
+			if (hasChangePosition && GetTickCount() - timeChangeGreenAgain >= TIME_MOVE_GREEN) {
+				hasMove = false;
+				x = xNew;
+				y = yNew;
+				timeFlicker = GetTickCount();
+				hasChangePosition = false;
+				DebugOut(L"[Teleporter] Back old position Again\n");
 			}
 			
 		}
-		else {
-			timeFlicker = GetTickCount();
-		}
-
 	} else {
 		SetState(STATE_FLICKER);
 		if (GetTickCount() - timeMove >= TIME_MOVE_ANI + timeDelay) {
 			timeMove = GetTickCount();
+			timeFlicker = GetTickCount();
 		}
 		
 	}
+
+
+	vector<LPCOLLISIONEVENT> coEvents;
+	vector<LPCOLLISIONEVENT> coEventsResult;
+
+	coEvents.clear();
+
+	CalcPotentialCollisions(coObjects, coEvents);
+
+	if (coEvents.size() != 0)
+	{
+		float min_tx, min_ty, brickNx = 0, ny;
+		float rdx = 0;
+		float rdy = 0;
+
+		FilterCollision(coEvents, coEventsResult, min_tx, min_ty, brickNx, ny, rdx, rdy);
+
+		x += min_tx * dx + 0.01f * brickNx;
+		y += min_ty * dy + 0.01f * ny;
+	}
+
+	for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 }
 
 void Teleporter::Render()
