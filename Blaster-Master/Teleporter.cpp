@@ -9,13 +9,16 @@
 #include "EyeBallBullet.h"
 
 
-Teleporter::Teleporter(float l, float t, float r, float b, float xS)
+Teleporter::Teleporter(float l, float t, float r, float b, float lS, float tS, float rS, float bS)
 {
 	bouncingLeft = l;
 	bouncingTop = t;
 	bouncingRight = r;
 	bouncingBottom = b;
-	xStartEnemy = xS;
+	leftStartEnemy = lS;
+	rightStartEnemy = rS;
+	topStartEnemy = tS;
+	bottomStartEnemy = bS;
 	animation_set = CAnimationSets::GetInstance()->Get(25);
 }
 
@@ -24,13 +27,29 @@ void Teleporter::GetBoundingBox(float& left, float& top, float& right, float& bo
 {
 	left = x;
 	top = y;
-	right = x + TELPORTER_WIDTH;
-	bottom = y - TELPORTER_HEIGHT;
+	right = x + TELEPORTER_WIDTH;
+	bottom = y - TELEPORTER_HEIGHT;
+}
+
+bool Teleporter::PlayerComming()
+{
+	if (leftStartEnemy != 0) {
+		return CPlayer::GetInstance()->x > leftStartEnemy;
+	}
+	else if (rightStartEnemy != 0) {
+		return CPlayer::GetInstance()->x < rightStartEnemy;
+	}
+	else if (bottomStartEnemy != 0) {
+		return CPlayer::GetInstance()->y > bottomStartEnemy;
+	}
+	else {
+		return CPlayer::GetInstance()->y < topStartEnemy;
+	}
 }
 
 void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (!startEnemy && CPlayer::GetInstance()->x >= xStartEnemy) {
+	if (!startEnemy && PlayerComming()) {
 		startEnemy = true;
 	}
 
@@ -60,7 +79,7 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					if (y + 40 > bouncingTop) {
 						y -= 40;
 					}
-					else if (y - 40 < bouncingBottom) {
+					else if (y - TELEPORTER_HEIGHT - 40 < bouncingBottom) {
 						y += 40;
 					}
 					else {
@@ -69,7 +88,7 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				}
 				else {
 					//Move Hoz
-					if (x + 40 > bouncingRight) {
+					if (x + 40 + TELEPORTER_WIDTH > bouncingRight) {
 						x -= 40;
 					}
 					else if (x - 40 < bouncingLeft) {
@@ -119,13 +138,13 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			float pX, pY;
 			CPlayer::GetInstance()->GetMidPosition(pX, pY);
 			
-			float ratioX = x + TELPORTER_WIDTH / 2 - pX;
+			float ratioX = x + TELEPORTER_WIDTH / 2 - pX;
 			float ratioY = y - pY;
 
 			if (!(ratioX == 0 && ratioY == 0))
 			{
 				EyeBallBullet* bullet = new EyeBallBullet(ratioX, ratioY);
-				bullet->SetPosition(x + TELPORTER_WIDTH / 2, y);
+				bullet->SetPosition(x + TELEPORTER_WIDTH / 2, y);
 	  		    GridManager::GetInstance()->AddObject(bullet);
 			}
 		}
