@@ -77,7 +77,12 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 		break;
 	
 	case OBJECT_TYPE_TELEPORTER:
-		obj = new Teleporter();
+		float l = (float)atof(tokens[3].c_str());
+		float t = (float)atof(tokens[4].c_str());
+		float r = (float)atof(tokens[5].c_str());
+		float b = (float)atof(tokens[6].c_str());
+		float xStart = (float)atof(tokens[6].c_str());
+		obj = new Teleporter(l, t, r, b, xStart);
 		break;
 	
 	case OBJECT_TYPE_CANNON:

@@ -18,6 +18,7 @@ private:
 	DWORD timeChangeVector;
 	bool firstEntry = true;
 	bool hasMove = false;
+	float bouncingLeft, bouncingTop, bouncingRight, bouncingBottom;
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();

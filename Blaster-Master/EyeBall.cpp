@@ -28,8 +28,8 @@ void EyeBall::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (!hasMove) {
 			int randomVector = rand() % 100;
 			int randomVectorY = rand() % 100;
-			SetVy(randomVector % 2 == 0 ? VMOVE : -VMOVE);
-			SetVx(randomVectorY % 2 == 0 ? VMOVE : -VMOVE);
+			SetVy(randomVector > 50 ? VMOVE : -VMOVE);
+			SetVx(randomVectorY > 50 ? VMOVE : -VMOVE);
 			timeDelay = GetTickCount();
 			timeChangeVector = GetTickCount();
 			hasMove = true;

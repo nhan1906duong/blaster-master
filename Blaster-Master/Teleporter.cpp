@@ -9,8 +9,13 @@
 #include "EyeBallBullet.h"
 
 
-Teleporter::Teleporter()
+Teleporter::Teleporter(float l, float t, float r, float b, float xS)
 {
+	bouncingLeft = l;
+	bouncingTop = t;
+	bouncingRight = r;
+	bouncingBottom = b;
+	xStartEnemy = xS;
 	animation_set = CAnimationSets::GetInstance()->Get(25);
 }
 
@@ -25,6 +30,14 @@ void Teleporter::GetBoundingBox(float& left, float& top, float& right, float& bo
 
 void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (!startEnemy && CPlayer::GetInstance()->x >= xStartEnemy) {
+		startEnemy = true;
+	}
+
+	if (!startEnemy) {
+		return;
+	}
+
 	if (firstEntry) {
 		firstEntry = false;
 		timeMove = GetTickCount();
@@ -33,7 +46,6 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 	if (GetTickCount() - timeMove <= TIME_MOVE_ANI) {
 		SetState(STATE_GREEN);
-		float xNew = 0.0f, yNew = 0.0f;
 		//1s sau moi doi vi tri
 		if (GetTickCount() - timeFlicker > TIME_FLICKER ) {
 			// Move Green
@@ -42,39 +54,59 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				int randomN = rand() % 100;
 				tempY = y;
 				tempX = x;
-				if (randomVector % 2 == 0) {
+
+				if (randomVector > 50) {
 					//Move Ver
-					y = randomN % 2 == 0 ? y + 45 : y - 45;
+					if (y + 40 > bouncingTop) {
+						y -= 40;
+					}
+					else if (y - 40 < bouncingBottom) {
+						y += 40;
+					}
+					else {
+						y = randomN > 50 ? y + 40 : y - 40;
+					}
 				}
 				else {
 					//Move Hoz
-					x = randomN % 2 == 0 ? x + 45 : x - 45;
+					if (x + 40 > bouncingRight) {
+						x -= 40;
+					}
+					else if (x - 40 < bouncingLeft) {
+						x += 40;
+					}
+					else {
+						x = randomN > 50 ? x + 40 : x - 40;
+					}
 				}
+
+				DebugOut(L"[Teleporter] randomN = %d \n", randomVector);
 
 				xNew = x;
 				yNew = y;
 				hasMove = true;
 				timeChangeGreen = GetTickCount();
-				DebugOut(L"[Teleporter] Move position \n");
+				hasChangePosition = true;
+				DebugOut(L"[Teleporter] Move position x = %d y = %d \n", x, y);
 			}
 			
 
-			if (GetTickCount() - timeChangeGreen >= TIME_MOVE_GREEN) {
+			if (hasChangePosition && GetTickCount() - timeChangeGreen >= TIME_MOVE_GREEN) {
 				x = tempX;
 				y = tempY;
 				timeChangeGreenAgain = GetTickCount();
-				hasChangePosition = true;
-				DebugOut(L"[Teleporter] Back old position\n");
+				hasChangePosition = false;
+				DebugOut(L"[Teleporter] Back position x = %d y = %d \n", x, y);
 				
 			}
 
-			if (hasChangePosition && GetTickCount() - timeChangeGreenAgain >= TIME_MOVE_GREEN) {
+			if (GetTickCount() - timeChangeGreen >= 2 * TIME_MOVE_GREEN) {
 				hasMove = false;
 				x = xNew;
 				y = yNew;
 				timeFlicker = GetTickCount();
-				hasChangePosition = false;
-				DebugOut(L"[Teleporter] Back old position Again\n");
+				hasChangePosition = true;
+				DebugOut(L"[Teleporter] Move position Again x = %d y = %d \n", x, y);
 			}
 			
 		}
@@ -83,6 +115,19 @@ void Teleporter::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		if (GetTickCount() - timeMove >= TIME_MOVE_ANI + timeDelay) {
 			timeMove = GetTickCount();
 			timeFlicker = GetTickCount();
+
+			float pX, pY;
+			CPlayer::GetInstance()->GetMidPosition(pX, pY);
+			
+			float ratioX = x + TELPORTER_WIDTH / 2 - pX;
+			float ratioY = y - pY;
+
+			if (!(ratioX == 0 && ratioY == 0))
+			{
+				EyeBallBullet* bullet = new EyeBallBullet(ratioX, ratioY);
+				bullet->SetPosition(x + TELPORTER_WIDTH / 2, y);
+	  		    GridManager::GetInstance()->AddObject(bullet);
+			}
 		}
 		
 	}
