@@ -84,8 +84,11 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 		float t = (float)atof(tokens[4].c_str());
 		float r = (float)atof(tokens[5].c_str());
 		float b = (float)atof(tokens[6].c_str());
-		float xStart = (float)atof(tokens[7].c_str());
-		obj = new Teleporter(l, t, r, b, xStart);
+		float lStart = (float)atof(tokens[7].c_str());
+		float tStart = (float)atof(tokens[8].c_str());
+		float rStart = (float)atof(tokens[9].c_str());
+		float bStart = (float)atof(tokens[10].c_str());
+		obj = new Teleporter(l, t, r, b, lStart, tStart, rStart, bStart);
 		break;
 	}
 		
