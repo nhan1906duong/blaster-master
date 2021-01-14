@@ -379,7 +379,7 @@ void CPlayer::TruMang()
 	}
 }
 
-void CPlayer::fire()
+void CPlayer::fire(int type)
 {
 	float l, t, r, b;
 	GetBoundingBox(l, t, r, b);
@@ -414,7 +414,7 @@ void CPlayer::fire()
 	}
 	else
 	{
-		JasonBullet* bullet = new JasonBullet(nx);
+		JasonBullet* bullet = new JasonBullet(nx, type);
 		bullet->SetPosition(x, GetMidY() + 4);
 		GridManager::GetInstance()->AddObject(bullet);
 	}
@@ -461,6 +461,14 @@ void CPlayer::OnKeyDown(int keyCode)
 				((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->OnSpacePress();
 				break;
 			}
+
+			case DIK_Z:
+				fire(2);
+				break;
+			
+			case DIK_X:
+				fire(1);
+				break;
 		}
 	}
 	else
@@ -476,7 +484,7 @@ void CPlayer::OnKeyDown(int keyCode)
 			break;
 		}
 		case DIK_Z:
-			fire();
+			fire(0);
 			break;
 		case DIK_LSHIFT:
 		case DIK_RSHIFT:

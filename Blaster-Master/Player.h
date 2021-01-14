@@ -81,7 +81,7 @@ public:
 
 	bool IsUntouchable();
 
-	void fire();
+	void fire(int type);
 
 	void SwitchToOverworldState();
 

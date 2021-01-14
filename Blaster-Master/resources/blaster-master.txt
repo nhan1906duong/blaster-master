@@ -272,6 +272,9 @@ start	12
 56	105	59	121	75	303
 #	Homing Missile weapon
 57	358	14	367	20	303
+#	Json bullet overworld
+58	308	13	318	21	303
+59	159	159	167	170	303
 
 # <----------------- ENEMIES ----------------->
 #	<MINE> Current doesn't sprite
@@ -449,6 +452,10 @@ start	12
 #	Item Homing missile
 78	56	100
 79	57	100
+#	Jason bullet overworld X
+80	58	100
+#	Jason bullet overworld Z
+81	59	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	501	601	502	602	503	603	504	604	505	605	506	606	507	607	508	608	509	609	510	610	511	512	11	10	12	13	14
@@ -500,3 +507,6 @@ start	12
 #	Item Homing missile
 31	78
 32	79
+#	Jason bullet overworld
+33	80
+34	81

@@ -8,11 +8,23 @@
 #include "Portal.h"
 #include "Brick.h"
 
-JasonBullet::JasonBullet(int nx)
+int JasonBullet::GetAniBullet()
+{
+	if (type == 0) {
+		return 21;
+	}
+	else if (type == 1) {
+		return 33;
+	}
+	else return 34;
+}
+
+JasonBullet::JasonBullet(int nx, int type)
 {
 	power = 1;
 	this->nx = nx;
-	animation_set = CAnimationSets::GetInstance()->Get(21);
+	this->type = type;
+	animation_set = CAnimationSets::GetInstance()->Get(GetAniBullet());
 	SetVx(nx*V_JASON_SPEED);
 	SetVy(0);
 }
