@@ -55,6 +55,45 @@ Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, f
 	objects.clear();
 }
 
+void Area2OverworldScene::_DrawBlood()
+{
+	int blood = CPlayer::GetInstance()->GetBlood();
+	int sprite;
+	switch (blood)
+	{
+	case 8:
+		sprite = 86;
+		break;
+	case 7:
+		sprite = 87;
+		break;
+	case 6:
+		sprite = 88;
+		break;
+	case 5:
+		sprite = 89;
+		break;
+	case 4:
+		sprite = 90;
+		break;
+	case 3:
+		sprite = 91;
+		break;
+	case 2:
+		sprite = 92;
+		break;
+	case 1:
+		sprite = 93;
+		break;
+	default:
+		sprite = 94;
+		break;
+	}
+	float cam_x, cam_y;
+	Camera::GetInstance()->GetPosition(cam_x, cam_y);
+	CSprites::GetInstance()->Get(sprite)->Draw(cam_x + 20, cam_y + 100 - CGame::GetInstance()->GetScreenHeight());
+}
+
 void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 {
 	vector<string> tokens = split(line);
@@ -256,11 +295,10 @@ void Area2OverworldScene::Render()
 {
 	Map::GetInstance()->Render();
 	for (size_t i = 0; i < objects.size(); i++)
-	{
 		objects[i]->Render();
-	}
 	for (size_t i = 0; i < collisions.size(); i++)
 		collisions[i]->Render();
+	_DrawBlood();
 }
 
 /*

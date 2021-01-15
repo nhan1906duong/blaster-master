@@ -294,6 +294,9 @@
     <ClCompile Include="MineBomb.cpp">
       <Filter>Framework\Objects\Enemies</Filter>
     </ClCompile>
+    <ClCompile Include="JasonOverworldDie.cpp">
+      <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Utils.h">
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="MineBomb.h">
       <Filter>Framework\Objects\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="JasonOverworldDie.h">
+      <Filter>Framework\Objects\Player\overworld</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

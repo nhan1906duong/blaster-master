@@ -11,6 +11,7 @@ private:
 				  //1: Overworld 2 DIK_X
 				  //2: Overworld 2 DIK_Z
 	int nx;
+	int ny;
 	float start_X = -1.0f;
 public:
 	JasonBullet(int nx, int type);

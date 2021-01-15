@@ -24,6 +24,7 @@ private:
 	void _ParseSection_CHONG_NHON(string);
 	void _RefreshObject();
 	void RemoveCollisionObject();
+	void _DrawBlood();
 public:
 	Area2OverworldScene(int id, LPCWSTR filePath);
 	virtual void Load(float player_x, float player_y);

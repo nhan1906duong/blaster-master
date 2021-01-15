@@ -86,4 +86,7 @@ public:
 	void SwitchToOverworldState();
 
 	void BackFromOverworld();
+	PlayerData* GetPlayerData() {
+		return playerData;
+	};
 };

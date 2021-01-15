@@ -7,6 +7,8 @@
 #include "EnemyBullet.h"
 #include "Portal.h"
 #include "Brick.h"
+#include "JasonGoDownState.h"
+#include "JasonGoUpState.h"
 
 int JasonBullet::GetAniBullet()
 {
@@ -21,12 +23,34 @@ int JasonBullet::GetAniBullet()
 
 JasonBullet::JasonBullet(int nx, int type)
 {
-	power = 1;
 	this->nx = nx;
 	this->type = type;
+
+	power = type == 2 ? 2 : 1;
+	if (dynamic_cast<JasonGoUpState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
+		ny = 1;
+	}
+	else if (dynamic_cast<JasonGoDownState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
+		ny = -1;
+	}
+
 	animation_set = CAnimationSets::GetInstance()->Get(GetAniBullet());
-	SetVx(nx*V_JASON_SPEED);
-	SetVy(0);
+
+	if (type == 0) {
+		SetVx(nx * V_JASON_SPEED);
+		SetVy(0);
+	}
+	else {
+		if (dynamic_cast<JasonGoUpState*>(CPlayer::GetInstance()->GetPlayerData()->playerState) || dynamic_cast<JasonGoDownState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
+			SetVx(0);
+			SetVy(ny * V_JASON_SPEED);
+		}
+		else {
+			SetVx(nx * V_JASON_SPEED);
+			SetVy(0);
+		}
+	}
+	
 }
 
 void JasonBullet::Render()
@@ -44,8 +68,7 @@ void JasonBullet::GetBoundingBox(float& left, float& top, float& right, float& b
 
 void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
-	if (start_X == -1.0f)
-	{
+	if (start_X == -1.0f) {
 		start_X = x;
 	}
 
@@ -62,11 +85,14 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	if (coEvents.size() == 0)
 	{
 		x += dx;
+		y += dy;
 
-		if (vx < 0 && start_X - x > 112 || vx > 0 && x - start_X > 112)
-		{
-			PrepareToRemove();
-			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+		if (type == 0) {
+			if (vx < 0 && start_X - x > 112 || vx > 0 && x - start_X > 112)
+			{
+				PrepareToRemove();
+				((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			}
 		}
 	}
 	else
@@ -136,12 +162,20 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			PrepareToRemove();
 			float left, top, right, bottom;
 			minEvent->obj->GetBoundingBox(left, top, right, bottom);
-			x += minEvent->t * dx + minEvent->nx * 0.1f;
+
+			if (type == 0) {
+				x += minEvent->t * dx + minEvent->nx * 0.1f;
+			}
+			else {
+				y += minEvent->t * dy + minEvent->ny * 0.1f;
+			}
+			
 			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
 		}
 		else
 		{
 			x += dx;
+			y += dy;
 		}
 	}
 

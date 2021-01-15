@@ -40,6 +40,7 @@
 #include "JasonGoDownState.h"
 #include "JasonGoLeftState.h"
 #include "JasonGoRightState.h"
+#include "JasonOverworldDie.h"
 
 #include "Area2Scene.h"
 #include "Area2OverworldScene.h"
@@ -94,12 +95,12 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 		// reset untouchable timer if untouchable time has passed
 
-		/*DWORD current = GetTickCount();
+		DWORD current = GetTickCount();
 		if (current - untouchable_start > PLAYER_UNTOUCHABLE_TIME)
 		{
 			untouchable_start = 0;
 			untouchable = 0;
-		}*/
+		}
 
 		// No collision occured, proceed normally
 		if (coEvents.size() == 0)
@@ -117,7 +118,43 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 
 			x += min_tx * dx + 0.01f * nx;
 			y += min_ty * dy + 0.01f * ny;
+
+			if (nx != 0) vx = 0;
+			if (ny != 0) vy = 0;
+
+			for (UINT i = 0; i < coEventsResult.size(); i++)
+			{
+				LPCOLLISIONEVENT e = coEventsResult[i];
+				if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
+				{
+					CPortal* portal = dynamic_cast<CPortal*>(e->obj);
+					CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
+				}
+				else if (dynamic_cast<Enemy*>(e->obj))
+				{
+					StartUntouchable();
+				}
+				else if (dynamic_cast<HPItem*>(e->obj))
+				{
+					++bloodJason;
+					if (bloodJason > 8) bloodJason = 8;
+					e->obj->PrepareToRemove();
+				}
+			}
+
+			for (size_t i = 0; i < coObjects->size(); ++i)
+			{
+				LPGAMEOBJECT obj = coObjects->at(i);
+				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				{
+					StartUntouchable();
+					break;
+				}
+			}
 		}
+
+		// clean up collision events
+		for (UINT i = 0; i < coEvents.size(); i++) delete coEvents[i];
 	}
 	else
 	{
@@ -374,7 +411,13 @@ void CPlayer::TruMang()
 		--bloodJason;
 		if (bloodJason == 0)
 		{
-			SetState(new JasonDieState(playerData));
+			if (dynamic_cast<JasonOverworldState*>(playerData->playerState)) {
+				SetState(new JasonOverworldDie(playerData));
+			}
+			else {
+				SetState(new JasonDieState(playerData));
+			}
+			
 		}
 	}
 }
@@ -415,7 +458,23 @@ void CPlayer::fire(int type)
 	else
 	{
 		JasonBullet* bullet = new JasonBullet(nx, type);
-		bullet->SetPosition(x, GetMidY() + 4);
+		float xBullet, yBullet;
+		if (type == 0) {
+			xBullet = x;
+			yBullet = GetMidY() + 4;
+		}
+		else {
+			if (dynamic_cast<JasonGoLeftState*>(playerData->playerState) || dynamic_cast<JasonGoUpState*>(playerData->playerState)) {
+				xBullet = x;
+				yBullet = y - 13;
+			}
+			else if (dynamic_cast<JasonGoRightState*>(playerData->playerState) || dynamic_cast<JasonGoDownState*>(playerData->playerState)) {
+				xBullet = x + 15;
+				yBullet = y - 13;
+			}
+		}
+
+		bullet->SetPosition(xBullet, yBullet);
 		GridManager::GetInstance()->AddObject(bullet);
 	}
 }
@@ -463,12 +522,12 @@ void CPlayer::OnKeyDown(int keyCode)
 			}
 
 			case DIK_Z:
-				fire(2);
+				fire(1);
 				break;
 			
 			case DIK_X:
-				fire(1);
-				break;
+				fire(2);
+				break;	
 		}
 	}
 	else

@@ -56,6 +56,7 @@
     <ClCompile Include="JasonGoUpState.cpp" />
     <ClCompile Include="JasonJumpingState.cpp" />
     <ClCompile Include="JasonLieingState.cpp" />
+    <ClCompile Include="JasonOverworldDie.cpp" />
     <ClCompile Include="JasonRunningState.cpp" />
     <ClCompile Include="JasonStandingState.cpp" />
     <ClCompile Include="Jumper.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="JasonGoUpState.h" />
     <ClInclude Include="JasonJumpingState.h" />
     <ClInclude Include="JasonLieingState.h" />
+    <ClInclude Include="JasonOverworldDie.h" />
     <ClInclude Include="JasonOverworldState.h" />
     <ClInclude Include="JasonRunningState.h" />
     <ClInclude Include="JasonStandingState.h" />
