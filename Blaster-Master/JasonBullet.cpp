@@ -112,7 +112,12 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			}
 		}
 		bool createCollision = false;
-		if (deltaMin >= 9999) return;
+		if (deltaMin >= 9999)
+		{
+			x += dx;
+			y += dy;
+			return;
+		}
 		if (minEvent)
 		{
 			if (dynamic_cast<EnemyBullet*>(minEvent->obj))

@@ -107,6 +107,15 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		{
 			x += dx;
 			y += dy;
+			for (size_t i = 0; i < coObjects->size(); ++i)
+			{
+				LPGAMEOBJECT obj = coObjects->at(i);
+				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				{
+					StartUntouchable();
+					break;
+				}
+			}
 		}
 		else
 		{
@@ -158,7 +167,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState)) return;
+		if (IsDie()) return;
 
 		playerData->playerState->Update(dt, coObjects);
 
@@ -226,6 +235,17 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				if (y > state->GetTop())
 				{
 					y = state->GetTop();
+				}
+			}
+
+
+			for (size_t i = 0; i < coObjects->size(); ++i)
+			{
+				LPGAMEOBJECT obj = coObjects->at(i);
+				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				{
+					StartUntouchable();
+					break;
 				}
 			}
 		}
@@ -353,13 +373,11 @@ void CPlayer::Render()
 		animation_set->at(9)->Render(sophia_x, sophia_y, 255, sophia_nx > 0);
 	}
 	int alpha = 255;
-	if (dynamic_cast<JasonState*>(playerData->playerState) && untouchable)
+	if (!dynamic_cast<SophiaState*>(playerData->playerState) && untouchable)
 	{
 		alpha = 128;
 	}
 	animation_set->at(playerData->playerState->CurrentAnimationId())->Render(x, y, alpha, nx > 0);
-
-	RenderBoundingBox();
 }
 
 void CPlayer::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -376,6 +394,7 @@ void CPlayer::Reset()
 void CPlayer::KeyState(BYTE* states)
 {
 	if (playerData == NULL || playerData->playerState == NULL) return;
+	if (IsDie()) return;
 	playerData->playerState->KeyState(states);
 	if (IsKeyDown(states, DIK_LEFT) || IsKeyDown(states, DIK_RIGHT))
 	{
@@ -481,11 +500,13 @@ void CPlayer::fire(int type)
 
 void CPlayer::OnKeyUp(int keyCode)
 {
+	if (IsDie()) return;
 	playerData->playerState->OnKeyUp(keyCode);
 }
 
 void CPlayer::OnKeyDown(int keyCode)
 {
+	if (IsDie()) return;
 	playerData->playerState->OnKeyDown(keyCode);
 	if (dynamic_cast<JasonOverworldState*>(playerData->playerState))
 	{
@@ -609,7 +630,7 @@ bool CPlayer::SwitchToSophia()
 
 bool CPlayer::IsALiveAndTouchable()
 {
-	return !untouchable && !(dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonDieState*>(playerData->playerState));
+	return !untouchable && !IsDie();
 }
 
 void CPlayer::StartUntouchable()
@@ -634,4 +655,9 @@ void CPlayer::SwitchToOverworldState()
 void CPlayer::BackFromOverworld()
 {
 	SetState(new JasonStandingState(playerData));
+}
+
+bool CPlayer::IsDie()
+{
+	return dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonOverworldDie*>(playerData->playerState);
 }

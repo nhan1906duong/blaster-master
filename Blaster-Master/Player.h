@@ -89,4 +89,6 @@ public:
 	PlayerData* GetPlayerData() {
 		return playerData;
 	};
+
+	bool IsDie();
 };
