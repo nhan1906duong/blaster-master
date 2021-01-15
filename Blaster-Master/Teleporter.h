@@ -2,7 +2,7 @@
 #include "Enemy.h"
 
 #define TIME_MOVE_ANI 5000
-#define TIME_FLICKER 1500
+#define TIME_FLICKER 800
 #define TIME_MOVE_GREEN 50
 #define V_MOVE 0.1f
 #define STATE_FLICKER 0

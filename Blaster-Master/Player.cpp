@@ -80,6 +80,7 @@ CPlayer::CPlayer() : CGameObject()
 
 void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 {
+	if (IsDie()) return;
 	if (dynamic_cast<JasonOverworldState*>(playerData->playerState))
 	{
 
@@ -134,12 +135,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			for (UINT i = 0; i < coEventsResult.size(); i++)
 			{
 				LPCOLLISIONEVENT e = coEventsResult[i];
-				if (dynamic_cast<CPortal*>(e->obj) && e->nx != 0)
-				{
-					CPortal* portal = dynamic_cast<CPortal*>(e->obj);
-					CGame::GetInstance()->SwitchScene(portal->GetSceneId(), portal->GetCamX(), portal->GetCamY());
-				}
-				else if (dynamic_cast<Enemy*>(e->obj))
+				if (dynamic_cast<Enemy*>(e->obj))
 				{
 					StartUntouchable();
 				}
@@ -167,8 +163,6 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 	}
 	else
 	{
-		if (IsDie()) return;
-
 		playerData->playerState->Update(dt, coObjects);
 
 		if (!dynamic_cast<JasonClimbingState*>(playerData->playerState))
