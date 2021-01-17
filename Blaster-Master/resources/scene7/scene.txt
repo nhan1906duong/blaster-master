@@ -2,9 +2,9 @@
 resources\scene7\map.txt	15	64
 [OBJECTS]
 # type	x	y	ani_set_id	extra_settings per object type
-15	96	208	15
-15	160	208	15
-15	224	208	15
+15	96	208	15	1
+15	160	208	15	1
+15	224	208	15	1
 [BRICK]
 # left	top	right	bottom
 1	0	64	512	0

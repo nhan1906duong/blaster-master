@@ -47,8 +47,7 @@ void HomingMissileWeapon::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
 		vy = HomingMissile_VX * (eMidY > midY ? 1 : -1);
 		vx = 0;
 	}
-	DebugOut(L"HomingMissile %f %f\n", vx, vy);
-	
+
 	if (Collision::CheckContain(this, enemy))
 	{
 		PrepareToRemove();

@@ -1,10 +1,6 @@
 [MAP]
 resources\scene6\map.txt
 [OBJECTS]
-# type	x	y	ani_set_id	extra_settings per object type
-# type: 0 = Mario , 1 = Brick, 2 = Goomba
-# MARIO
-101	56	156	1
 [BRICK]
 # left	top	right	bottom
 1	0	48	512	0

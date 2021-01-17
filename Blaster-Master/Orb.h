@@ -7,6 +7,11 @@
 #define STATE_WALKING	0
 #define STATE_AROUND	1
 
+#define AROUND_TIME		200
+
+#define DoomieOrb_VX	0.07f
+#define DoomieOrb_VY 0.04f
+
 class Orb: public Enemy
 {
 private:

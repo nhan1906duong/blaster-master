@@ -133,8 +133,17 @@ void Area2Scene::_ParseSection_OBJECTS(string line)
 			break;
 		}
 		case OBJECT_TYPE_ORB:
-			obj = new DoomieOrb();
+		{
+			if (tokens.size() > 4)
+			{
+				obj = new AttackOrb();
+			}
+			else
+			{
+				obj = new DoomieOrb();
+			}
 			break;
+		}
 		case OBJECT_TYPE_SKULL:
 		{
 			int nx = atoi(tokens[3].c_str());
