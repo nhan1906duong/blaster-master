@@ -139,10 +139,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				{
 					StartUntouchable();
 				}
-				else if (dynamic_cast<HPItem*>(e->obj))
+				else if (dynamic_cast<Item*>(e->obj))
 				{
-					++bloodJason;
-					if (bloodJason > 8) bloodJason = 8;
+					dynamic_cast<Item*>(e->obj)->OnCollision();
 					e->obj->PrepareToRemove();
 				}
 			}
@@ -324,18 +323,9 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 					}
 					StartUntouchable();
 				}
-				else if (dynamic_cast<HPItem*>(e->obj))
+				else if (dynamic_cast<Item*>(e->obj))
 				{
-					if (IsSophiaState())
-					{
-						++bloodSophia;
-						if (bloodSophia > 8) bloodSophia = 8;
-					}
-					else
-					{
-						++bloodJason;
-						if (bloodJason > 8) bloodJason = 8;
-					}
+					dynamic_cast<Item*>(e->obj)->OnCollision();
 					e->obj->PrepareToRemove();
 				}
 			}
@@ -654,4 +644,18 @@ void CPlayer::BackFromOverworld()
 bool CPlayer::IsDie()
 {
 	return dynamic_cast<JasonDieState*>(playerData->playerState) || dynamic_cast<SophiaDieState*>(playerData->playerState) || dynamic_cast<JasonOverworldDie*>(playerData->playerState);
+}
+
+void CPlayer::OnGetHPItem()
+{
+	if (dynamic_cast<SophiaState*>(playerData->playerState))
+	{
+		++bloodSophia;
+		if (bloodSophia > 8) bloodSophia = 8;
+	}
+	else
+	{
+		++bloodJason;
+		if (bloodJason > 8) bloodJason = 8;
+	}
 }

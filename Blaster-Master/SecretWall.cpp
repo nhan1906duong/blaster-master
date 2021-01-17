@@ -17,7 +17,7 @@ SecretWall::~SecretWall()
 
 void SecretWall::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void SecretWall::GetBoundingBox(float& l, float& t, float& r, float& b)

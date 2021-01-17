@@ -18,7 +18,7 @@ ChongNhon::~ChongNhon()
 
 void ChongNhon::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void ChongNhon::GetBoundingBox(float& l, float& t, float& r, float& b)

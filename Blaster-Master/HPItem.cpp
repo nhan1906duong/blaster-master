@@ -1,5 +1,7 @@
 #include "HPItem.h"
 
+#include "Player.h"
+
 HPItem::HPItem()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(20);
@@ -16,4 +18,9 @@ void HPItem::GetBoundingBox(float& left, float& top, float& right, float& bottom
 	top = y;
 	right = x + HP_WIDTH;
 	bottom = y - HP_HEIGHT;
+}
+
+void HPItem::OnCollision()
+{
+	CPlayer::GetInstance()->OnGetHPItem();
 }

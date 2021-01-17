@@ -4,13 +4,13 @@ resources\scene5\map.txt	15	64
 # type	x	y	ani_set_id	extra_settings per object type
 # type: 0 = Mario , 1 = Brick, 2 = Goomba
 # MARIO
-10	128	234.1	10
-10	254	282.1	10
-15	96	466	15
-15	142	480	15
-10	126	668.1	10
-10	190	732.1	10
-10	126	796.1	10
+10	128	234.1
+10	254	282.1
+15	97	467
+15	142	480
+10	125.7	667.1
+10	189.7	731.1
+10	125.7	795.1
 [BRICK]
 # left	top	right	bottom
 1	0	32	512	0
@@ -80,7 +80,7 @@ resources\scene5\map.txt	15	64
 17	112	800	144	784
 [BREAK_WALL]
 [PORTAL]
-1	32	128	64	96	4	100	100
+1	32	128	64	96	4	400	128
 2	448	128	480	96	7	100	100
 3	32	896	64	864	3	416	640
 [STAIR]

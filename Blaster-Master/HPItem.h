@@ -10,5 +10,6 @@ public:
 	HPItem();
 	void Render();
 	void GetBoundingBox(float&, float&, float&, float&);
+	void OnCollision();
 };
 

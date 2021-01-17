@@ -91,4 +91,6 @@ public:
 	};
 
 	bool IsDie();
+
+	void OnGetHPItem();
 };

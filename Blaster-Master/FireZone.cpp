@@ -17,7 +17,7 @@ FireZone::~FireZone()
 
 void FireZone::Render()
 {
-	RenderBoundingBox();
+	//RenderBoundingBox();
 }
 
 void FireZone::GetBoundingBox(float& l, float& t, float& r, float& b)
