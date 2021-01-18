@@ -14,6 +14,8 @@ public:
 
 	void GetPosition(float& x, float& y) { x = cam_x, y = cam_y; }
 
+	void SetPosition(float x, float y) { cam_x = x, cam_y = y; }
+
 	void UpdateCamera();
 
 	void GetBouncingBox(float &l, float &t, float &r, float &b);
