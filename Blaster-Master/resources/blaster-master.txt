@@ -2,7 +2,7 @@
 resources\map\tile2\	143
 resources\map\overworld\	58
 [SETTINGS]
-start	1
+start	11
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt	1
@@ -29,6 +29,8 @@ start	1
 304	resources\items\blood.png	255	45	52	205
 305	resources\enemies\mine.png	0	255	255	255
 306	resources\player\player-state.png	255	0	136	255
+307	resources\map\opening-scene.png	0	255	255	255
+308	resources\map\ending-scene.png	255	101	141	209
 # sprite_id	left	top	right	bottom	texture_id
 [SPRITES]
 ####	PLAYER
