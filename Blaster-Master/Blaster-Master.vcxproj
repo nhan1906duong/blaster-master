@@ -31,6 +31,8 @@
     <ClCompile Include="ChongNhon.cpp" />
     <ClCompile Include="CollisionExplosion.cpp" />
     <ClCompile Include="DoomieOrb.cpp" />
+    <ClCompile Include="EndingScene.cpp" />
+    <ClCompile Include="EndingSceneKeyHandler.cpp" />
     <ClCompile Include="EyeBall.cpp" />
     <ClCompile Include="EyeBallBullet.cpp" />
     <ClCompile Include="FireZone.cpp" />
@@ -44,6 +46,8 @@
     <ClCompile Include="HoverItem.cpp" />
     <ClCompile Include="HPItem.cpp" />
     <ClCompile Include="Insect.cpp" />
+    <ClCompile Include="IntroScene.cpp" />
+    <ClCompile Include="IntroSceneKeyHandler.cpp" />
     <ClCompile Include="Item.cpp" />
     <ClCompile Include="JasonBullet.cpp" />
     <ClCompile Include="JasonClimbingState.cpp" />
@@ -110,6 +114,8 @@
     <ClInclude Include="Collision.h" />
     <ClInclude Include="CollisionExplosion.h" />
     <ClInclude Include="DoomieOrb.h" />
+    <ClInclude Include="EndingScene.h" />
+    <ClInclude Include="EndingSceneKeyHandler.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EyeBall.h" />
     <ClInclude Include="EyeBallBullet.h" />
@@ -124,6 +130,8 @@
     <ClInclude Include="HoverItem.h" />
     <ClInclude Include="HPItem.h" />
     <ClInclude Include="Insect.h" />
+    <ClInclude Include="IntroScene.h" />
+    <ClInclude Include="IntroSceneKeyHandler.h" />
     <ClInclude Include="Item.h" />
     <ClInclude Include="JasonBullet.h" />
     <ClInclude Include="JasonClimbingState.h" />

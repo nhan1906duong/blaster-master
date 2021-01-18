@@ -9,6 +9,8 @@
 
 #include "Area2Scene.h"
 #include "Area2OverworldScene.h"
+#include "IntroScene.h"
+#include "EndingScene.h"
 
 #include "Textures.h"
 #include "Sprites.h"
@@ -447,6 +449,10 @@ void CGame::Load(LPCWSTR gameFile)
 	f.close();
 
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
+
+	// Add Intro And EndingScene
+	scenes[0] = new IntroScene();
+	scenes[-1] = new EndingScene();
 
 	SwitchScene(current_scene, 64, 128);
 }

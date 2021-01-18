@@ -12,6 +12,7 @@ protected:
 
 public:
 	Scene(int id, LPCWSTR filePath);
+	Scene();
 
 	KeyEventHandler* GetKeyEventHandler() { return key_handler; }
 	virtual void Load(float player_x, float player_y) = 0;

@@ -70,6 +70,12 @@
     <Filter Include="Framework\Objects\Enemies\overworld">
       <UniqueIdentifier>{5108edb1-b4e0-4511-af1f-940e1ae2bf4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\SceneManager\intro">
+      <UniqueIdentifier>{551dcf43-a3ef-4cf1-a0c9-a7d0224b6838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Framework\SceneManager\ending">
+      <UniqueIdentifier>{8c3b33b6-82dd-409c-a516-6d1b1a3019e4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -296,6 +302,18 @@
     </ClCompile>
     <ClCompile Include="JasonOverworldDie.cpp">
       <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroScene.cpp">
+      <Filter>Framework\SceneManager\intro</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingScene.cpp">
+      <Filter>Framework\SceneManager\ending</Filter>
+    </ClCompile>
+    <ClCompile Include="IntroSceneKeyHandler.cpp">
+      <Filter>Framework\Core\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="EndingSceneKeyHandler.cpp">
+      <Filter>Framework\Core\Keyboard</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -562,6 +580,18 @@
     </ClInclude>
     <ClInclude Include="JasonOverworldDie.h">
       <Filter>Framework\Objects\Player\overworld</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroScene.h">
+      <Filter>Framework\SceneManager\intro</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingScene.h">
+      <Filter>Framework\SceneManager\ending</Filter>
+    </ClInclude>
+    <ClInclude Include="IntroSceneKeyHandler.h">
+      <Filter>Framework\Core\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="EndingSceneKeyHandler.h">
+      <Filter>Framework\Core\Keyboard</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
