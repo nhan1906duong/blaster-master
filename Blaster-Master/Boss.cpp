@@ -69,3 +69,8 @@ void Boss::Render()
 	dcBossRight4->Render();
 	cangBossRight->Render();
 }
+
+bool Boss::IsDie()
+{
+	return blood <= 0;
+}

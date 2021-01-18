@@ -25,6 +25,8 @@ private:
 	void _RefreshObject();
 	void RemoveCollisionObject();
 	void _DrawBlood();
+
+	ULONGLONG pauseTime = -1;
 public:
 	Area2OverworldScene(int id, LPCWSTR filePath);
 	virtual void Load(float player_x, float player_y);
