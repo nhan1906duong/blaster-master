@@ -2,7 +2,7 @@
 resources\map\tile2\	143
 resources\map\overworld\	58
 [SETTINGS]
-start	0
+start	1
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt	1
@@ -29,8 +29,6 @@ start	0
 304	resources\items\blood.png	255	45	52	205
 305	resources\enemies\mine.png	0	255	255	255
 306	resources\player\player-state.png	255	0	136	255
-307	resources\map\opening-scene.png	0	255	255	255
-308	resources\map\ending-scene.png	255	101	141	209
 # sprite_id	left	top	right	bottom	texture_id
 [SPRITES]
 ####	PLAYER
@@ -219,6 +217,10 @@ start	0
 #	<Bomb>
 191	51	515	61	525	302
 192	51	1370	61	1380	302
+193	278	102	295	118	300
+194	296	102	312	118	300
+195	313	102	321	118	300
+196	322	102	338	118	300
 #	<EyeBall>
 201	102	550	118	566	302
 202	136	550	152	566	302
@@ -443,7 +445,7 @@ start	0
 13	18	100
 14	21	100
 #	Jason overworld die
-15	24	70	27	70	26	100	25	70	24	70	27	70	26	70	25	70	24	500	28	500	30	500	31	500	32	1000
+15	24	70	27	70	26	100	25	70	24	70	27	70	26	70	25	70	24	500	28	500	30	500	31	500	32	1000000
 
 # <----------------- ENEMIES ----------------->
 #	<MINE>
@@ -476,6 +478,7 @@ start	0
 80	58	100
 #	Jason bullet overworld Z
 81	59	100
+82	193	100	194	100	195	100	196	100
 [ANIMATION_SETS]
 ### JASON ###
 1	1	2	3	4	5	6	7	8	9	501	601	502	602	503	603	504	604	505	605	506	606	507	607	508	608	509	609	510	610	511	512	11	10	12	13	14	15
@@ -530,3 +533,5 @@ start	0
 #	Jason bullet overworld
 33	80
 34	81
+#	Collision XBullet overworld
+35	82

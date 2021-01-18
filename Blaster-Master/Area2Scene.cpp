@@ -349,7 +349,7 @@ void Area2Scene::RemoveCollisionObject()
 
 void Area2Scene::AddCollision(float x1, float y1)
 {
-	CollisionExplosion* collision = new CollisionExplosion();
+	CollisionExplosion* collision = new CollisionExplosion(0);
 	collision->SetPosition(x1, y1);
 	collisions.push_back(collision);
 }

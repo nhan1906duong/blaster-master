@@ -9,6 +9,7 @@
 #include "Brick.h"
 #include "JasonGoDownState.h"
 #include "JasonGoUpState.h"
+#include "Area2OverworldScene.h"
 
 int JasonBullet::GetAniBullet()
 {
@@ -175,7 +176,13 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 				y += minEvent->t * dy + minEvent->ny * 0.1f;
 			}
 			
-			((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			if (type == 0) {
+				((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			}
+			else {
+				((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y, type == 1 ? 0 : type);
+			}
+			
 		}
 		else
 		{

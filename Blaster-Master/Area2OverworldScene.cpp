@@ -332,9 +332,9 @@ void Area2OverworldScene::RemoveCollisionObject()
 	}), collisions.end());
 }
 
-void Area2OverworldScene::AddCollision(float x1, float y1)
+void Area2OverworldScene::AddCollision(float x1, float y1, int type)
 {
-	CollisionExplosion* collision = new CollisionExplosion();
+	CollisionExplosion* collision = new CollisionExplosion(type);
 	collision->SetPosition(x1, y1);
 	collisions.push_back(collision);
 }

@@ -32,7 +32,7 @@ public:
 	virtual void Render();
 	virtual void Unload();
 
-	void AddCollision(float, float);
+	void AddCollision(float, float, int type);
 
 	void OnSpacePress();
 };
