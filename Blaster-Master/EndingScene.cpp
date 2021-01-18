@@ -3,6 +3,7 @@
 #include "EndingSceneKeyHandler.h"
 #include "Game.h"
 #include "Textures.h"
+#include "Camera.h"
 
 EndingScene::EndingScene() : Scene()
 {
@@ -11,7 +12,6 @@ EndingScene::EndingScene() : Scene()
 
 void EndingScene::Load(float  x, float y)
 {
-
 }
 
 void EndingScene::Unload()
@@ -21,6 +21,8 @@ void EndingScene::Unload()
 
 void EndingScene::Render()
 {
+	Camera::GetInstance()->SetPosition(0, CGame::GetInstance()->GetScreenHeight());
+
 	int current = 0;
 	int row = (int)(current / 4);
 	int column = current % 4;
@@ -31,5 +33,5 @@ void EndingScene::Render()
 
 	float x = (CGame::GetInstance()->GetScreenWidth() - 256.0f) / 2;
 	float y = (CGame::GetInstance()->GetScreenHeight() - 224.0f) / 2 + 224.0f;
-	CGame::GetInstance()->Draw(x, y, CTextures::GetInstance()->Get(307), left, top, right, bottom);
+	CGame::GetInstance()->Draw(x, y, CTextures::GetInstance()->Get(308), left, top, right, bottom);
 }
