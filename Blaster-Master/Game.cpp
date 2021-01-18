@@ -451,7 +451,7 @@ void CGame::Load(LPCWSTR gameFile)
 	DebugOut(L"[INFO] Loading game file : %s has been loaded successfully\n", gameFile);
 
 	// Add Intro And EndingScene
-	scenes[0] = new IntroScene();
+	scenes[0] = IntroScene::GetInstance();
 	scenes[-1] = new EndingScene();
 
 	SwitchScene(current_scene, 64, 128);
