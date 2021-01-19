@@ -27,7 +27,7 @@ JasonBullet::JasonBullet(int nx, int type)
 	this->nx = nx;
 	this->type = type;
 
-	power = type == 2 ? 2 : 1;
+	power = type == 2 ? 3 : 1;
 	if (dynamic_cast<JasonGoUpState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
 		ny = 1;
 	}
@@ -42,12 +42,13 @@ JasonBullet::JasonBullet(int nx, int type)
 		SetVy(0);
 	}
 	else {
+		float vBullet = type == 2 ? V_JASON_SPEED_OVERWORLD : V_JASON_SPEED;
 		if (dynamic_cast<JasonGoUpState*>(CPlayer::GetInstance()->GetPlayerData()->playerState) || dynamic_cast<JasonGoDownState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
 			SetVx(0);
-			SetVy(ny * V_JASON_SPEED);
+			SetVy(ny * vBullet);
 		}
 		else {
-			SetVx(nx * V_JASON_SPEED);
+			SetVx(nx * vBullet);
 			SetVy(0);
 		}
 	}
@@ -73,6 +74,10 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 		start_X = x;
 	}
 
+	if (start_Y == -1.0f) {
+		start_Y = y;
+	}
+
 	CGameObject::Update(dt);
 
 	vector<LPCOLLISIONEVENT> coEvents;
@@ -93,6 +98,23 @@ void JasonBullet::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			{
 				PrepareToRemove();
 				((Area2Scene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y);
+			}
+		}
+		else if (type == 2) {
+			if (dynamic_cast<JasonGoUpState*>(CPlayer::GetInstance()->GetPlayerData()->playerState) 
+				|| dynamic_cast<JasonGoDownState*>(CPlayer::GetInstance()->GetPlayerData()->playerState)) {
+				if (vy < 0 && start_Y - y > DISTANCE_BOMB || vy > 0 && y - start_Y > DISTANCE_BOMB)
+				{
+					PrepareToRemove();
+					((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y, type);
+				}
+			}
+			else {
+				if (vx < 0 && start_X - x > DISTANCE_BOMB || vx > 0 && x - start_X > DISTANCE_BOMB)
+				{
+					PrepareToRemove();
+					((Area2OverworldScene*)CGame::GetInstance()->GetCurrentScene())->AddCollision(x, y, type);
+				}
 			}
 		}
 	}

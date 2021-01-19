@@ -3,6 +3,8 @@
 
 #define SIZE	4
 #define V_JASON_SPEED		0.25f
+#define V_JASON_SPEED_OVERWORLD		0.5f
+#define DISTANCE_BOMB		50
 
 class JasonBullet: public PlayerBullet
 {
@@ -13,6 +15,7 @@ private:
 	int nx;
 	int ny;
 	float start_X = -1.0f;
+	float start_Y = -1.0f;
 public:
 	JasonBullet(int nx, int type);
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);

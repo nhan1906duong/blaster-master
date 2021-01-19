@@ -2,7 +2,7 @@
 resources\map\tile2\	143
 resources\map\overworld\	58
 [SETTINGS]
-start	0
+start	12
 #scene list
 [SCENES]
 1	resources\scene1\scene.txt	1
