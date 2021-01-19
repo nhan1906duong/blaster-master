@@ -42,11 +42,12 @@ void CollisionExplosion::Render()
 	}
 	else {
 		//Overworld
+		
 		animation_set->at(0)->Render(x, y);
+		DebugOut(L"CollisionExplosion  Render at %d \n", GetTickCount());
 		if (times == 3)
 		{
 			times = 0;
-			// next time
 			++current;
 			if (current > 3)
 			{
@@ -54,16 +55,22 @@ void CollisionExplosion::Render()
 				shouldRemove = true;
 				current = 0;
 			}
-			if (current == 1)
-			{
-				x += 4;
-				y -= 4;
+			DebugOut(L"CollisionExplosion  current = %d \n", current);
+			DebugOut(L"CollisionExplosion  times = %d \n", times);
+
+			if (current == 1) {
+				x += 5;
+				y += 5;
 			}
-			if (current == 3)
-			{
-				x += 4;
-				y -= y;
+			else if (current == 2) {
+				x -= 5;
+				y -= 5;
 			}
+			else if (current == 3) {
+				x += 4;
+			}
+
+			animation_set->at(0)->Render(x, y);
 		}
 		else ++times;
 	}
