@@ -29,6 +29,8 @@ public:
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();
 
+	void Add();
+
 	bool IsDie();
 };
 

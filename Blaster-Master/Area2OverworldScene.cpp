@@ -170,6 +170,11 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 	// General object setup
 	obj->SetPosition(x, y);
 	GridManager::GetInstance()->AddObject(obj);
+
+	if (dynamic_cast<Boss*>(obj))
+	{
+		Boss::GetInstance()->Add();
+	}
 }
 
 void Area2OverworldScene::_ParseSection_CHONG_NHON(string line)

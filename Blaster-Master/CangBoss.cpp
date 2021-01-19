@@ -1,5 +1,7 @@
 #include "CangBoss.h"
 
+#include "Boss.h"
+
 CangBoss::CangBoss()
 {
 	animation_set = CAnimationSets::GetInstance()->Get(37);
@@ -20,5 +22,9 @@ void CangBoss::Update(DWORD dt, vector<LPGAMEOBJECT>* objects)
 
 void CangBoss::Render()
 {
+	float bossX, bossY;
+	Boss::GetInstance()->GetPosition(bossX, bossY);
+	x = bossX + tempX;
+	y = bossY + tempY;
 	animation_set->at(0)->Render(x, y);
 }
