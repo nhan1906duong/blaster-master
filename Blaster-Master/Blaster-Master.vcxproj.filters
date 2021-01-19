@@ -76,6 +76,9 @@
     <Filter Include="Framework\SceneManager\ending">
       <UniqueIdentifier>{8c3b33b6-82dd-409c-a516-6d1b1a3019e4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Framework\Objects\Boss">
+      <UniqueIdentifier>{f4cc0899-d2b7-4bb5-883f-107dfb86432d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Utils.cpp">
@@ -314,6 +317,15 @@
     </ClCompile>
     <ClCompile Include="EndingSceneKeyHandler.cpp">
       <Filter>Framework\Core\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Framework\Objects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CangBoss.cpp">
+      <Filter>Framework\Objects\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="DotChanBoss.cpp">
+      <Filter>Framework\Objects\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -592,6 +604,15 @@
     </ClInclude>
     <ClInclude Include="EndingSceneKeyHandler.h">
       <Filter>Framework\Core\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="DotChanBoss.h">
+      <Filter>Framework\Objects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CangBoss.h">
+      <Filter>Framework\Objects\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Framework\Objects\Boss</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

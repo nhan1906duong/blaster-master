@@ -115,5 +115,16 @@ public:
 
 		return !(l > rOther || r < lOther || t < bOther || b > tOther);
 	}
+
+	static bool InContain(LPGAMEOBJECT objThis, LPGAMEOBJECT objThat)
+	{
+
+		float l, t, r, b;
+		float lOther, tOther, rOther, bOther;
+
+		objThis->GetBoundingBox(l, t, r, b);
+		objThat->GetBoundingBox(lOther, tOther, rOther, bOther);
+		return (l >= lOther && r <= rOther && t <= tOther && b >= bOther);
+	}
 };
 

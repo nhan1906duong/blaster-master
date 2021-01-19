@@ -111,7 +111,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			for (size_t i = 0; i < coObjects->size(); ++i)
 			{
 				LPGAMEOBJECT obj = coObjects->at(i);
-				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				if (dynamic_cast<ChongNhon*>(obj) && Collision::InContain(this, obj))
 				{
 					StartUntouchable();
 					break;
@@ -149,7 +149,7 @@ void CPlayer::Update(DWORD dt, vector<LPGAMEOBJECT>* coObjects)
 			for (size_t i = 0; i < coObjects->size(); ++i)
 			{
 				LPGAMEOBJECT obj = coObjects->at(i);
-				if ((dynamic_cast<ChongNhon*>(obj) || dynamic_cast<FireZone*>(obj)) && Collision::CheckContain(this, obj))
+				if (dynamic_cast<ChongNhon*>(obj) && Collision::InContain(this, obj))
 				{
 					StartUntouchable();
 					break;

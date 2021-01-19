@@ -29,7 +29,7 @@
 #include "MultiwarheadMissileItem.h"
 #include "ChongNhon.h"
 
-
+#include "Boss.h"
 
 #define SCENE_SECTION_UNKNOWN		-1
 #define SCENE_SECTION_MAP			0
@@ -47,6 +47,7 @@
 #define OBJECT_TYPE_EYEBALL		23
 #define OBJECT_TYPE_TELEPORTER	25
 #define OBJECT_TYPE_CANNON		26
+#define OBJECT_TYPE_BOSS	38
 
 Area2OverworldScene::Area2OverworldScene(int id, LPCWSTR filePath) : Scene(id, filePath)
 {
@@ -156,7 +157,11 @@ void Area2OverworldScene::_ParseSection_OBJECTS(string line)
 		obj = new MultiwarheadMissileItem();
 		break;
 	}
-	
+	case OBJECT_TYPE_BOSS:
+	{
+		obj = Boss::GetInstance();
+		break;
+	}
 	default:
 		DebugOut(L"[ERR] Invalid object type: %d\n", object_type);
 		return;
@@ -282,7 +287,27 @@ void Area2OverworldScene::Load(float player_x, float player_y)
 
 void Area2OverworldScene::Update(DWORD dt)
 {
-	_RefreshObject();
+	if (Boss::GetInstance()->IsDie())
+	{
+		if (pauseTime == -1)
+		{
+			pauseTime = GetTickCount64();
+			collisions.clear();
+			objects.clear();
+			objects.push_back(CPlayer::GetInstance());
+		}
+		else
+		{
+			if (GetTickCount64() - pauseTime > 2000)
+			{
+				CGame::GetInstance()->SwitchScene(-1, 128, 128);
+			}
+		}
+	}
+	if (pauseTime == -1)
+	{
+		_RefreshObject();
+	}
 	for (size_t i = 0; i < objects.size(); i++)
 	{
 		if (dynamic_cast<Static*>(objects[i])) continue;
