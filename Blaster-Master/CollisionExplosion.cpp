@@ -45,7 +45,7 @@ void CollisionExplosion::Render()
 		
 		animation_set->at(0)->Render(x, y);
 		DebugOut(L"CollisionExplosion  Render at %d \n", GetTickCount());
-		if (times == 3)
+		if (times == 5)
 		{
 			times = 0;
 			++current;
@@ -58,17 +58,10 @@ void CollisionExplosion::Render()
 			DebugOut(L"CollisionExplosion  current = %d \n", current);
 			DebugOut(L"CollisionExplosion  times = %d \n", times);
 
-			if (current == 1) {
-				x += 5;
-				y += 5;
-			}
-			else if (current == 2) {
-				x -= 5;
-				y -= 5;
-			}
-			else if (current == 3) {
-				x += 4;
-			}
+			int randX = rand() % 100;
+			int randY = rand() % 100;
+			x = randX < 50 ? x - 4 : x + 4;
+			y = randY < 50 ? y - 4 : y + 4;
 
 			animation_set->at(0)->Render(x, y);
 		}
