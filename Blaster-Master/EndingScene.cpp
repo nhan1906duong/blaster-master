@@ -8,6 +8,8 @@
 EndingScene::EndingScene() : Scene()
 {
 	key_handler = new EndingSceneKeyHandler(this);
+
+	left = 2;
 }
 
 void EndingScene::Load(float  x, float y)
@@ -23,15 +25,15 @@ void EndingScene::Render()
 {
 	Camera::GetInstance()->SetPosition(0, CGame::GetInstance()->GetScreenHeight());
 
-	int current = 0;
-	int row = (int)(current / 4);
-	int column = current % 4;
-	float left = column * 259;
-	float top = row * 227;
-	float right = left + 256;
-	float bottom = top + 224;
+	float y = (CGame::GetInstance()->GetScreenHeight() - 226.0f) / 2 + 226.0f;
+	CGame::GetInstance()->Draw(0, y, CTextures::GetInstance()->Get(308), left, 2, left + CGame::GetInstance()->GetScreenWidth(), 226);
+}
 
-	float x = (CGame::GetInstance()->GetScreenWidth() - 256.0f) / 2;
-	float y = (CGame::GetInstance()->GetScreenHeight() - 224.0f) / 2 + 224.0f;
-	CGame::GetInstance()->Draw(x, y, CTextures::GetInstance()->Get(308), left, top, right, bottom);
+void EndingScene::Update(DWORD dt)
+{
+	left += dt * 0.03;
+	if (left + CGame::GetInstance()->GetScreenWidth() > 513)
+	{
+		left = 513 - CGame::GetInstance()->GetScreenWidth();
+	}
 }
