@@ -2,9 +2,11 @@
 
 #include "Boss.h"
 
-DotChanBoss::DotChanBoss()
+DotChanBoss::DotChanBoss(int side)
 {
+	nx = side;
 	animation_set = CAnimationSets::GetInstance()->Get(36);
+	blood = 200;
 }
 
 void DotChanBoss::GetBoundingBox(float& left, float& top, float& right, float& bottom)
@@ -26,5 +28,5 @@ void DotChanBoss::Render()
 	Boss::GetInstance()->GetPosition(bossX, bossY);
 	x = bossX + tempX;
 	y = bossY + tempY;
-	animation_set->at(0)->Render(x, y);
+	animation_set->at(0)->Render(x, y, 255, nx > 0);
 }

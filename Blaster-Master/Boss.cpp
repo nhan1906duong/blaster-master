@@ -12,24 +12,24 @@ Boss::Boss()
 	y = 1504;
 	dcBossLeft1 = new DotChanBoss();
 	dcBossLeft1->SetTemp(-9, -18);
-	dcBossLeft2 = new DotChanBoss();
+	dcBossLeft2 = new DotChanBoss(1);
 	dcBossLeft2->SetTemp(-9, -18 * 2);
-	dcBossLeft3 = new DotChanBoss();
+	dcBossLeft3 = new DotChanBoss(1);
 	dcBossLeft3->SetTemp(-9, -18 * 3);
-	dcBossLeft4 = new DotChanBoss();
+	dcBossLeft4 = new DotChanBoss(1);
 	dcBossLeft4->SetTemp(-9, -18 * 4);
-	cangBossLeft = new CangBoss();
+	cangBossLeft = new CangBoss(1);
 	cangBossLeft->SetTemp(-9, -18 * 5);
 
-	dcBossRight1 = new DotChanBoss();
+	dcBossRight1 = new DotChanBoss(-1);
 	dcBossRight1->SetTemp(55, - 18);
-	dcBossRight2 = new DotChanBoss();
+	dcBossRight2 = new DotChanBoss(-1);
 	dcBossRight2->SetTemp(55, - 18 * 2);
-	dcBossRight3 = new DotChanBoss();
+	dcBossRight3 = new DotChanBoss(-1);
 	dcBossRight3->SetTemp(55, - 18 * 3);
-	dcBossRight4 = new DotChanBoss();
+	dcBossRight4 = new DotChanBoss(-1);
 	dcBossRight4->SetTemp(55, - 18 * 4);
-	cangBossRight = new CangBoss();
+	cangBossRight = new CangBoss(-1);
 	cangBossRight->SetTemp(55, - 18 * 5);
 
 	SetVx(0.01f);

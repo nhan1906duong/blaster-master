@@ -6,7 +6,7 @@ class DotChanBoss: public Enemy
 private:
 	float tempX, tempY;
 public:
-	DotChanBoss();
+	DotChanBoss(int side = 1);
 	virtual void GetBoundingBox(float&, float&, float&, float&);
 	virtual void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	virtual void Render();
