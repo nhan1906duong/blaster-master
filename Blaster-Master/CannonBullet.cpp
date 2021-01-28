@@ -6,8 +6,27 @@
 #include "Area2OverworldScene.h"
 #include "Game.h"
 
-CannonBullet::CannonBullet()
+CannonBullet::CannonBullet(int type)
 {
+	switch (type)
+	{
+	case 1:
+		VectorBullter = VBULLTET;
+		isVerState = true;
+		break;
+	case 2:
+		VectorBullter = -VBULLTET;
+		isVerState = true;
+		break;
+	case 3:
+		VectorBullter = VBULLTET;
+		isVerState = false;
+		break;
+	case 4:
+		VectorBullter = -VBULLTET;
+		isVerState = false;
+		break;
+	}
 	animation_set = CAnimationSets::GetInstance()->Get(24);
 }
 

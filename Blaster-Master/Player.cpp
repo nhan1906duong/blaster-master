@@ -50,6 +50,8 @@
 
 #include "GridManager.h"
 
+#include "CannonBullet.h"
+
 CPlayer* CPlayer::__instance = NULL;
 
 CPlayer* CPlayer::GetInstance()
@@ -435,7 +437,7 @@ void CPlayer::fire(int type)
 		int direction;
 		if (dynamic_cast<SophiaStraightState*>(playerData->playerState))
 		{
-			direction = 3;
+			direction = 1;
 			bulletX = (l + r) / 2 - 4;
 			bulletY = y - 0.1f;
 		}
@@ -443,7 +445,7 @@ void CPlayer::fire(int type)
 		{
 			if (nx > 0)
 			{
-				direction = 1;
+				direction = 3;
 				bulletX = r - 24.1f;
 				bulletY = y;
 			}
@@ -451,10 +453,10 @@ void CPlayer::fire(int type)
 			{
 				bulletX = x + 0.1f;
 				bulletY = y;
-				direction = 2;
+				direction = 4;
 			}
 		}
-		SophiaBullet* bullet = new SophiaBullet(direction);
+		CannonBullet* bullet = new CannonBullet(direction);
 		bullet->SetPosition(bulletX, bulletY);
 		GridManager::GetInstance()->AddObject(bullet);
 	}

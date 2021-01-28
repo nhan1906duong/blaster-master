@@ -10,7 +10,7 @@ class CannonBullet : public EnemyBullet
 public:
 	bool isVerState = false;
 	float VectorBullter = 0.0f;
-	CannonBullet();
+	CannonBullet(int type = 1);
 	void Render();
 	void Update(DWORD dt, vector<LPGAMEOBJECT>* objects);
 	void GetBoundingBox(float&, float&, float&, float&);
